@@ -3,42 +3,114 @@ html[dir="rtl"] {
   text-align: right;
 }
 
-html[dir="rtl"] .hamburger {
-  margin-left: 0;
-  margin-right: auto;
+html[dir="rtl"] body {
+  direction: rtl;
+}
+
+/* Header & Nav */
+html[dir="rtl"] .navbar {
+  flex-direction: row-reverse;
 }
 
 html[dir="rtl"] .nav-brand {
   margin-right: 0;
-  margin-left: auto;
+  margin-left: 0;
+  flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .nav-menu {
+  flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .nav-link.dropdown-toggle::after {
+  margin-left: 0;
+  margin-right: 6px;
+}
+
+html[dir="rtl"] .dropdown-menu {
+  right: auto;
+  left: 0;
+  text-align: right;
 }
 
 html[dir="rtl"] .nav-actions {
-  margin-left: 0;
-  margin-right: auto;
+  flex-direction: row-reverse;
 }
 
+/* Mobile Nav */
 @media (max-width: 1024px) {
   html[dir="rtl"] .nav-menu {
     left: auto;
     right: -100%;
     border-right: none;
     border-left: 1px solid var(--border);
-    transition: right var(--transition-normal);
+    align-items: flex-end;
   }
   
   html[dir="rtl"] .nav-menu.active {
-    left: auto;
     right: 0;
+  }
+
+  html[dir="rtl"] .nav-link {
+    text-align: right;
+    width: 100%;
   }
 }
 
-html[dir="rtl"] .card-text {
-  padding-left: 0;
-  padding-right: var(--space-4);
+/* Sections & Components */
+html[dir="rtl"] .section-head.text-center {
+  text-align: center; /* Keep section headers centered as per design */
 }
 
+html[dir="rtl"] .card {
+  text-align: right;
+}
+
+html[dir="rtl"] .testimonial-card {
+  text-align: right;
+}
+
+html[dir="rtl"] .footer li {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  gap: var(--space-2);
+}
+
+html[dir="rtl"] .footer-link {
+  text-align: right;
+}
+
+/* Home 1 Specifics */
+html[dir="rtl"] .hero-content {
+  text-align: right;
+}
+
+/* Home 2 Specifics */
+html[dir="rtl"] .hero-split {
+  flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .hero-split-content {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+  text-align: right;
+}
+
+/* Buttons & Elements */
 html[dir="rtl"] .btn svg {
-  margin-left: 0;
-  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  margin-right: 0;
+  transform: scaleX(-1);
+}
+
+html[dir="rtl"] .scroll-top-btn {
+  right: auto;
+  left: 2rem;
+}
+
+@media (max-width: 768px) {
+  html[dir="rtl"] .scroll-top-btn {
+    left: 1.5rem;
+  }
 }

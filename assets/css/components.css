@@ -257,7 +257,8 @@
 .dropdown-menu {
   position: absolute;
   top: 100%;
-  left: 0;
+  right: 0;
+  left: auto;
   min-width: 180px;
   background: var(--bg-primary);
   border: 1px solid var(--border);
@@ -504,6 +505,37 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
+.rtl-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0.25rem 0.6rem;
+  min-height: 32px;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+  transition: all var(--transition-fast);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.rtl-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 0 10px rgba(192, 132, 252, 0.3);
+}
+
+.rtl-toggle.active {
+  background-color: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  box-shadow: 0 0 15px rgba(192, 132, 252, 0.5);
+}
 .scroll-top-btn.visible {
   opacity: 1;
   visibility: visible;

@@ -154,4 +154,30 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   createScrollTopBtn();
+
+  // RTL Toggle Functionality
+  const rtlToggle = document.querySelector('.rtl-toggle');
+  
+  const setRTL = (isRTL) => {
+    if (isRTL) {
+      document.documentElement.setAttribute('dir', 'rtl');
+      localStorage.setItem('rtl', 'true');
+      if (rtlToggle) rtlToggle.classList.add('active');
+    } else {
+      document.documentElement.setAttribute('dir', 'ltr');
+      localStorage.setItem('rtl', 'false');
+      if (rtlToggle) rtlToggle.classList.remove('active');
+    }
+  };
+
+  // Check for saved RTL preference
+  const savedRTL = localStorage.getItem('rtl') === 'true';
+  setRTL(savedRTL);
+
+  if (rtlToggle) {
+    rtlToggle.addEventListener('click', () => {
+      const isRTL = document.documentElement.getAttribute('dir') === 'rtl';
+      setRTL(!isRTL);
+    });
+  }
 });
