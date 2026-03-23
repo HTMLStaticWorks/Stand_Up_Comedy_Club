@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon - The Comedy Hub</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/rtl.css" media="all">
+    
+    <style>
+        .coming-soon-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: var(--space-8) var(--space-4);
+            background: linear-gradient(to bottom, rgba(2, 6, 23, 0.9), var(--bg-primary)), url('https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&q=80&w=1920') center/cover no-repeat;
+        }
+
+        .cs-content {
+            background-color: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(16px);
+            padding: var(--space-8) var(--space-6);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            max-width: 600px;
+            width: 100%;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .cs-logo {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: var(--space-6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+        }
+
+        .cs-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: var(--space-3);
+        }
+
+        .cs-desc {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-6);
+        }
+
+        /* Countdown */
+        .countdown {
+            display: flex;
+            gap: var(--space-3);
+            justify-content: center;
+            margin-bottom: var(--space-8);
+        }
+
+        .cd-item {
+            display: flex;
+            flex-direction: column;
+            background-color: var(--bg-primary);
+            padding: var(--space-3);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            min-width: 80px;
+        }
+
+        .cd-value {
+            font-size: 2rem;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .cd-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: var(--space-1);
+        }
+
+        /* Form */
+        .notify-form {
+            display: flex;
+            gap: var(--space-2);
+        }
+
+        .notify-form input {
+            flex: 1;
+        }
+
+        @media(max-width: 640px) {
+            .notify-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+
+    <link rel="icon" type="image/svg+xml" href="assets/logo/favicon-32x32.svg">
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="assets/logo/favicon-16x16.svg">
+    <link rel="icon" type="image/svg+xml" sizes="48x48" href="assets/logo/favicon-48x48.svg">
+</head>
+<body>
+    <main class="coming-soon-page">
+        <div class="cs-content">
+            <div class="cs-logo">
+                <img src="assets/logo/logo-transparent.svg" alt="Comedy Hub Logo" class="logo-img" style="width: 1.2em; height: 1.2em;">
+                The Comedy Hub
+            </div>
+            
+            <h1 class="cs-title">We're Almost Ready</h1>
+            <p class="cs-desc">We are fine-tuning the punchlines and mixing the drinks. Our new online experience is launching soon.</p>
+
+            <div class="countdown">
+                <div class="cd-item"><span class="cd-value" id="days">14</span><span class="cd-label">Days</span></div>
+                <div class="cd-item"><span class="cd-value" id="hours">08</span><span class="cd-label">Hours</span></div>
+                <div class="cd-item"><span class="cd-value" id="mins">45</span><span class="cd-label">Mins</span></div>
+                <div class="cd-item"><span class="cd-value" id="secs">30</span><span class="cd-label">Secs</span></div>
+            </div>
+
+            <form class="notify-form" id="notify-form">
+                <input type="email" class="form-control" placeholder="Enter your email to get notified" required>
+                <button type="submit" class="btn btn-primary" id="notify-btn">Notify Me</button>
+            </form>
+            <div id="notify-success" style="display: none; color: var(--success); margin-top: var(--space-3); font-size: 0.875rem;">Thanks! You're on the list.</div>
+            
+            <div style="margin-top: var(--space-4);">
+                <a href="index.html" style="color: var(--text-secondary); text-decoration: underline; font-size: 0.875rem;">Return to site preview</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Simulated Form Submit
+            const form = document.getElementById('notify-form');
+            const success = document.getElementById('notify-success');
+            const btn = document.getElementById('notify-btn');
+
+            if(form) {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    if(form.querySelector('input').value) {
+                        btn.textContent = 'Joining...';
+                        btn.disabled = true;
+                        setTimeout(() => {
+                            btn.textContent = 'Subscribed';
+                            success.style.display = 'block';
+                            form.querySelector('input').value = '';
+                        }, 1000);
+                    }
+                });
+            }
+
+            // Simple Countdown Simulation
+            const secsEl = document.getElementById('secs');
+            const minsEl = document.getElementById('mins');
+            
+            setInterval(() => {
+                let s = parseInt(secsEl.textContent);
+                let m = parseInt(minsEl.textContent);
+                
+                if(s > 0) {
+                    s--;
+                } else {
+                    s = 59;
+                    if(m > 0) m--;
+                }
+                
+                secsEl.textContent = s.toString().padStart(2, '0');
+                minsEl.textContent = m.toString().padStart(2, '0');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

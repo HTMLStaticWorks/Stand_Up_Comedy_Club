@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - The Comedy Hub</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/rtl.css" media="all">
+    
+    <style>
+        body { background-color: var(--bg-primary); }
+
+        .dashboard-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: var(--space-4);
+            position: sticky;
+            top: 0; height: 100vh;
+        }
+
+        .sidebar-brand {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--accent);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            margin-bottom: var(--space-8);
+            font-weight: 700;
+        }
+
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+            flex: 1;
+        }
+
+        .sidebar-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: var(--space-3) var(--space-4);
+            border-radius: var(--radius-md);
+            transition: all var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            font-weight: 500;
+        }
+
+        .sidebar-link:hover, .sidebar-link.active {
+            background-color: rgba(192, 132, 252, 0.1);
+            color: var(--accent);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: var(--space-6);
+            overflow-y: auto;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-8);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+
+        .user-profile img {
+            width: 50px; height: 50px; border-radius: 50%; object-fit: cover;
+            border: 2px solid var(--accent);
+        }
+
+        .my-tickets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--space-4);
+            margin-bottom: var(--space-8);
+        }
+
+        .ticket-card {
+            background: linear-gradient(135deg, var(--bg-secondary), rgba(15,23,42,0.5));
+            border: 1px solid var(--accent);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ticket-card::before {
+            content: '';
+            position: absolute;
+            top: -20px; right: -20px;
+            width: 100px; height: 100px;
+            background-color: rgba(192, 132, 252, 0.1);
+            border-radius: 50%;
+        }
+
+        /* Settings Form */
+        .settings-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            max-width: 600px;
+        }
+
+        /* Mobile Sidebar Toggle */
+        .mobile-toggle {
+            display: none;
+            background: none; border: none; color: var(--text-primary); cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: -250px;
+                z-index: var(--z-drawer);
+                transition: left var(--transition-normal);
+            }
+            .sidebar.active { left: 0; }
+            .mobile-toggle { display: block; }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <a href="../index.html" class="sidebar-brand">
+                <img src="../assets/logo/logo-transparent.svg" alt="Comedy Hub Logo" style="width: 1.2em; height: 1.2em;">
+                The Comedy Hub
+            </a>
+
+            <nav class="sidebar-menu">
+                <a href="#" class="sidebar-link active" onclick="showTab('tickets', this); return false;"><span>🎟️</span> My Tickets</a>
+                <a href="#" class="sidebar-link" onclick="showTab('saved', this); return false;"><span>❤️</span> Saved Shows</a>
+                <a href="#" class="sidebar-link" onclick="showTab('settings', this); return false;"><span>⚙️</span> Settings</a>
+            </nav>
+
+            <a href="../index.html" class="sidebar-link" style="margin-top: auto;"><span>🚪</span> Return to Site</a>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="top-bar">
+                <div style="display: flex; align-items: center; gap: var(--space-4);">
+                    <button class="mobile-toggle" id="sidebar-toggle" aria-label="Toggle Menu">
+                        <img src="../assets/logo/logo-transparent.svg" alt="Comedy Hub Logo" style="width: 1.2em; height: 1.2em;">
+                    </button>
+                    <h2 id="page-title">My Tickets</h2>
+                </div>
+                
+                <div class="user-profile">
+                    <div>
+                        <h4 style="margin: 0; font-size: 0.875rem;">Jane Customer</h4>
+                        <span style="font-size: 0.75rem; color: var(--text-secondary);">jane@example.com</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Tickets -->
+            <div id="tab-tickets" class="tab-content" style="display: block;">
+                <div class="my-tickets-grid">
+                    <div class="ticket-card">
+                        <span class="tag">Upcoming</span>
+                        <h3 style="margin-bottom: var(--space-1);">Friday Night Spectacular</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: var(--space-4);">Fri, Oct 24 • 8:00 PM</p>
+                        
+                        <div style="margin-bottom: var(--space-3);">
+                            <div style="font-size: 0.875rem; color: var(--text-secondary);">Seats</div>
+                            <div style="font-weight: bold;">General Admission (2 Tickets)</div>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                            <div>
+                                <div style="font-size: 0.875rem; color: var(--text-secondary);">Order ID</div>
+                                <div style="font-family: monospace;">#CH-892348A</div>
+                            </div>
+                            <button class="btn btn-outline" style="padding: 0.25rem 0.75rem; font-size: 0.875rem;">Download QR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Saved -->
+            <div id="tab-saved" class="tab-content" style="display: none;">
+                <p>You haven't saved any upcoming shows to your watchlist yet.</p>
+                <a href="../shows.html" class="btn btn-primary" style="margin-top: var(--space-3);">Browse Shows</a>
+            </div>
+
+            <!-- Tab Content: Settings -->
+            <div id="tab-settings" class="tab-content" style="display: none;">
+                <div class="settings-card">
+                    <h3 style="margin-bottom: var(--space-4);">Profile Details</h3>
+                    <form>
+                        <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                            <div class="form-group" style="flex: 1; min-width: 200px;">
+                                <label class="form-label">First Name</label>
+                                <input type="text" class="form-control" value="Jane">
+                            </div>
+                            <div class="form-group" style="flex: 1; min-width: 200px;">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" class="form-control" value="Customer">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-control" value="jane@example.com" readonly style="opacity: 0.7;">
+                        </div>
+                        <div class="form-group" style="margin-top: var(--space-4);">
+                            <label class="form-label">Change Password</label>
+                            <input type="password" class="form-control" placeholder="New Password" style="margin-bottom: var(--space-2);">
+                            <input type="password" class="form-control" placeholder="Confirm New Password">
+                        </div>
+                        <button type="button" class="btn btn-primary" style="margin-top: var(--space-4);">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Script for Tabs and Sidebar -->
+    <script>
+        function showTab(tabId, element) {
+            // Update Active Link
+            document.querySelectorAll('.sidebar-link').forEach(link => link.classList.remove('active'));
+            element.classList.add('active');
+
+            // Hide All Tabs
+            document.querySelectorAll('.tab-content').forEach(tab => tab.style.display = 'none');
+            
+            // Show Target Tab
+            document.getElementById('tab-' + tabId).style.display = 'block';
+
+            // Update Title
+            const texts = {
+                'tickets': 'My Tickets',
+                'saved': 'Saved Shows',
+                'settings': 'Account Settings'
+            };
+            document.getElementById('page-title').textContent = texts[tabId];
+
+            // Close sidebar on mobile after click
+            if(window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('active');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.getElementById('sidebar');
+            const toggleBtn = document.getElementById('sidebar-toggle');
+            
+            if(toggleBtn) {
+                toggleBtn.addEventListener('click', () => {
+                    sidebar.classList.toggle('active');
+                });
+            }
+
+            document.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768 && !sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

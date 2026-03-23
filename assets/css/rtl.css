@@ -1,0 +1,44 @@
+/* RTL Suppport */
+html[dir="rtl"] {
+  text-align: right;
+}
+
+html[dir="rtl"] .hamburger {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+html[dir="rtl"] .nav-brand {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+html[dir="rtl"] .nav-actions {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+@media (max-width: 1024px) {
+  html[dir="rtl"] .nav-menu {
+    left: auto;
+    right: -100%;
+    border-right: none;
+    border-left: 1px solid var(--border);
+    transition: right var(--transition-normal);
+  }
+  
+  html[dir="rtl"] .nav-menu.active {
+    left: auto;
+    right: 0;
+  }
+}
+
+html[dir="rtl"] .card-text {
+  padding-left: 0;
+  padding-right: var(--space-4);
+}
+
+html[dir="rtl"] .btn svg {
+  margin-left: 0;
+  margin-right: 0.5rem;
+}

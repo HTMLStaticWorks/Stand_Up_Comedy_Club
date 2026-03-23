@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comedy Shows & Tickets - The Comedy Hub</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    
+        <link rel="icon" type="image/svg+xml" href="assets/logo/favicon-32x32.svg">
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="assets/logo/favicon-16x16.svg">
+    <link rel="icon" type="image/svg+xml" sizes="48x48" href="assets/logo/favicon-48x48.svg">
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/rtl.css" media="all">
+    
+    <style>
+        /* Show List (Events below Calendar) */
+        .show-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .show-item {
+            display: flex;
+            flex-direction: column;
+            background-color: var(--bg-secondary);
+            background-image: linear-gradient(to right, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.7) 100%), url('https://images.unsplash.com/photo-1514525253361-bee8718a300c?auto=format&fit=crop&q=80&w=1200&h=400');
+            background-size: cover;
+            background-position: center;
+            border: 1px solid var(--border);
+            border-radius: 0;
+            overflow: hidden;
+            transition: all var(--transition-normal);
+            position: relative;
+            min-height: 200px;
+        }
+
+        .show-item:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px -5px rgba(0,0,0,0.5), var(--shadow-glow);
+        }
+
+        .show-date-box {
+            background-color: var(--accent);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-4);
+            min-width: 120px;
+            z-index: 2;
+        }
+
+        .show-date-box .month { font-size: 1rem; text-transform: uppercase; font-weight: 600; letter-spacing: 1.5px; opacity: 0.9; }
+        .show-date-box .day { font-size: 2.5rem; font-family: var(--font-heading); font-weight: 800; line-height: 1; margin: var(--space-1) 0; }
+        .show-date-box .time { font-size: 0.9rem; font-weight: 600; opacity: 0.9; }
+
+        .show-content {
+            padding: var(--space-6) var(--space-8);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .show-content h2 {
+            font-size: 2rem;
+            margin-bottom: var(--space-2);
+            font-family: var(--font-heading);
+            font-weight: 800;
+        }
+
+        .show-actions {
+            padding: var(--space-6);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: var(--space-2);
+            z-index: 2;
+            background-color: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(4px);
+            min-width: 220px;
+        }
+
+        .show-price {
+            font-size: 1.75rem;
+            font-weight: 800;
+            font-family: var(--font-heading);
+            color: #fff;
+        }
+
+        @media(min-width: 768px) {
+            .show-item { flex-direction: row; }
+        }
+
+        @media(max-width: 767px) {
+            .show-date-box { flex-direction: row; gap: var(--space-3); padding: var(--space-3); }
+            .show-date-box .day { font-size: 1.5rem; margin: 0; }
+            .show-content { padding: var(--space-4); }
+        }
+
+        /* Calendar System */
+        .calendar-wrapper {
+            max-width: 650px;
+            margin: 0 auto var(--space-8) auto;
+        }
+
+        .calendar-container {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-4) var(--space-5);
+            background-color: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            background-color: rgba(0,0,0,0.1);
+        }
+
+        .calendar-day-header {
+            padding: var(--space-2);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .calendar-body {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+        }
+
+        .calendar-day {
+            padding: var(--space-2);
+            min-height: 70px;
+            border-bottom: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .calendar-day:nth-child(7n) { border-right: none; }
+        .calendar-day:hover { background-color: rgba(192, 132, 252, 0.1); }
+        .calendar-day.active { background-color: rgba(192, 132, 252, 0.15); border: 2px solid var(--accent); z-index: 10; }
+        .calendar-day.empty { background-color: var(--bg-primary); cursor: default; }
+        .calendar-day.empty:hover { background-color: var(--bg-primary); }
+
+        .day-num {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .day-indicator {
+            width: 6px;
+            height: 6px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            position: absolute;
+            bottom: 8px;
+            display: none;
+        }
+
+        .calendar-day.has-event .day-indicator { display: block; }
+        .calendar-day.has-event .day-num { font-weight: 700; color: var(--accent); }
+
+        .mobile-day-label { display: none; font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 4px; }
+
+        @media (max-width: 640px) {
+            .calendar-grid { display: none; }
+            .calendar-body {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                padding: var(--space-4);
+                gap: var(--space-3);
+                background-color: var(--bg-primary);
+            }
+            .calendar-day {
+                min-width: 70px;
+                min-height: 85px;
+                border: 1px solid var(--border);
+                border-radius: var(--radius-md);
+                scroll-snap-align: center;
+                background-color: var(--bg-secondary);
+            }
+            .calendar-day.empty { display: none; }
+            .mobile-day-label { display: block; }
+            .day-indicator { bottom: 12px; }
+        }
+
+        /* Categories & Highlights Grids */
+        .category-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            transition: all var(--transition-normal);
+            cursor: pointer;
+        }
+        .category-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+        
+        .highlight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-4);
+        }
+
+        .highlight-card {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-5);
+            transition: all var(--transition-normal);
+        }
+        .highlight-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container navbar">
+            <a href="index.html" class="nav-brand">
+                <img src="assets/logo/logo-transparent.svg" alt="Comedy Hub Logo" class="logo-img" style="width: 1.2em; height: 1.2em;">
+                The Comedy Hub
+            </a>
+
+                                    <nav class="nav-menu" aria-label="Main Navigation">
+                <div class="nav-item has-dropdown">
+                    <a href="index.html" class="nav-link dropdown-toggle">Home</a>
+                    <div class="dropdown-menu">
+                        <a href="home-2.html" class="dropdown-item">Home 2</a>
+                    </div>
+                </div>
+                <div class="nav-item"><a href="about.html" class="nav-link">About</a></div>
+                <div class="nav-item"><a href="shows.html" class="nav-link active">Shows</a></div>
+                <div class="nav-item"><a href="booking.html" class="nav-link">Booking</a></div>
+                <div class="nav-item"><a href="comedians.html" class="nav-link">Comedians</a></div>
+                <div class="nav-item"><a href="contact.html" class="nav-link">Contact</a></div>
+                <div class="nav-item mobile-only"><a href="login.html" class="nav-link">Login</a></div>
+                <div class="nav-item mobile-only"><a href="signup.html" class="nav-link">Sign Up</a></div>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" aria-label="Toggle theme"></button>
+                <a href="login.html" class="btn btn-outline desktop-only">Login</a>
+                <a href="signup.html" class="btn btn-primary desktop-only">Sign Up</a>
+                <button class="hamburger" aria-expanded="false" aria-label="Toggle navigation menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- Intro Section -->
+                <!-- Global Hero Section -->
+        <section class="page-hero" style="background-image: url('https://images.unsplash.com/photo-1585699324551-f6c309eedeca?auto=format&fit=crop&w=1920&q=80');">
+            <div class="container page-hero-content">
+                <h1 class="page-hero-title">Upcoming Shows</h1>
+                <p class="subtitle">Browse our interactive calendar to secure your tickets for upcoming open mics, nationally touring headliners, and legendary secret drop-ins.</p>
+                <div class="breadcrumb"><a href="index.html">Home</a> &gt; <span>Shows</span></div>
+            </div>
+        </section>
+
+        <!-- Dynamic Calendar & Events System -->
+        <section class="section">
+            <div class="container">
+                
+                <!-- Center-Aligned Medium Calendar View -->
+                <div class="calendar-wrapper">
+                    <div class="calendar-container">
+                        <div class="calendar-header">
+                            <button class="btn btn-outline" style="padding: 0.25rem 0.75rem;" id="prev-month">&lt;</button>
+                            <h3 style="margin: 0; font-size: 1.25rem;" id="current-month-lbl">October 2026</h3>
+                            <button class="btn btn-outline" style="padding: 0.25rem 0.75rem;" id="next-month">&gt;</button>
+                        </div>
+                        <div class="calendar-grid">
+                            <div class="calendar-day-header">Sun</div>
+                            <div class="calendar-day-header">Mon</div>
+                            <div class="calendar-day-header">Tue</div>
+                            <div class="calendar-day-header">Wed</div>
+                            <div class="calendar-day-header">Thu</div>
+                            <div class="calendar-day-header">Fri</div>
+                            <div class="calendar-day-header">Sat</div>
+                        </div>
+                        <div class="calendar-body" id="calendar-body">
+                            <!-- Instantiated by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event Details Panel (Below Calendar) -->
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <div id="event-panel">
+                        <h3 id="selected-date-lbl" style="margin-bottom: var(--space-4); border-bottom: 2px solid var(--bg-secondary); padding-bottom: var(--space-3);">Select a highlighted date</h3>
+                        <div id="events-container" class="show-list">
+                            <!-- Events injected here -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Structured Additional Content -->
+        
+        <!-- This Week Highlights -->
+        <section class="section" style="background-color: var(--bg-secondary);">
+            <div class="container">
+                <div class="section-head">
+                    <span class="subtitle">Curated For You</span>
+                    <h2>This Week Highlights</h2>
+                    <p style="color: var(--text-secondary);">The hottest selling shows you absolutely cannot miss this week.</p>
+                </div>
+
+                <div class="highlight-grid">
+                    <div class="highlight-card">
+                        <span class="tag" style="background: transparent; padding: 0; border: none; font-size: 0.75rem; margin-bottom: var(--space-1);">Wed Oct 22 • 8:00 PM</span>
+                        <h3 style="margin-bottom: var(--space-1); font-size: 1.25rem;">Mid-Week Laugh Riot</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: var(--space-3); font-size: 0.875rem;">Break up the work week with 4 pro comics testing their sharper material.</p>
+                        <div style="display:flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: bold;">$15</span>
+                            <a href="booking.html" style="color: var(--accent); font-weight: 500; text-decoration: none;">Book Box &rarr;</a>
+                        </div>
+                    </div>
+                    <div class="highlight-card">
+                        <span class="tag" style="background: transparent; padding: 0; border: none; font-size: 0.75rem; margin-bottom: var(--space-1);">Fri Oct 24 • 9:30 PM</span>
+                        <h3 style="margin-bottom: var(--space-1); font-size: 1.25rem;">Mainroom Mayhem</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: var(--space-3); font-size: 0.875rem;">Fast-paced crowd work and heavy-hitting sets from regional favorites.</p>
+                        <div style="display:flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: bold;">$25</span>
+                            <a href="booking.html" style="color: var(--accent); font-weight: 500; text-decoration: none;">Book VIP &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Shows Banner -->
+        <section class="section section-dark">
+            <div class="container">
+                <div class="show-item" style="border-radius: var(--radius-xl); background: linear-gradient(135deg, rgba(15,23,42,0.9), rgba(2,6,23,0.9)), url('https://images.unsplash.com/photo-1585699324551-f6c309eedeca?q=80&w=1000') center/cover; max-width: 1000px; margin: 0 auto; border-color: rgba(192, 132, 252, 0.3);">
+                    <div class="show-date-box" style="background-color: var(--accent); opacity: 0.95;">
+                        <span class="month">Nov</span>
+                        <span class="day">15</span>
+                        <span class="time">8:00 PM</span>
+                    </div>
+                    <div class="show-content" style="padding: var(--space-6) var(--space-4);">
+                        <span class="tag" style="align-self: flex-start; background: rgba(255,255,255,0.1); color: #fff; border-color: transparent;">Featured Headliner</span>
+                        <h2 style="font-size: 2rem; margin: var(--space-2) 0;">The Comedy Hub 5th Anniversary</h2>
+                        <p style="color: rgba(255,255,255,0.8); font-size: 1.125rem; max-width: 500px;">Celebrating half a decade of laughs. Secret celebrity drop-ins, legendary surprise sets, and a massive afterparty.</p>
+                        <p style="color: var(--accent); font-weight: 600; margin-top: var(--space-2); margin-bottom: 0;">Only 40 VIP tables remaining!</p>
+                    </div>
+                    <div class="show-actions" style="background: transparent; border-left: none; padding: var(--space-6) var(--space-4);">
+                        <a href="booking.html" class="btn btn-primary" style="box-shadow: 0 0 15px rgba(192, 132, 252, 0.4);">Secure Tickets</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories -->
+        <section class="section">
+            <div class="container" style="max-width: 1000px;">
+                <div class="section-head text-center">
+                    <h2>Comedy Categories</h2>
+                    <p style="color: var(--text-secondary);">Find exactly the style of show you're looking for.</p>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-4);">
+                    <div class="category-card">
+                        <div style="font-size: 2rem; margin-bottom: var(--space-2);">🎤</div>
+                        <h3 style="font-size: 1.25rem;">Standard Stand-Up</h3>
+                        <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0;">Traditional sets where pro comics perform tailored blocks of 15 to 45 mins.</p>
+                    </div>
+                    <div class="category-card">
+                        <div style="font-size: 2rem; margin-bottom: var(--space-2);">📝</div>
+                        <h3 style="font-size: 1.25rem;">Open Mic Sessions</h3>
+                        <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0;">Raw material testing grounds from aspiring novices and established veterans.</p>
+                    </div>
+                    <div class="category-card">
+                        <div style="font-size: 2rem; margin-bottom: var(--space-2);">✨</div>
+                        <h3 style="font-size: 1.25rem;">Special Shows</h3>
+                        <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0;">Themed roast battles, crowd-work only nights, and uncensored late-night specials.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer (Unmodified strict constraint) -->
+        <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-6); margin-bottom: var(--space-6);">
+                
+                <!-- Brand & Description -->
+                <div>
+                    <a href="index.html" class="nav-brand" style="margin-bottom: var(--space-3); color: var(--text-primary); text-decoration: none;">
+                        <img src="assets/logo/logo-transparent.svg" alt="Comedy Hub Logo" class="logo-img" style="width: 1.2em; height: 1.2em; filter: drop-shadow(0 0 2px rgba(255,255,255,0.2));">
+                        The Comedy Hub
+                    </a>
+                    <p style="color: var(--text-secondary); margin-bottom: var(--space-4); line-height: 1.6;">The premium destination for live stand-up comedy in the heart of the city. Join us for unforgettable nights of laughter, featuring top-tier headliners and rising stars.</p>
+                    <div style="display: flex; gap: var(--space-3);">
+                        <a href="#" class="social-icon" aria-label="Twitter">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 style="margin-bottom: var(--space-4); font-size: 1.125rem;">Quick Links</h4>
+                    <ul style="display: flex; flex-direction: column; gap: var(--space-3); list-style: none; padding: 0;">
+                        <li><a href="index.html" class="footer-link">Home</a></li>
+                        <li><a href="shows.html" class="footer-link">Shows & Tickets</a></li>
+                        <li><a href="comedians.html" class="footer-link">Comedians</a></li>
+                        <li><a href="contact.html" class="footer-link">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Details -->
+                <div>
+                    <h4 style="margin-bottom: var(--space-4); font-size: 1.125rem;">Contact Us</h4>
+                    <ul style="display: flex; flex-direction: column; gap: var(--space-3); list-style: none; padding: 0; color: var(--text-secondary);">
+                        <li style="display: flex; align-items: center; gap: var(--space-2);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                        <li style="display: flex; align-items: center; gap: var(--space-2);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                            <a href="mailto:hello@thecomedyhub.example.com" class="footer-link">hello@thecomedyhub.example.com</a>
+                        </li>
+                        <li style="display: flex; align-items: center; gap: var(--space-2);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            <span>123 Laugh Avenue, NY 10001</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            
+            <div style="text-align: center; border-top: 1px solid var(--border); padding-top: var(--space-4); color: var(--text-secondary); margin-top: var(--space-6);">
+                <p style="margin: 0;">&copy; 2026 The Comedy Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Event Database (March 2026 - May 2027)
+            const eventsDB = {
+                // March 2026
+                '2026-03-23': [{ title: 'Special Surprise Drop-In', comedian: 'Secret Guest', time: '8:00 PM', category: 'Special', price: 'From $35', desc: 'A major name is stopping by to test new material.' }],
+                '2026-03-27': [{ title: 'Friday Night Spectacular', comedian: 'David Chen & Guests', time: '8:00 PM', category: 'Stand-Up', price: 'From $25', desc: 'Our premier weekend showcase.' }],
+                '2026-03-28': [{ title: 'Late Night Uncensored', comedian: 'Sarah Jenkins', time: '11:00 PM', category: 'Special', price: 'From $20', desc: 'Strictly 21+ only.' }],
+                
+                // April 2026
+                '2026-04-03': [{ title: 'Friday Night Spectacular', comedian: 'Mike Johnson', time: '8:00 PM', category: 'Stand-Up', price: 'From $25', desc: 'The best local comics in the city.' }],
+                '2026-04-18': [{ title: 'Headliner Weekend', comedian: 'John Doe', time: '9:00 PM', category: 'Stand-Up', price: 'From $45', desc: 'National touring headliner for two nights only.' }],
+                
+                // May 2026
+                '2026-05-01': [{ title: 'May Day Mayhem', comedian: 'The Roastmasters', time: '9:00 PM', category: 'Special', price: 'From $30', desc: 'A high-energy roast session.' }],
+                '2026-05-15': [{ title: 'Friday Night Showcase', comedian: 'Jane Smith', time: '8:30 PM', category: 'Stand-Up', price: 'From $25', desc: 'Sharp observational comedy.' }],
+                '2026-05-30': [{ title: 'Late Night Special', comedian: 'Secret Guest', time: '11:30 PM', category: 'Special', price: 'From $25', desc: 'Legendary drop-ins expected.' }],
+
+                // June - August 2026 (Summer Series)
+                '2026-06-12': [{ title: 'Summer Solstice Laughs', comedian: 'Group Show', time: '8:00 PM', category: 'Stand-Up', price: 'From $20', desc: 'Celebrating the longest day with the longest laughs.' }],
+                '2026-07-04': [{ title: 'Independence Day Roast', comedian: 'Freedom Comics', time: '7:00 PM', category: 'Special', price: 'From $35', desc: 'Fireworks on stage, not just in the sky.' }],
+                '2026-08-21': [{ title: 'Dog Days Showcase', comedian: 'Various', time: '8:00 PM', category: 'Stand-Up', price: 'From $20', desc: 'Cool off with the hottest comics.' }],
+
+                // September - November 2026
+                '2026-09-07': [{ title: 'Labor Day Open Mic', comedian: 'New Talent', time: '7:30 PM', category: 'Open Mic', price: 'Free', desc: 'The next generation of comedy stars.' }],
+                '2026-10-31': [{ title: 'Halloween Horror Roast', comedian: 'The Spooky Crew', time: '10:00 PM', category: 'Special', price: 'From $30', desc: 'Costumes mandatory, laughs guaranteed.' }],
+                '2026-11-26': [{ title: 'Thanksgiving Leftovers', comedian: 'Hungry Hilarity', time: '8:00 PM', category: 'Stand-Up', price: 'From $25', desc: 'Bringing the family together for something they actually like.' }],
+
+                // December 2026 - February 2027 (Winter Fest)
+                '2026-12-24': [{ title: 'Christmas Eve Drop-In', comedian: 'Santa & Friends', time: '7:00 PM', category: 'Special', price: 'From $40', desc: 'A very special seasonal showcase.' }],
+                '2027-01-01': [{ title: 'New Year Resolution Roast', comedian: 'Goal Getters', time: '8:00 PM', category: 'Special', price: 'From $30', desc: 'Laughing at the resolutions we already broke.' }],
+                '2027-02-14': [{ title: 'Valentine’s Day Massacre (of Bad Dates)', comedian: 'Heartbreakers', time: '8:00 PM', category: 'Special', price: 'From $50', desc: 'The ultimate date night spot.' }],
+
+                // March - May 2027 (Spring Finale)
+                '2027-03-17': [{ title: 'St. Patrick’s Day Shenanigans', comedian: 'Lucky Lou', time: '8:00 PM', category: 'Special', price: 'From $25', desc: 'Green beer and gold-standard jokes.' }],
+                '2027-04-01': [{ title: 'The Ultimate April Fools', comedian: 'The Pranksters', time: '9:00 PM', category: 'Special', price: 'From $35', desc: 'Our biggest show of the year.' }],
+                '2027-05-14': [{ title: 'Spring Season Finale', comedian: 'All-Star Lineup', time: '8:00 PM', category: 'Stand-Up', price: 'From $40', desc: 'Closing the season with the best of the best.' }]
+            };
+
+            const calendarBody = document.getElementById('calendar-body');
+            const dateLabel = document.getElementById('selected-date-lbl');
+            const eventContainer = document.getElementById('events-container');
+            const monthLabel = document.getElementById('current-month-lbl');
+            const prevBtn = document.getElementById('prev-month');
+            const nextBtn = document.getElementById('next-month');
+            
+            let currentViewDate = new Date(2026, 2, 1); // Starting March 2026
+            const limitDate = new Date(2027, 4, 1); // Up to May 2027
+            const today = new Date(2026, 2, 23); // Standardized site date
+
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+            function generateCalendar(date) {
+                calendarBody.innerHTML = '';
+                const year = date.getFullYear();
+                const month = date.getMonth();
+                
+                monthLabel.textContent = `${monthNames[month]} ${year}`;
+                
+                const firstDay = new Date(year, month, 1).getDay();
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+                // Empty slots for alignment
+                for(let i=0; i < firstDay; i++) {
+                    const empty = document.createElement('div');
+                    empty.className = 'calendar-day empty';
+                    calendarBody.appendChild(empty);
+                }
+
+                for(let day=1; day <= daysInMonth; day++) {
+                    const dateKey = `${year}-${(month+1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+                    const shows = eventsDB[dateKey];
+                    const dayOfWeek = (firstDay + day - 1) % 7;
+
+                    const dayEl = document.createElement('div');
+                    dayEl.className = `calendar-day ${shows ? 'has-event' : ''}`;
+                    
+                    dayEl.innerHTML = `
+                        <span class="mobile-day-label">${dayNames[dayOfWeek]}</span>
+                        <span class="day-num">${day}</span>
+                        <div class="day-indicator"></div>
+                    `;
+
+                    dayEl.addEventListener('click', () => {
+                        document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('active'));
+                        dayEl.classList.add('active');
+                        renderEvents(dateKey, `${monthNames[month]} ${day}, ${year}`);
+                    });
+
+                    calendarBody.appendChild(dayEl);
+                }
+            }
+
+            function renderEvents(dateKey, displayStr) {
+                dateLabel.textContent = `Scheduled Shows: ${displayStr}`;
+                eventContainer.innerHTML = '';
+                const shows = eventsDB[dateKey];
+
+                if(!shows) {
+                    eventContainer.innerHTML = '<div style="background: var(--bg-secondary); border: 1px solid var(--border); padding: var(--space-8); text-align: center; border-radius: var(--radius-lg);"><div style="font-size: 2rem; margin-bottom: var(--space-2);">🌙</div><p style="color: var(--text-secondary); margin: 0;">The stage is resting tonight. Select a highlighted date to see upcoming performances.</p></div>';
+                    return;
+                }
+
+                shows.forEach(show => {
+                    const card = document.createElement('article');
+                    card.className = 'show-item';
+                    const isMic = show.category === 'Open Mic';
+                    const isSpecialDropIn = show.title === 'Special Surprise Drop-In';
+                    
+                    if (isSpecialDropIn) {
+                        card.style.backgroundImage = "linear-gradient(to right, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.6) 100%), url('https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&q=80&w=1200&h=400')";
+                    }
+                    
+                    card.innerHTML = `
+                        <div class="show-date-box" style="${isMic ? 'background-color: var(--border); color: var(--text-primary);' : ''}">
+                            <span class="month">${displayStr.split(' ')[0].substring(0,3)}</span>
+                            <span class="day">${displayStr.split(' ')[1].replace(',', '')}</span>
+                            <span class="time">${show.time}</span>
+                        </div>
+                        <div class="show-content">
+                            <span class="tag" style="margin-bottom: var(--space-2); align-self: flex-start; ${isMic ? 'border-color: var(--text-secondary); color: var(--text-secondary); background: transparent;' : ''}">${show.category}</span>
+                            <h2>${show.title}</h2>
+                            <p style="color: var(--text-secondary); margin-bottom: var(--space-3); font-size: 0.95rem;"><strong>On Stage:</strong> ${show.comedian}</p>
+                            <p style="margin-bottom: 0; opacity: 0.9;">${show.desc}</p>
+                        </div>
+                        <div class="show-actions">
+                            <span class="show-price">${show.price}</span>
+                            <a href="booking.html?show=${encodeURIComponent(show.title)}&comedian=${encodeURIComponent(show.comedian)}&time=${encodeURIComponent(show.time)}&date=${encodeURIComponent(displayStr)}" class="btn btn-primary" style="width: 100%;">Book Now</a>
+                        </div>
+                    `;
+                    eventContainer.appendChild(card);
+                });
+            }
+
+            prevBtn.addEventListener('click', () => {
+                currentViewDate.setMonth(currentViewDate.getMonth() - 1);
+                generateCalendar(currentViewDate);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if(currentViewDate < limitDate) {
+                    currentViewDate.setMonth(currentViewDate.getMonth() + 1);
+                    generateCalendar(currentViewDate);
+                }
+            });
+
+            // Init
+            generateCalendar(currentViewDate);
+            
+            // Auto-load today's or next available event
+            const todayStr = '2026-03-23';
+            const todayEl = Array.from(document.querySelectorAll('.calendar-day:not(.empty)')).find(el => el.querySelector('.day-num').textContent === '23');
+            if(todayEl && eventsDB[todayStr]) {
+                todayEl.click();
+            }
+        });
+    </script>
+</body>
+</html>
+</body>
+</html>

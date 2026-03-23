@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - The Comedy Hub</title>
+    
+        <link rel="icon" type="image/svg+xml" href="assets/logo/favicon-32x32.svg">
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="assets/logo/favicon-16x16.svg">
+    <link rel="icon" type="image/svg+xml" sizes="48x48" href="assets/logo/favicon-48x48.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/rtl.css" media="all">
+    
+    <style>
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-4);
+            background: linear-gradient(135deg, rgba(2, 6, 23, 0.95), rgba(15, 23, 42, 0.95)), url('https://images.unsplash.com/photo-1543007631-283050bb3e8c?auto=format&fit=crop&q=80&w=1920') center/cover no-repeat;
+        }
+        
+        .auth-card {
+            width: 100%;
+            max-width: 450px;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6) var(--space-4);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), var(--shadow-glow);
+            transition: all var(--transition-normal);
+        }
+
+        .auth-card:hover {
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6), var(--shadow-glow-hover);
+            border-color: var(--accent);
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: var(--space-6);
+        }
+
+        /* Input specific contrast fixes */
+        .form-control {
+            background-color: var(--bg-primary);
+            border: 2px solid var(--border);
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .form-control::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.8;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(192, 132, 252, 0.2);
+            outline: none;
+        }
+
+        .form-label {
+            color: var(--text-primary);
+            font-weight: 600;
+            display: block;
+            margin-bottom: var(--space-1);
+        }
+
+        .auth-subtitle {
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: var(--space-6);
+            padding-top: var(--space-4);
+            border-top: 1px solid var(--border);
+            font-size: 0.875rem;
+            color: var(--text-primary);
+        }
+
+        .auth-footer a {
+            color: var(--accent);
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            font-weight: 600;
+        }
+
+        .auth-footer a:hover {
+            color: var(--accent-hover);
+        }
+
+        .form-group {
+            margin-bottom: var(--space-4);
+        }
+
+        .form-feedback {
+            font-size: 0.75rem;
+            margin-top: 4px;
+            display: none;
+            color: #ff4d4d;
+            font-weight: 600;
+        }
+
+        .has-error .form-feedback {
+            display: block;
+        }
+
+        .has-error .form-control {
+            border-color: var(--error);
+        }
+        
+        .has-success .form-control {
+            border-color: var(--success);
+        }
+    </style>
+</head>
+<body style="position: relative;">
+    <button class="theme-toggle" aria-label="Toggle theme" style="position: fixed; top: var(--space-4); right: var(--space-4); z-index: 1000; background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(8px); border-radius: 50%; border: 1px solid var(--border);"></button>
+
+    <main class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header" style="margin-bottom: var(--space-8);">
+                <a href="index.html" class="auth-logo" aria-label="Home" style="display: flex; flex-direction: row; align-items: center; justify-content: center; text-decoration: none; gap: var(--space-3);">
+                    <img src="assets/logo/logo-transparent.svg" alt="The Comedy Hub logo" class="logo-img" width="52" height="52">
+                    <span style="font-family: var(--font-heading); font-size: clamp(1.25rem, 4vw, 1.75rem); font-weight: 800; color: var(--accent); letter-spacing: 1px; white-space: nowrap;">The Comedy Hub</span>
+                </a>
+                <p class="auth-subtitle" style="margin-top: var(--space-4);">Join us to book tickets and save your favorite shows.</p>
+            </div>
+
+            <form id="signup-form" novalidate>
+                <div class="form-group" id="first-name-group">
+                    <label class="form-label" for="signup-first-name">First Name</label>
+                    <input type="text" id="signup-first-name" class="form-control" required placeholder="Jane" autocomplete="given-name">
+                    <span class="form-feedback">Please enter your first name.</span>
+                </div>
+
+                <div class="form-group" id="last-name-group">
+                    <label class="form-label" for="signup-last-name">Last Name</label>
+                    <input type="text" id="signup-last-name" class="form-control" required placeholder="Doe" autocomplete="family-name">
+                    <span class="form-feedback">Please enter your last name.</span>
+                </div>
+
+                <div class="form-group" id="email-group">
+                    <label class="form-label" for="signup-email">Email Address</label>
+                    <input type="email" id="signup-email" class="form-control" required placeholder="you@example.com" autocomplete="email">
+                    <span class="form-feedback">Please enter a valid email address.</span>
+                </div>
+
+                <div class="form-group" id="password-group">
+                    <label class="form-label" for="signup-password">Password</label>
+                    <input type="password" id="signup-password" class="form-control" required placeholder="••••••••" autocomplete="new-password">
+                    <span class="form-feedback">Password must be at least 8 characters long.</span>
+                </div>
+
+                <div class="form-group" id="confirm-password-group">
+                    <label class="form-label" for="signup-confirm-password">Confirm Password</label>
+                    <input type="password" id="signup-confirm-password" class="form-control" required placeholder="••••••••" autocomplete="new-password">
+                    <span class="form-feedback" id="confirm-feedback">Passwords do not match.</span>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="signup-submit" style="width: 100%; margin-top: var(--space-2);">Sign Up</button>
+            </form>
+
+            <div class="auth-footer">
+                Already have an account? <a href="login.html">Login</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('signup-form');
+            const firstNameInput = document.getElementById('signup-first-name');
+            const lastNameInput = document.getElementById('signup-last-name');
+            const emailInput = document.getElementById('signup-email');
+            const passwordInput = document.getElementById('signup-password');
+            const confirmPasswordInput = document.getElementById('signup-confirm-password');
+            const submitBtn = document.getElementById('signup-submit');
+
+            // Reset validation states on input
+            const inputs = [firstNameInput, lastNameInput, emailInput, passwordInput, confirmPasswordInput];
+            inputs.forEach(input => {
+                input.addEventListener('input', () => {
+                    input.parentElement.classList.remove('has-error');
+                    input.parentElement.classList.remove('has-success');
+                });
+            });
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                let isValid = true;
+
+                // First Name validation
+                if (!firstNameInput.value.trim()) {
+                    firstNameInput.parentElement.classList.add('has-error');
+                    isValid = false;
+                } else {
+                    firstNameInput.parentElement.classList.add('has-success');
+                }
+
+                // Last Name validation
+                if (!lastNameInput.value.trim()) {
+                    lastNameInput.parentElement.classList.add('has-error');
+                    isValid = false;
+                } else {
+                    lastNameInput.parentElement.classList.add('has-success');
+                }
+                
+                // Email validation
+                const emailPattern = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+                if (!emailInput.value.trim() || !emailPattern.test(emailInput.value)) {
+                    emailInput.parentElement.classList.add('has-error');
+                    isValid = false;
+                } else {
+                    emailInput.parentElement.classList.add('has-success');
+                }
+
+                // Password strength validation (minimum 8 characters)
+                if (!passwordInput.value || passwordInput.value.length < 8) {
+                    passwordInput.parentElement.classList.add('has-error');
+                    isValid = false;
+                } else {
+                    passwordInput.parentElement.classList.add('has-success');
+                }
+
+                // Password match validation
+                if (!confirmPasswordInput.value || confirmPasswordInput.value !== passwordInput.value) {
+                    confirmPasswordInput.parentElement.classList.add('has-error');
+                    isValid = false;
+                } else if (confirmPasswordInput.value.length >= 8) {
+                    confirmPasswordInput.parentElement.classList.add('has-success');
+                }
+
+                if (isValid) {
+                    const originalText = submitBtn.textContent;
+                    submitBtn.textContent = 'Creating Account...';
+                    submitBtn.disabled = true;
+
+                    // Simulate API call
+                    setTimeout(() => {
+                        submitBtn.textContent = 'Success!';
+                        submitBtn.style.backgroundColor = 'var(--success)';
+                        submitBtn.style.borderColor = 'var(--success)';
+                        submitBtn.style.color = '#fff';
+                        
+                        // Fake redirect to login
+                        setTimeout(() => {
+                            window.location.href = 'login.html';
+                        }, 1000);
+                    }, 1200);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

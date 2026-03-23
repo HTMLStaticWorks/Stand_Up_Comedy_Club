@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - The Comedy Hub</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/rtl.css" media="all">
+    
+    <style>
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-8);
+        }
+
+        @media(min-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .contact-info-box {
+            background-color: var(--bg-secondary);
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            height: 100%;
+        }
+
+        .contact-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+            margin-top: var(--space-6);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-3);
+        }
+
+        .contact-icon {
+            width: 48px;
+            height: 48px;
+            background-color: rgba(192, 132, 252, 0.1);
+            color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 300px;
+            background-color: var(--border);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 1.25rem;
+            margin-top: var(--space-8);
+            border: 2px dashed var(--text-secondary);
+        }
+
+        .social-row {
+            display: flex;
+            gap: var(--space-3);
+            margin-top: var(--space-6);
+        }
+
+        .social-btn {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            display: flex; align-items: center; justify-content: center;
+            border: 1px solid var(--border);
+            transition: all var(--transition-fast);
+        }
+
+        .social-btn:hover {
+            color: #fff;
+            background-color: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+    </style>
+
+    <link rel="icon" type="image/svg+xml" href="assets/logo/favicon-32x32.svg">
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="assets/logo/favicon-16x16.svg">
+    <link rel="icon" type="image/svg+xml" sizes="48x48" href="assets/logo/favicon-48x48.svg">
+</head>
+<body>
+    <header class="header">
+        <div class="container navbar">
+            <a href="index.html" class="nav-brand">
+                <img src="assets/logo/logo-transparent.svg" alt="Comedy Hub Logo" class="logo-img" style="width: 1.2em; height: 1.2em;">
+                The Comedy Hub
+            </a>
+                                    <nav class="nav-menu" aria-label="Main Navigation">
+                <div class="nav-item has-dropdown">
+                    <a href="index.html" class="nav-link dropdown-toggle">Home</a>
+                    <div class="dropdown-menu">
+                        <a href="home-2.html" class="dropdown-item">Home 2</a>
+                    </div>
+                </div>
+                <div class="nav-item"><a href="about.html" class="nav-link">About</a></div>
+                <div class="nav-item"><a href="shows.html" class="nav-link">Shows</a></div>
+                <div class="nav-item"><a href="booking.html" class="nav-link">Booking</a></div>
+                <div class="nav-item"><a href="comedians.html" class="nav-link">Comedians</a></div>
+                <div class="nav-item"><a href="contact.html" class="nav-link active">Contact</a></div>
+                <div class="nav-item mobile-only"><a href="login.html" class="nav-link">Login</a></div>
+                <div class="nav-item mobile-only"><a href="signup.html" class="nav-link">Sign Up</a></div>
+            </nav>
+            <div class="nav-actions">
+                <button class="theme-toggle" aria-label="Toggle theme"></button>
+                <a href="login.html" class="btn btn-outline desktop-only">Login</a>
+                <a href="signup.html" class="btn btn-primary desktop-only">Sign Up</a>
+                <button class="hamburger" aria-expanded="false" aria-label="Toggle navigation menu"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content">
+                <!-- Global Hero Section -->
+        <section class="page-hero" style="background-image: url('https://images.unsplash.com/photo-1498842812179-c81beecf902c?auto=format&fit=crop&w=1920&q=80');">
+            <div class="container page-hero-content">
+                <h1 class="page-hero-title">Get in Touch</h1>
+                <p class="subtitle">Have a question about tickets, booking a private event, or performing at our open mic? Our team is always here to help.</p>
+                <div class="breadcrumb"><a href="index.html">Home</a> &gt; <span>Contact</span></div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section">
+            <div class="container contact-grid">
+                
+                <!-- Form -->
+                <div>
+                    <h2>Send a Message</h2>
+                    <form id="contact-form" class="card" style="margin-top: var(--space-4);" novalidate>
+                        <div class="form-group">
+                            <label class="form-label" for="c-name">Full Name</label>
+                            <input type="text" id="c-name" class="form-control" required placeholder="John Doe">
+                            <span class="form-feedback">Please enter your name.</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="c-email">Email Address</label>
+                            <input type="email" id="c-email" class="form-control" required placeholder="john@example.com">
+                            <span class="form-feedback">Please enter a valid email address.</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="c-subject">Subject</label>
+                            <select id="c-subject" class="form-control" required>
+                                <option value="" disabled selected>Select an inquiry type</option>
+                                <option value="tickets">Ticketing & Shows</option>
+                                <option value="private">Private Events</option>
+                                <option value="booking">Performing / Open Mic</option>
+                                <option value="other">General Inquiry</option>
+                            </select>
+                            <span class="form-feedback">Please select a subject.</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="c-msg">Message</label>
+                            <textarea id="c-msg" class="form-control" rows="5" required placeholder="How can we help?"></textarea>
+                            <span class="form-feedback">Message cannot be empty.</span>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="c-submit" style="width: 100%;">Send Message</button>
+                        <div id="form-success" style="display: none; color: var(--success); margin-top: var(--space-3); text-align: center; font-weight: 500;">Your message has been sent successfully. We will get back to you shortly.</div>
+                    </form>
+                </div>
+
+                <!-- Info -->
+                <div>
+                    <div class="contact-info-box">
+                        <h2>Contact Information</h2>
+                        
+                        <div class="contact-list">
+                            <div class="contact-item">
+                                <div class="contact-icon">📍</div>
+                                <div>
+                                    <h4 style="margin: 0; font-size: 1.125rem;">Address</h4>
+                                    <p style="margin: 0;">123 Laugh Avenue<br>Comedy City, NY 10001<br>United States</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="contact-icon">📞</div>
+                                <div>
+                                    <h4 style="margin: 0; font-size: 1.125rem;">Phone</h4>
+                                    <p style="margin: 0;">+1 (555) 123-4567</p>
+                                    <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">Box Office: Mon-Sat, 12PM - 10PM</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="contact-icon">✉️</div>
+                                <div>
+                                    <h4 style="margin: 0; font-size: 1.125rem;">Email</h4>
+                                    <p style="margin: 0;">hello@thecomedyhub.example.com</p>
+                                    <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">Expect a reply within 24 hours.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: var(--space-6);">
+                            <h4 style="margin: 0;">Follow Us</h4>
+                            <div class="social-row">
+                                <a href="#" class="social-btn" aria-label="Twitter">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+                                </a>
+                                <a href="#" class="social-btn" aria-label="Instagram">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                                </a>
+                                <a href="#" class="social-btn" aria-label="Facebook">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                                </a>
+                                <a href="#" class="social-btn" aria-label="YouTube">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.42a2.78 2.78 0 0 0-1.94 2C1 8.14 1 12 1 12s0 3.86.46 5.58a2.78 2.78 0 0 0 1.94 2C5.12 20 12 20 12 20s6.88 0 8.6-.42a2.78 2.78 0 0 0 1.94-2C23 15.86 23 12 23 12s0-3.86-.46-5.58z"></path><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"></polygon></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Google Map Placeholder -->
+            <div class="container" style="margin-top: var(--space-8);">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.15830869428!2d-74.119763973046!3d40.69766374874431!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY!5e0!3m2!1sen!2sus!4v1683900000000!5m2!1sen!2sus" 
+                    width="100%" 
+                    height="400" 
+                    style="border:0; border-radius: var(--radius-lg); filter: invert(90%) hue-rotate(180deg) contrast(80%);" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </section>
+    </main>
+
+        <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-6); margin-bottom: var(--space-6);">
+                
+                <!-- Brand & Description -->
+                <div>
+                    <a href="index.html" class="nav-brand" style="margin-bottom: var(--space-3); color: var(--text-primary); text-decoration: none;">
+                        <img src="assets/logo/logo-transparent.svg" alt="Comedy Hub Logo" class="logo-img" style="width: 1.2em; height: 1.2em; filter: drop-shadow(0 0 2px rgba(255,255,255,0.2));">
+                        The Comedy Hub
+                    </a>
+                    <p style="color: var(--text-secondary); margin-bottom: var(--space-4); line-height: 1.6;">The premium destination for live stand-up comedy in the heart of the city. Join us for unforgettable nights of laughter, featuring top-tier headliners and rising stars.</p>
+                    <div style="display: flex; gap: var(--space-3);">
+                        <a href="#" class="social-icon" aria-label="Twitter">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 style="margin-bottom: var(--space-4); font-size: 1.125rem;">Quick Links</h4>
+                    <ul style="display: flex; flex-direction: column; gap: var(--space-3); list-style: none; padding: 0;">
+                        <li><a href="index.html" class="footer-link">Home</a></li>
+                        <li><a href="shows.html" class="footer-link">Shows & Tickets</a></li>
+                        <li><a href="comedians.html" class="footer-link">Comedians</a></li>
+                        <li><a href="contact.html" class="footer-link">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Details -->
+                <div>
+                    <h4 style="margin-bottom: var(--space-4); font-size: 1.125rem;">Contact Us</h4>
+                    <ul style="display: flex; flex-direction: column; gap: var(--space-3); list-style: none; padding: 0; color: var(--text-secondary);">
+                        <li style="display: flex; align-items: center; gap: var(--space-2);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                        <li style="display: flex; align-items: center; gap: var(--space-2);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                            <a href="mailto:hello@thecomedyhub.example.com" class="footer-link">hello@thecomedyhub.example.com</a>
+                        </li>
+                        <li style="display: flex; align-items: center; gap: var(--space-2);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            <span>123 Laugh Avenue, NY 10001</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            
+            <div style="text-align: center; border-top: 1px solid var(--border); padding-top: var(--space-4); color: var(--text-secondary); margin-top: var(--space-6);">
+                <p style="margin: 0;">&copy; 2026 The Comedy Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('contact-form');
+            const submitBtn = document.getElementById('c-submit');
+            const successMsg = document.getElementById('form-success');
+
+            if(form) {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    let isValid = true;
+                    
+                    // Simple Validation logic
+                    const txtInputs = form.querySelectorAll('input[type="text"], input[type="email"], textarea, select');
+                    txtInputs.forEach(input => {
+                        const parent = input.closest('.form-group');
+                        const errorMsg = parent.querySelector('.form-feedback');
+                        
+                        // Validation basics
+                        if(!input.value.trim()) {
+                            parent.classList.add('has-error');
+                            isValid = false;
+                        } else if(input.type === 'email' && !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(input.value)) {
+                            parent.classList.add('has-error');
+                            if(errorMsg) errorMsg.textContent = 'Please enter a valid email format.';
+                            isValid = false;
+                        } else {
+                            parent.classList.remove('has-error');
+                        }
+                        
+                        // Clear error on input
+                        input.addEventListener('input', () => parent.classList.remove('has-error'));
+                    });
+
+                    if(isValid) {
+                        const originalText = submitBtn.textContent;
+                        submitBtn.textContent = 'Sending...';
+                        submitBtn.disabled = true;
+
+                        // Simulate API send
+                        setTimeout(() => {
+                            submitBtn.textContent = originalText;
+                            submitBtn.disabled = false;
+                            
+                            // Reset form
+                            form.reset();
+                            
+                            // Show success
+                            successMsg.style.display = 'block';
+                            
+                            setTimeout(() => {
+                                successMsg.style.display = 'none';
+                            }, 5000);
+                        }, 1500);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

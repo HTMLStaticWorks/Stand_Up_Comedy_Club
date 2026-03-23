@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - The Comedy Hub</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/rtl.css" media="all">
+    
+    <style>
+        .about-hero {
+            background-color: var(--bg-secondary);
+            padding: var(--space-12) 0;
+            text-align: center;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-8);
+            align-items: center;
+        }
+
+        @media(min-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .about-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-glow);
+        }
+
+        /* Mission Statement */
+        .mission-box {
+            background: linear-gradient(135deg, rgba(192, 132, 252, 0.1), transparent);
+            border: 1px solid var(--accent);
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            margin: var(--space-8) 0;
+        }
+
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--space-4);
+        }
+
+        .team-member {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            text-align: center;
+            padding: var(--space-4);
+            transition: transform var(--transition-fast);
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .team-member img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto var(--space-3);
+            object-fit: cover;
+        }
+    </style>
+
+    <link rel="icon" type="image/svg+xml" href="assets/logo/favicon-32x32.svg">
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="assets/logo/favicon-16x16.svg">
+    <link rel="icon" type="image/svg+xml" sizes="48x48" href="assets/logo/favicon-48x48.svg">
+</head>
+<body>
+    <header class="header">
+        <div class="container navbar">
+            <a href="index.html" class="nav-brand">
+                <img src="assets/logo/logo-transparent.svg" alt="Comedy Hub Logo" class="logo-img" style="width: 1.2em; height: 1.2em;">
+                The Comedy Hub
+            </a>
+
+                                    <nav class="nav-menu" aria-label="Main Navigation">
+                <div class="nav-item has-dropdown">
+                    <a href="index.html" class="nav-link dropdown-toggle">Home</a>
+                    <div class="dropdown-menu">
+                        <a href="home-2.html" class="dropdown-item">Home 2</a>
+                    </div>
+                </div>
+                <div class="nav-item"><a href="about.html" class="nav-link active">About</a></div>
+                <div class="nav-item"><a href="shows.html" class="nav-link">Shows</a></div>
+                <div class="nav-item"><a href="booking.html" class="nav-link">Booking</a></div>
+                <div class="nav-item"><a href="comedians.html" class="nav-link">Comedians</a></div>
+                <div class="nav-item"><a href="contact.html" class="nav-link">Contact</a></div>
+                <div class="nav-item mobile-only"><a href="login.html" class="nav-link">Login</a></div>
+                <div class="nav-item mobile-only"><a href="signup.html" class="nav-link">Sign Up</a></div>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" aria-label="Toggle theme"></button>
+                <a href="booking.html" class="btn btn-primary" style="display: none; @media(min-width: 640px){ display: inline-flex; }">Book Tickets</a>
+                <a href="login.html" class="btn btn-outline desktop-only">Login</a>
+                <a href="signup.html" class="btn btn-primary desktop-only">Sign Up</a>
+                <button class="hamburger" aria-expanded="false" aria-label="Toggle navigation menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+                <!-- Global Hero Section -->
+        <section class="page-hero" style="background-image: url('https://images.unsplash.com/photo-1543007631-283050bb3e8c?auto=format&fit=crop&w=1920&q=80');">
+            <div class="container page-hero-content">
+                <h1 class="page-hero-title">About Our Comedy Club</h1>
+                <p class="subtitle">Building the greatest stage for comedy, one punchline at a time. Learn about our story, our mission, and the team behind the laughs.</p>
+                <div class="breadcrumb"><a href="index.html">Home</a> &gt; <span>About Us</span></div>
+            </div>
+        </section>
+
+        <!-- Our Story Content -->
+        <section class="section">
+            <div class="container">
+                <div class="about-grid">
+                    <div>
+                        <span class="subtitle" style="display:block; margin-bottom: var(--space-2); color: var(--accent); font-weight: bold; text-transform: uppercase;">Since 2026</span>
+                        <h2 style="margin-bottom: var(--space-4);">Redefining Live Stand-Up</h2>
+                        <p>The Comedy Hub started as a small open mic basement experiment. We realized that what both comedians and audiences really wanted was an intimate, distraction-free environment that put the spotlight solely on the comedian.</p>
+                        <p>Today, we've grown into one of the city's premier entertainment venues. We host nationally touring headliners and continually nurture local talent who go on to film specials for major streaming networks.</p>
+                    </div>
+                    <div>
+                        <img src="https://images.unsplash.com/photo-1543007631-283050bb3e8c?auto=format&fit=crop&q=80&w=800" alt="Inside the comedy club" class="about-image skeleton" loading="lazy">
+                    </div>
+                </div>
+
+                <!-- Mission -->
+                <div class="mission-box">
+                    <h2 style="color: var(--accent);">Our Mission</h2>
+                    <p style="font-size: 1.25rem; font-weight: 500; font-family: var(--font-heading);">"To provide a world-class platform for comedic expression, ensuring every guest leaves happier than when they arrived."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vision & Values -->
+        <section class="section">
+            <div class="container overflow-hidden">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-8);">
+                    <div class="card" style="padding: var(--space-8); border-top: 4px solid var(--accent);">
+                        <h3 style="color: var(--accent); margin-bottom: var(--space-4);">Our Vision</h3>
+                        <p>To be the definitive global destination for stand-up comedy, where legends are made and every voice finds its stage. We envision a world where laughter bridges every gap and the raw truth of comedy remains the ultimate social equalizer.</p>
+                        <p>We are expanding our reach to ensure that high-quality, intimate comedy remains accessible to all, fostering a community that values authenticity over anything else.</p>
+                    </div>
+                    <div class="card" style="padding: var(--space-8); border-top: 4px solid var(--accent);">
+                        <h3 style="color: var(--accent); margin-bottom: var(--space-4);">Our Values</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: var(--space-4); display: flex; align-items: flex-start; gap: var(--space-3);">
+                                <span style="color: var(--accent); font-weight: bold;">01.</span>
+                                <div><strong>Authenticity:</strong> We believe in raw, unfiltered expression. Our stage is a safe haven for truth.</div>
+                            </li>
+                            <li style="margin-bottom: var(--space-4); display: flex; align-items: flex-start; gap: var(--space-3);">
+                                <span style="color: var(--accent); font-weight: bold;">02.</span>
+                                <div><strong>Community:</strong> From the front row to the green room, we are a family of misfits and masters.</div>
+                            </li>
+                            <li style="margin-bottom: var(--space-4); display: flex; align-items: flex-start; gap: var(--space-3);">
+                                <span style="color: var(--accent); font-weight: bold;">03.</span>
+                                <div><strong>Excellence:</strong> We provide top-tier production quality, ensuring the best experience for all.</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Growth Journey / Our Story Expansion -->
+        <section class="section section-dark">
+            <div class="container">
+                <div class="section-head text-center">
+                    <span class="subtitle">The Journey</span>
+                    <h2>From Basement to Bright Lights</h2>
+                </div>
+                <div style="max-width: 800px; margin: 0 auto; line-height: 1.8;">
+                    <p style="font-size: 1.125rem; margin-bottom: var(--space-6);">When Evelyn Reed first opened the doors to The Comedy Hub in early 2026, the venue was little more than a repurposed warehouse with a single spotlight. The goal was simple: provide a place where comedians didn't have to compete with loud bar chatter or distracting TV screens.</p>
+                    
+                    <div style="display: flex; gap: var(--space-8); flex-wrap: wrap; margin-bottom: var(--space-8);">
+                        <div style="flex: 1; min-width: 250px;">
+                            <h4 style="color: var(--accent);">The Early Days</h4>
+                            <p>We started with three nights a week. The "Tuesday Tester" became legendary among comics as a place where you could fail spectacularly or find your next viral bit. The community grew fast.</p>
+                        </div>
+                        <div style="flex: 1; min-width: 250px;">
+                            <h4 style="color: var(--accent);">The Turning Point</h4>
+                            <p>By mid-2026, we hosted our first international headliner. The show sold out in 12 minutes. We knew we had something special—a venue that felt like home for the performers and magic for the crowd.</p>
+                        </div>
+                    </div>
+                    
+                    <p>Today, The Comedy Hub holds one of the highest ratings in the country for guest satisfaction. We've introduced state-of-the-art acoustic treatment, curated a premium beverage program, and most importantly, kept the intimacy that made us famous.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us / Unique Features -->
+        <section class="section">
+            <div class="container">
+                <div class="section-head text-center">
+                    <span class="subtitle">Why The Hub?</span>
+                    <h2>The Ultimate Audience Experience</h2>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-4);">
+                    <article class="card text-center" style="padding: var(--space-6);">
+                        <div style="font-size: 3rem; margin-bottom: var(--space-4);">🎙️</div>
+                        <h4>Perfect Acoustics</h4>
+                        <p>Our venue was built from the ground up for the spoken word. Every punchline is crystal clear, no matter where you sit.</p>
+                    </article>
+                    <article class="card text-center" style="padding: var(--space-6);">
+                        <div style="font-size: 3rem; margin-bottom: var(--space-4);">🍸</div>
+                        <h4>Premium Service</h4>
+                        <p>No more sticky floors. Enjoy craft cocktails and shared plates served directly to your table without missing a joke.</p>
+                    </article>
+                    <article class="card text-center" style="padding: var(--space-6);">
+                        <div style="font-size: 3rem; margin-bottom: var(--space-4);">🎭</div>
+                        <h4>Curated Talent</h4>
+                        <p>We don't just book names; we book performers. Every lineup is carefully crafted for the perfect comedic arc.</p>
+                    </article>
+                    <article class="card text-center" style="padding: var(--space-6);">
+                        <div style="font-size: 3rem; margin-bottom: var(--space-4);">🛋️</div>
+                        <h4>Intimate Seating</h4>
+                        <p>With only 150 seats, every guest feels like they're part of the show. There isn't a bad seat in the house.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Team -->
+        <section class="section section-dark">
+            <div class="container">
+                <div class="section-head text-center">
+                    <span class="subtitle">Behind The Scenes</span>
+                    <h2>Meet The Team</h2>
+                    <p>The people who keep the laughs rolling and the drinks flowing.</p>
+                </div>
+
+                <div class="team-grid">
+                    <div class="team-member">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300&h=300" alt="Jane Doe" class="skeleton" loading="lazy">
+                        <h3 style="font-size: 1.125rem; margin-bottom: var(--space-1);">Evelyn Reed</h3>
+                        <p style="color: var(--accent); margin-bottom: 0;">Founder & CEO</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=300&h=300" alt="John Smith" class="skeleton" loading="lazy">
+                        <h3 style="font-size: 1.125rem; margin-bottom: var(--space-1);">Mark Johnson</h3>
+                        <p style="color: var(--accent); margin-bottom: 0;">Talent Booker</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&q=80&w=300&h=300" alt="Sarah Williams" class="skeleton" loading="lazy">
+                        <h3 style="font-size: 1.125rem; margin-bottom: var(--space-1);">Sarah Williams</h3>
+                        <p style="color: var(--accent); margin-bottom: 0;">Venue Manager</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=80&w=300&h=300" alt="David Lee" class="skeleton" loading="lazy">
+                        <h3 style="font-size: 1.125rem; margin-bottom: var(--space-1);">David Lee</h3>
+                        <p style="color: var(--accent); margin-bottom: 0;">Head Bartender</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300&h=300" alt="Maya Sharma" class="skeleton" loading="lazy">
+                        <h3 style="font-size: 1.125rem; margin-bottom: var(--space-1);">Maya Sharma</h3>
+                        <p style="color: var(--accent); margin-bottom: 0;">Events Coordinator</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Achievements / Milestones -->
+        <section class="section">
+            <div class="container">
+                <div class="section-head text-center">
+                    <span class="subtitle">Milestones</span>
+                    <h2>A Tradition of Excellence</h2>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: var(--space-2); max-width: 700px; margin: 0 auto;">
+                    <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding: var(--space-4) 0;">
+                        <span><strong>2026</strong> Opening Night Sold Out</span>
+                        <span style="color: var(--accent);">February</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding: var(--space-4) 0;">
+                        <span><strong>2026</strong> First Netflix Special Filmed</span>
+                        <span style="color: var(--accent);">May</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding: var(--space-4) 0;">
+                        <span><strong>2026</strong> Best Venue Award - NY Times</span>
+                        <span style="color: var(--accent);">August</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding: var(--space-4) 0;">
+                        <span><strong>2027</strong> 500th Show Milestone</span>
+                        <span style="color: var(--accent);">January</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Expansion -->
+        <section class="section section-dark">
+            <div class="container">
+                <div class="section-head text-center">
+                    <span class="subtitle">Audience Voices</span>
+                    <h2>What They’re Saying</h2>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-6);">
+                    <div class="card" style="padding: var(--space-6); display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <div style="color: var(--warning); margin-bottom: var(--space-3);">★★★★★</div>
+                            <p style="font-style: italic; margin-bottom: var(--space-4);">"I've been to comedy clubs all over the world, but the sound quality and attention to detail here are unmatched. You actually feel like the comedian is talking to YOU."</p>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: var(--space-3);">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100&h=100" alt="Michael P." style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover;" class="skeleton" loading="lazy">
+                            <div>
+                                <h4 style="font-size: 0.9rem; margin: 0;">Michael P.</h4>
+                                <small style="color: var(--text-secondary);">Frequent Visitor</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="padding: var(--space-6); display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <div style="color: var(--warning); margin-bottom: var(--space-3);">★★★★★</div>
+                            <p style="font-style: italic; margin-bottom: var(--space-4);">"The cocktails are actually good! Usually, comedy clubs have watered-down drinks, but The Hub treats their bar like a Five-Star lounge. Game changer."</p>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: var(--space-3);">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100&h=100" alt="Jessica L." style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover;" class="skeleton" loading="lazy">
+                            <div>
+                                <h4 style="font-size: 0.9rem; margin: 0;">Jessica L.</h4>
+                                <small style="color: var(--text-secondary);">Date Night Pro</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="padding: var(--space-6); display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <div style="color: var(--warning); margin-bottom: var(--space-3);">★★★★★</div>
+                            <p style="font-style: italic; margin-bottom: var(--space-4);">"The Late Night Uncensored show was the hardest I've laughed in years. It's raw, it's real, and it's exactly what comedy should be."</p>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: var(--space-3);">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=100&h=100" alt="Marcus T." style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover;" class="skeleton" loading="lazy">
+                            <div>
+                                <h4 style="font-size: 0.9rem; margin: 0;">Marcus T.</h4>
+                                <small style="color: var(--text-secondary);">Local Fan</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+        <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-6); margin-bottom: var(--space-6);">
+                
+                <!-- Brand & Description -->
+                <div>
+                    <a href="index.html" class="nav-brand" style="margin-bottom: var(--space-3); color: var(--text-primary); text-decoration: none;">
+                        <img src="assets/logo/logo-transparent.svg" alt="Comedy Hub Logo" class="logo-img" style="width: 1.2em; height: 1.2em; filter: drop-shadow(0 0 2px rgba(255,255,255,0.2));">
+                        The Comedy Hub
+                    </a>
+                    <p style="color: var(--text-secondary); margin-bottom: var(--space-4); line-height: 1.6;">The premium destination for live stand-up comedy in the heart of the city. Join us for unforgettable nights of laughter, featuring top-tier headliners and rising stars.</p>
+                    <div style="display: flex; gap: var(--space-3);">
+                        <a href="#" class="social-icon" aria-label="Twitter">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 style="margin-bottom: var(--space-4); font-size: 1.125rem;">Quick Links</h4>
+                    <ul style="display: flex; flex-direction: column; gap: var(--space-3); list-style: none; padding: 0;">
+                        <li><a href="index.html" class="footer-link">Home</a></li>
+                        <li><a href="shows.html" class="footer-link">Shows & Tickets</a></li>
+                        <li><a href="comedians.html" class="footer-link">Comedians</a></li>
+                        <li><a href="contact.html" class="footer-link">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Details -->
+                <div>
+                    <h4 style="margin-bottom: var(--space-4); font-size: 1.125rem;">Contact Us</h4>
+                    <ul style="display: flex; flex-direction: column; gap: var(--space-3); list-style: none; padding: 0; color: var(--text-secondary);">
+                        <li style="display: flex; align-items: center; gap: var(--space-2);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                        <li style="display: flex; align-items: center; gap: var(--space-2);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                            <a href="mailto:hello@thecomedyhub.example.com" class="footer-link">hello@thecomedyhub.example.com</a>
+                        </li>
+                        <li style="display: flex; align-items: center; gap: var(--space-2);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            <span>123 Laugh Avenue, NY 10001</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            
+            <div style="text-align: center; border-top: 1px solid var(--border); padding-top: var(--space-4); color: var(--text-secondary); margin-top: var(--space-6);">
+                <p style="margin: 0;">&copy; 2026 The Comedy Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

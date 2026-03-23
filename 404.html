@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Not Found - The Comedy Hub</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/rtl.css" media="all">
+    
+    <style>
+        .error-page {
+            min-height: calc(100vh - var(--navbar-height));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: var(--space-8) var(--space-4);
+        }
+
+        .error-code {
+            font-size: clamp(6rem, 20vw, 12rem);
+            font-family: var(--font-heading);
+            font-weight: 800;
+            line-height: 1;
+            background: linear-gradient(135deg, var(--accent), var(--text-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: var(--space-2);
+            text-shadow: var(--shadow-glow);
+        }
+
+        .error-message {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            margin-bottom: var(--space-4);
+            color: var(--text-primary);
+        }
+
+        .error-desc {
+            max-width: 500px;
+            margin: 0 auto var(--space-6);
+            color: var(--text-secondary);
+        }
+
+        .error-actions {
+            display: flex;
+            gap: var(--space-3);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+    </style>
+
+    <link rel="icon" type="image/svg+xml" href="assets/logo/favicon-32x32.svg">
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="assets/logo/favicon-16x16.svg">
+    <link rel="icon" type="image/svg+xml" sizes="48x48" href="assets/logo/favicon-48x48.svg">
+</head>
+<body>
+    <header class="header">
+        <div class="container navbar">
+            <a href="index.html" class="nav-brand">
+                <img src="assets/logo/logo-transparent.svg" alt="Comedy Hub Logo" class="logo-img" style="width: 1.2em; height: 1.2em;">
+                The Comedy Hub
+            </a>
+
+                                    <nav class="nav-menu" aria-label="Main Navigation">
+                <div class="nav-item has-dropdown">
+                    <a href="index.html" class="nav-link dropdown-toggle">Home</a>
+                    <div class="dropdown-menu">
+                        <a href="home-2.html" class="dropdown-item">Home 2</a>
+                    </div>
+                </div>
+                <div class="nav-item"><a href="about.html" class="nav-link">About</a></div>
+                <div class="nav-item"><a href="shows.html" class="nav-link">Shows</a></div>
+                <div class="nav-item"><a href="booking.html" class="nav-link">Booking</a></div>
+                <div class="nav-item"><a href="comedians.html" class="nav-link">Comedians</a></div>
+                <div class="nav-item"><a href="contact.html" class="nav-link">Contact</a></div>
+                <div class="nav-item mobile-only"><a href="login.html" class="nav-link">Login</a></div>
+                <div class="nav-item mobile-only"><a href="signup.html" class="nav-link">Sign Up</a></div>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" aria-label="Toggle theme"></button>
+                <a href="login.html" class="btn btn-outline desktop-only">Login</a>
+                <a href="signup.html" class="btn btn-primary desktop-only">Sign Up</a>
+                <button class="hamburger" aria-expanded="false" aria-label="Toggle navigation menu"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+    </header>
+
+        <main id="main-content" style="display: flex; flex-direction: column; min-height: calc(100vh - var(--navbar-height)); padding: 0;">
+        <section class="page-hero" style="background-image: url('https://images.unsplash.com/photo-1510363283281-19ce776e05d3?auto=format&fit=crop&w=1920&q=80'); margin-bottom: 0;">
+            <div class="container page-hero-content">
+                <h1 class="page-hero-title">Page Not Found</h1>
+                <p class="subtitle">Like a comedian bombing on stage, it just didn't work out. Let's get you back on track.</p>
+                <div class="breadcrumb"><a href="index.html">Home</a> &gt; <span>404</span></div>
+            </div>
+        </section>
+        <div class="error-page" style="flex: 1; margin: 0; min-height: 0;">
+        <div class="container">
+            <div class="error-code">404</div>
+            <h1 class="error-message">Well, this is awkward...</h1>
+            <p class="error-desc">We couldn't find the page you're looking for. It might have been removed, had its name changed, or is temporarily unavailable. Like a comedian bombing on stage, it just didn't work out.</p>
+            
+            <div class="error-actions">
+                <a href="index.html" class="btn btn-primary">Back to Home</a>
+                <a href="shows.html" class="btn btn-outline">Find a Show</a>
+            </div>
+        </div>
+            </div>
+    </main>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Comedy Hub - Home V2</title>
+    <meta name="description" content="Discover upcoming stand-up comedy events, open mics, and exclusive clips. Book your tickets now.">
+    
+    <!-- SEO & Open Graph -->
+    <meta property="og:title" content="The Comedy Hub - Discover Live Comedy">
+    <meta property="og:description" content="Categories, featured video clips, and live event bookings for The Comedy Hub.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    
+        <link rel="icon" type="image/svg+xml" href="assets/logo/favicon-32x32.svg">
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="assets/logo/favicon-16x16.svg">
+    <link rel="icon" type="image/svg+xml" sizes="48x48" href="assets/logo/favicon-48x48.svg">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/rtl.css" media="all">
+    
+    <style>
+        /* Split Hero */
+        .hero-split {
+            display: flex;
+            min-height: calc(100vh - var(--navbar-height));
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .hero-split-content {
+            flex: 1;
+            min-width: 300px;
+            padding: var(--space-8) var(--space-4);
+        }
+
+        .hero-split-image {
+            flex: 1;
+            min-width: 300px;
+            height: 100%;
+            min-height: 500px;
+            background: url('https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&q=80&w=800') center/cover no-repeat;
+            position: relative;
+        }
+
+        .hero-split-image::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to right, var(--bg-primary), transparent 50%);
+        }
+        
+        @media (max-width: 768px) {
+            .hero-split-image::after {
+                background: linear-gradient(to top, var(--bg-primary), transparent 50%);
+            }
+        }
+
+        /* Categories Section */
+        .category-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            transition: all var(--transition-normal);
+            cursor: pointer;
+        }
+        
+        .category-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .category-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto var(--space-3);
+            background-color: rgba(192, 132, 252, 0.1);
+            color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        /* Video Grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--space-4);
+        }
+
+        .video-card {
+            position: relative;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            cursor: pointer;
+        }
+
+        .video-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-slow);
+        }
+
+        .video-card::before {
+            content: '▶';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px; height: 60px;
+            background-color: rgba(0,0,0,0.6);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            z-index: 2;
+            border: 2px solid #fff;
+            transition: all var(--transition-fast);
+        }
+
+        .video-card:hover img { transform: scale(1.05); }
+        .video-card:hover::before { background-color: var(--accent); border-color: var(--accent); box-shadow: var(--shadow-glow); }
+
+        /* Quick List for Events */
+        .event-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+
+        .event-list-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            padding: var(--space-3);
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            transition: border-color var(--transition-fast);
+        }
+
+        .event-list-item:hover { border-color: var(--accent); }
+
+        .event-date {
+            text-align: center;
+            min-width: 80px;
+            border-right: 1px solid var(--border);
+            padding-right: var(--space-4);
+        }
+
+        .event-date .day { font-size: 1.5rem; font-weight: bold; color: var(--accent); }
+        .event-date .month { font-size: 0.875rem; text-transform: uppercase; color: var(--text-secondary); }
+
+        .event-info { flex: 1; }
+        .event-info h3 { margin-bottom: 0; font-size: 1.25rem; }
+        .event-info p { margin-bottom: 0; font-size: 0.875rem; color: var(--text-secondary); }
+
+        /* CTA Banner */
+        .cta-banner {
+            background: linear-gradient(45deg, var(--bg-secondary), var(--accent));
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            color: #fff;
+        }
+
+        .cta-banner h2 { color: #fff; }
+        .cta-banner .btn { background-color: #000; color: #fff; border: none; }
+        .cta-banner .btn:hover { background-color: rgba(0,0,0,0.8); }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header / Navbar -->
+    <header class="header">
+        <div class="container navbar">
+            <a href="index.html" class="nav-brand">
+                <img src="assets/logo/logo-transparent.svg" alt="Comedy Hub Logo" class="logo-img" style="width: 1.2em; height: 1.2em;">
+                The Comedy Hub
+            </a>
+
+                                    <nav class="nav-menu" aria-label="Main Navigation">
+                <div class="nav-item has-dropdown">
+                    <a href="index.html" class="nav-link dropdown-toggle active">Home</a>
+                    <div class="dropdown-menu">
+                        <a href="home-2.html" class="dropdown-item">Home 2</a>
+                    </div>
+                </div>
+                <div class="nav-item"><a href="about.html" class="nav-link">About</a></div>
+                <div class="nav-item"><a href="shows.html" class="nav-link">Shows</a></div>
+                <div class="nav-item"><a href="booking.html" class="nav-link">Booking</a></div>
+                <div class="nav-item"><a href="comedians.html" class="nav-link">Comedians</a></div>
+                <div class="nav-item"><a href="contact.html" class="nav-link">Contact</a></div>
+                <div class="nav-item mobile-only"><a href="login.html" class="nav-link">Login</a></div>
+                <div class="nav-item mobile-only"><a href="signup.html" class="nav-link">Sign Up</a></div>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" aria-label="Toggle theme"></button>
+                <a href="login.html" class="btn btn-outline desktop-only">Login</a>
+                <a href="signup.html" class="btn btn-primary desktop-only">Sign Up</a>
+                <button class="hamburger" aria-expanded="false" aria-label="Toggle navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- Split Hero Section -->
+        <section class="hero-split">
+            <div class="hero-split-content container" style="max-width: 600px; margin-left: auto;">
+                <span class="tag">#1 Comedy Club in NY</span>
+                <h1 style="font-size: clamp(2.5rem, 5vw, 4rem);">Laughter is the Best Medicine</h1>
+                <p style="font-size: 1.125rem; margin-bottom: var(--space-4);">Catch the most hilarious acts in town in an intimate, premium setting. Whether it's date night or a group outing, we guarantee a great time.</p>
+                <div style="display: flex; gap: var(--space-3);">
+                    <a href="#upcoming" class="btn btn-primary">See Upcoming</a>
+                    <a href="about.html" class="btn btn-outline">Our Story</a>
+                </div>
+            </div>
+            <div class="hero-split-image"></div>
+        </section>
+
+        <!-- Immediately Highlight Upcoming Events -->
+        <section id="upcoming" class="section section-dark">
+            <div class="container">
+                <div class="section-head text-center">
+                    <span class="subtitle">Next Up</span>
+                    <h2>Don't Miss Out</h2>
+                </div>
+                
+                <div class="event-list" style="max-width: 800px; margin: 0 auto;">
+                    <div class="event-list-item">
+                        <div class="event-date">
+                            <div class="month">Oct</div>
+                            <div class="day">24</div>
+                        </div>
+                        <div class="event-info">
+                            <h3>Friday Night Spectacular</h3>
+                            <p>Featuring secret headliner + guests. 8:00 PM</p>
+                        </div>
+                        <a href="booking.html" class="btn btn-outline">Tickets</a>
+                    </div>
+                    <div class="event-list-item">
+                        <div class="event-date">
+                            <div class="month">Oct</div>
+                            <div class="day">25</div>
+                        </div>
+                        <div class="event-info">
+                            <h3>Late Night Uncensored</h3>
+                            <p>Adults only late-night show. 11:00 PM</p>
+                        </div>
+                        <a href="booking.html" class="btn btn-outline">Tickets</a>
+                    </div>
+                    <div class="event-list-item">
+                        <div class="event-date">
+                            <div class="month">Oct</div>
+                            <div class="day">27</div>
+                        </div>
+                        <div class="event-info">
+                            <h3>Monday Open Mic</h3>
+                            <p>Watch up-and-coming talent. 7:30 PM</p>
+                        </div>
+                        <a href="booking.html" class="btn btn-outline">Tickets</a>
+                    </div>
+                </div>
+                
+                <div class="text-center" style="margin-top: var(--space-4);">
+                    <a href="shows.html" style="color: var(--accent); font-weight: 500;">View full calendar →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="section">
+            <div class="container">
+                <div class="section-head text-center">
+                    <span class="subtitle">Explore</span>
+                    <h2>Comedy Types</h2>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-4);">
+                    <div class="category-card">
+                        <div class="category-icon">🎤</div>
+                        <h3>Stand-Up</h3>
+                        <p>Traditional single-comic sets ranging from 15 to 60 minutes.</p>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">🎙️</div>
+                        <h3>Open Mic</h3>
+                        <p>Raw and untested material from new and experienced comedians.</p>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">🎭</div>
+                        <h3>Improv</h3>
+                        <p>Spontaneous, unscripted comedy based on audience suggestions.</p>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">✨</div>
+                        <h3>Specials</h3>
+                        <p>Themed nights, roasts, and secret celebrity drop-ins.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Clips Section -->
+        <section class="section section-dark">
+            <div class="container">
+                <div class="section-head text-center">
+                    <span class="subtitle">Watch</span>
+                    <h2>Hilarious Moments</h2>
+                </div>
+                
+                <div class="video-grid">
+                    <div class="video-card">
+                        <img src="https://images.unsplash.com/photo-1585699324551-f6c309eedeca?auto=format&fit=crop&q=80&w=600" alt="Video clip 1" class="skeleton" loading="lazy">
+                    </div>
+                    <div class="video-card">
+                        <img src="https://images.unsplash.com/photo-1516280440502-a2989cb51d15?auto=format&fit=crop&q=80&w=600" alt="Video clip 2" class="skeleton" loading="lazy">
+                    </div>
+                    <div class="video-card">
+                        <img src="https://images.unsplash.com/photo-1585699324551-f6c309eedeca?auto=format&fit=crop&q=80&w=600" alt="Video clip 3" class="skeleton" loading="lazy">
+                    </div>
+                </div>
+                
+                <div class="text-center" style="margin-top: var(--space-6);">
+                    <a href="gallery.html" class="btn btn-outline">More Videos</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Membership Benefits Table -->
+        <section class="section section-dark">
+            <div class="container">
+                <div class="section-head text-center">
+                    <span class="subtitle">The Hub Club</span>
+                    <h2>Membership Tiers</h2>
+                </div>
+                <div class="table-responsive" style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; min-width: 600px;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid var(--border);">
+                                <th style="padding: var(--space-4); text-align: left;">Benefits</th>
+                                <th style="padding: var(--space-4); text-align: center; color: var(--text-secondary);">Fans</th>
+                                <th style="padding: var(--space-4); text-align: center; color: var(--accent);">VIP Insiders</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid var(--border);">
+                                <td style="padding: var(--space-4);">Early Access Tickets</td>
+                                <td style="padding: var(--space-4); text-align: center;">✅</td>
+                                <td style="padding: var(--space-4); text-align: center;">✅</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--border);">
+                                <td style="padding: var(--space-4);">No-Service Fee</td>
+                                <td style="padding: var(--space-4); text-align: center;">❌</td>
+                                <td style="padding: var(--space-4); text-align: center;">✅</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--border);">
+                                <td style="padding: var(--space-4);">Priority Seating</td>
+                                <td style="padding: var(--space-4); text-align: center;">❌</td>
+                                <td style="padding: var(--space-4); text-align: center;">✅</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--border);">
+                                <td style="padding: var(--space-4);">Meet & Greet Invites</td>
+                                <td style="padding: var(--space-4); text-align: center;">❌</td>
+                                <td style="padding: var(--space-4); text-align: center;">✅</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Frequently Asked Questions -->
+        <section class="section">
+            <div class="container">
+                <div class="section-head text-center">
+                    <span class="subtitle">FAQ</span>
+                    <h2>Common Questions</h2>
+                </div>
+                <div style="max-width: 800px; margin: 0 auto; display: grid; gap: var(--space-4);">
+                    <details style="border: 1px solid var(--border); padding: var(--space-4); cursor: pointer;">
+                        <summary style="font-weight: 600; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                            Is there a drink minimum?
+                            <span style="color: var(--accent);">+</span>
+                        </summary>
+                        <p style="margin-top: var(--space-3); color: var(--text-secondary);">Yes, we have a two-item minimum per person (can be food or drinks) to support our performers and venue.</p>
+                    </details>
+                    <details style="border: 1px solid var(--border); padding: var(--space-4); cursor: pointer;">
+                        <summary style="font-weight: 600; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                            What is the age requirement?
+                            <span style="color: var(--accent);">+</span>
+                        </summary>
+                        <p style="margin-top: var(--space-3); color: var(--text-secondary);">Most shows are 21+ only. However, we occasionally host 18+ selective "All-Ages" afternoon showcases.</p>
+                    </details>
+                    <details style="border: 1px solid var(--border); padding: var(--space-4); cursor: pointer;">
+                        <summary style="font-weight: 600; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                            How do I perform at an Open Mic?
+                            <span style="color: var(--accent);">+</span>
+                        </summary>
+                        <p style="margin-top: var(--space-3); color: var(--text-secondary);">Sign-ups for our Tuesday Open Mic start at 6:00 PM in person. The list fills up fast, so arrive early!</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action Banner -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-banner">
+                    <h2>Host Your Private Event Here</h2>
+                    <p style="margin-bottom: var(--space-4); max-width: 600px; margin-left: auto; margin-right: auto;">Looking for a unique venue for your birthday, corporate outing, or bachelor party? Rent out our VIP lounge or the entire club.</p>
+                    <a href="contact.html" class="btn">Inquire Now</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Base -->
+        <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-6); margin-bottom: var(--space-6);">
+                
+                <!-- Brand & Description -->
+                <div>
+                    <a href="index.html" class="nav-brand" style="margin-bottom: var(--space-3); color: var(--text-primary); text-decoration: none;">
+                        <img src="assets/logo/logo-transparent.svg" alt="Comedy Hub Logo" class="logo-img" style="width: 1.2em; height: 1.2em; filter: drop-shadow(0 0 2px rgba(255,255,255,0.2));">
+                        The Comedy Hub
+                    </a>
+                    <p style="color: var(--text-secondary); margin-bottom: var(--space-4); line-height: 1.6;">The premium destination for live stand-up comedy in the heart of the city. Join us for unforgettable nights of laughter, featuring top-tier headliners and rising stars.</p>
+                    <div style="display: flex; gap: var(--space-3);">
+                        <a href="#" class="social-icon" aria-label="Twitter">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 style="margin-bottom: var(--space-4); font-size: 1.125rem;">Quick Links</h4>
+                    <ul style="display: flex; flex-direction: column; gap: var(--space-3); list-style: none; padding: 0;">
+                        <li><a href="index.html" class="footer-link">Home</a></li>
+                        <li><a href="shows.html" class="footer-link">Shows & Tickets</a></li>
+                        <li><a href="comedians.html" class="footer-link">Comedians</a></li>
+                        <li><a href="contact.html" class="footer-link">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Details -->
+                <div>
+                    <h4 style="margin-bottom: var(--space-4); font-size: 1.125rem;">Contact Us</h4>
+                    <ul style="display: flex; flex-direction: column; gap: var(--space-3); list-style: none; padding: 0; color: var(--text-secondary);">
+                        <li style="display: flex; align-items: center; gap: var(--space-2);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                        <li style="display: flex; align-items: center; gap: var(--space-2);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                            <a href="mailto:hello@thecomedyhub.example.com" class="footer-link">hello@thecomedyhub.example.com</a>
+                        </li>
+                        <li style="display: flex; align-items: center; gap: var(--space-2);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            <span>123 Laugh Avenue, NY 10001</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            
+            <div style="text-align: center; border-top: 1px solid var(--border); padding-top: var(--space-4); color: var(--text-secondary); margin-top: var(--space-6);">
+                <p style="margin: 0;">&copy; 2026 The Comedy Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

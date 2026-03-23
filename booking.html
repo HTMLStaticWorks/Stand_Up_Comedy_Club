@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Tickets - The Comedy Hub</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/rtl.css" media="all">
+    
+    <style>
+        .booking-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-6);
+            position: relative;
+        }
+        
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 0; right: 0;
+            height: 2px;
+            background-color: var(--border);
+            z-index: 1;
+            transform: translateY(-50%);
+        }
+
+        .progress-step {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background-color: var(--bg-secondary);
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            position: relative;
+            z-index: 2;
+            color: var(--text-secondary);
+            transition: all var(--transition-fast);
+        }
+
+        .progress-step.active {
+            border-color: var(--accent);
+            color: var(--accent);
+            box-shadow: 0 0 10px rgba(192, 132, 252, 0.4);
+        }
+
+        .progress-step.completed {
+            background-color: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        .step-label {
+            position: absolute;
+            top: 100%; left: 50%;
+            transform: translateX(-50%);
+            margin-top: 8px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+        }
+
+        /* Booking Steps */
+        .booking-step-content { display: none; }
+        .booking-step-content.active { display: block; animation: fadeIn 0.3s ease; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Ticket Selector */
+        .ticket-type {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-3);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-3);
+            background-color: var(--bg-secondary);
+        }
+
+        .ticket-info h4 { margin: 0; }
+        .ticket-info p { margin: 0; font-size: 0.875rem; color: var(--text-secondary); }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .quantity-control button {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 1.25rem;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .quantity-control button:hover { border-color: var(--accent); color: var(--accent); }
+
+        .quantity-control input {
+            width: 40px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-weight: bold;
+            font-size: 1.125rem;
+        }
+
+        /* Summary */
+        .summary-box {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--accent);
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            margin-top: var(--space-4);
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-2);
+        }
+    </style>
+
+    <link rel="icon" type="image/svg+xml" href="assets/logo/favicon-32x32.svg">
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="assets/logo/favicon-16x16.svg">
+    <link rel="icon" type="image/svg+xml" sizes="48x48" href="assets/logo/favicon-48x48.svg">
+</head>
+<body>
+    <header class="header">
+        <div class="container navbar">
+            <a href="index.html" class="nav-brand">
+                <img src="assets/logo/logo-transparent.svg" alt="Comedy Hub Logo" class="logo-img" style="width: 1.2em; height: 1.2em;">
+                The Comedy Hub
+            </a>
+
+            <nav class="nav-menu" aria-label="Main Navigation">
+                <div class="nav-item has-dropdown">
+                    <a href="index.html" class="nav-link dropdown-toggle">Home</a>
+                    <div class="dropdown-menu">
+                        <a href="home-2.html" class="dropdown-item">Home 2</a>
+                    </div>
+                </div>
+                <div class="nav-item"><a href="about.html" class="nav-link">About</a></div>
+                <div class="nav-item"><a href="shows.html" class="nav-link">Shows</a></div>
+                <div class="nav-item"><a href="booking.html" class="nav-link active" aria-current="page">Booking</a></div>
+                <div class="nav-item"><a href="comedians.html" class="nav-link">Comedians</a></div>
+                <div class="nav-item"><a href="contact.html" class="nav-link">Contact</a></div>
+                <div class="nav-item mobile-only"><a href="login.html" class="nav-link">Login</a></div>
+                <div class="nav-item mobile-only"><a href="signup.html" class="nav-link">Sign Up</a></div>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" aria-label="Toggle theme">
+                    <!-- Icon injected by JS -->
+                </button>
+                
+                <a href="login.html" class="btn btn-outline desktop-only">Login</a>
+                <a href="signup.html" class="btn btn-primary desktop-only">Sign Up</a>
+                <button class="hamburger" aria-expanded="false" aria-label="Toggle navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+        <main>
+        <section class="page-hero" style="background-image: url('https://images.pexels.com/photos/713149/pexels-photo-713149.jpeg?auto=format&fit=crop&w=1920&q=80'); margin-bottom: var(--space-6);">
+            <div class="container page-hero-content">
+                <h1 class="page-hero-title">Secure Check Out</h1>
+                <p class="subtitle">Complete your purchase details below to lock in an evening of premium laughter.</p>
+                <div class="breadcrumb"><a href="index.html">Home</a> &gt; <a href="shows.html">Shows</a> &gt; <span>Booking</span></div>
+            </div>
+        </section>
+        <section class="section" style="padding-top: 0;">
+            <div class="container booking-container">
+            
+            <div class="progress-bar">
+                <div class="progress-step active" id="step1-indicator">1<span class="step-label">Select</span></div>
+                <div class="progress-step" id="step2-indicator">2<span class="step-label">Details</span></div>
+                <div class="progress-step" id="step3-indicator">3<span class="step-label">Payment</span></div>
+                <div class="progress-step" id="step4-indicator">4<span class="step-label">Done</span></div>
+            </div>
+
+            <div class="card" style="margin-top: var(--space-6);">
+                <!-- Step 1: Select Event & Tickets -->
+                <div class="booking-step-content active" id="step1">
+                    <h3>Select Tickets</h3>
+                    <p style="margin-bottom: var(--space-4);" id="selected-show-info">Friday Night Spectacular - Oct 24, 8:00 PM</p>
+                    
+                    <div class="ticket-type">
+                        <div class="ticket-info">
+                            <h4>General Admission</h4>
+                            <p>$25.00 (+ fees)</p>
+                        </div>
+                        <div class="quantity-control">
+                            <button type="button" class="qty-btn" data-action="decrease" data-type="ga">-</button>
+                            <input type="number" id="qty-ga" value="1" min="0" max="10" readonly aria-label="General Admission Quantity">
+                            <button type="button" class="qty-btn" data-action="increase" data-type="ga">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="ticket-type">
+                        <div class="ticket-info">
+                            <h4>VIP Tables (Front Row)</h4>
+                            <p>$50.00 (+ fees) - Includes 2 drink minimum waiver</p>
+                        </div>
+                        <div class="quantity-control">
+                            <button type="button" class="qty-btn" data-action="decrease" data-type="vip">-</button>
+                            <input type="number" id="qty-vip" value="0" min="0" max="4" readonly aria-label="VIP Quantity">
+                            <button type="button" class="qty-btn" data-action="increase" data-type="vip">+</button>
+                        </div>
+                    </div>
+
+                    <div class="summary-box">
+                        <div class="summary-row"><span>Total Tickets:</span> <strong id="total-qty">1</strong></div>
+                        <div class="summary-row"><span>Subtotal:</span> <strong id="subtotal-price">$25.00</strong></div>
+                        <hr style="border: none; border-top: 1px solid var(--border); margin: var(--space-2) 0;">
+                        <div class="summary-row" style="font-size: 1.25rem;"><span>Total:</span> <strong id="total-price" style="color: var(--accent);">$28.50</strong></div>
+                    </div>
+
+                    <button class="btn btn-primary" id="btn-next-to-2" style="width: 100%; margin-top: var(--space-4);">Continue</button>
+                </div>
+
+                <!-- Step 2: Personal Details -->
+                <div class="booking-step-content" id="step2">
+                    <h3>Your Information</h3>
+                    <form id="details-form">
+                        <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                            <div class="form-group" style="flex: 1; min-width: 200px;">
+                                <label class="form-label" for="fname">First Name</label>
+                                <input type="text" id="fname" class="form-control" required>
+                            </div>
+                            <div class="form-group" style="flex: 1; min-width: 200px;">
+                                <label class="form-label" for="lname">Last Name</label>
+                                <input type="text" id="lname" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="email">Email Address</label>
+                            <input type="email" id="email" class="form-control" required>
+                            <span class="form-feedback" id="email-error">Please enter a valid email.</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="phone">Phone Number (Optional)</label>
+                            <input type="tel" id="phone" class="form-control">
+                        </div>
+
+                        <div style="display: flex; gap: var(--space-3); margin-top: var(--space-4);">
+                            <button type="button" class="btn btn-outline" id="btn-back-to-1" style="flex: 1;">Back</button>
+                            <button type="submit" class="btn btn-primary" style="flex: 1;">Proceed to Payment</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Step 3: Payment -->
+                <div class="booking-step-content" id="step3">
+                    <h3>Payment</h3>
+                    <p>Total to pay: <strong class="display-total-price" style="color: var(--accent);">$28.50</strong></p>
+                    
+                    <div class="form-group" style="margin-top: var(--space-4);">
+                        <label class="form-label">Name on Card</label>
+                        <input type="text" class="form-control" placeholder="Jane Doe" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Card Number</label>
+                        <input type="text" class="form-control" placeholder="**** **** **** ****" required>
+                    </div>
+                    
+                    <div style="display: flex; gap: var(--space-3);">
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label">Expiry Date</label>
+                            <input type="text" class="form-control" placeholder="MM/YY" required>
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label">CVC</label>
+                            <input type="text" class="form-control" placeholder="123" required>
+                        </div>
+                    </div>
+
+                    <!-- Payment Provider Placeholder -->
+                    <div style="text-align: center; margin: var(--space-4) 0; color: var(--text-secondary); border: 1px dashed var(--border); padding: var(--space-3);">
+                        <em>Stripe / PayPal Integration Placeholder</em>
+                    </div>
+
+                    <div style="display: flex; gap: var(--space-3); margin-top: var(--space-4);">
+                        <button type="button" class="btn btn-outline" id="btn-back-to-2" style="flex: 1;">Back</button>
+                        <button type="button" class="btn btn-primary" id="btn-pay" style="flex: 1;">Pay Now</button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Confirmation -->
+                <div class="booking-step-content" id="step4" style="text-align: center;">
+                    <div style="font-size: 3rem; color: var(--success); margin-bottom: var(--space-3);">✅</div>
+                    <h2>Booking Confirmed!</h2>
+                    <p style="font-size: 1.125rem;">Thank you! Your tickets have been sent to <strong id="confirm-email">your email</strong>.</p>
+                    
+                    <div class="summary-box" style="text-align: left; max-width: 400px; margin: var(--space-6) auto;">
+                        <p><strong>Order ID:</strong> #CH-892348A</p>
+                        <p id="confirm-event"><strong>Event:</strong> Friday Night Spectacular</p>
+                        <p id="confirm-date"><strong>Date:</strong> Fri, Oct 24, 8:00 PM</p>
+                        <hr style="border: none; border-top: 1px solid var(--border); margin: var(--space-2) 0;">
+                        <p><strong>Total Paid:</strong> <span class="display-total-price"></span></p>
+                    </div>
+
+                    <a href="dashboard/user.html" class="btn btn-outline" style="margin-right: var(--space-2);">View Dashboard</a>
+                    <a href="index.html" class="btn btn-primary">Return Home</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-6); margin-bottom: var(--space-6);">
+                
+                <!-- Brand & Description -->
+                <div>
+                    <a href="index.html" class="nav-brand" style="margin-bottom: var(--space-3); color: var(--text-primary); text-decoration: none;">
+                        <img src="assets/logo/logo-transparent.svg" alt="Comedy Hub Logo" class="logo-img" style="width: 1.2em; height: 1.2em; filter: drop-shadow(0 0 2px rgba(255,255,255,0.2));">
+                        The Comedy Hub
+                    </a>
+                    <p style="color: var(--text-secondary); margin-bottom: var(--space-4); line-height: 1.6;">The premium destination for live stand-up comedy in the heart of the city. Join us for unforgettable nights of laughter, featuring top-tier headliners and rising stars.</p>
+                    <div style="display: flex; gap: var(--space-3);">
+                        <a href="#" class="social-icon" aria-label="Twitter">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 style="margin-bottom: var(--space-4); font-size: 1.125rem;">Quick Links</h4>
+                    <ul style="display: flex; flex-direction: column; gap: var(--space-3); list-style: none; padding: 0;">
+                        <li><a href="index.html" class="footer-link">Home</a></li>
+                        <li><a href="shows.html" class="footer-link">Shows & Tickets</a></li>
+                        <li><a href="comedians.html" class="footer-link">Comedians</a></li>
+                        <li><a href="contact.html" class="footer-link">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Details -->
+                <div>
+                    <h4 style="margin-bottom: var(--space-4); font-size: 1.125rem;">Contact Us</h4>
+                    <ul style="display: flex; flex-direction: column; gap: var(--space-3); list-style: none; padding: 0; color: var(--text-secondary);">
+                        <li style="display: flex; align-items: center; gap: var(--space-2);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                        <li style="display: flex; align-items: center; gap: var(--space-2);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                            <a href="mailto:hello@thecomedyhub.example.com" class="footer-link">hello@thecomedyhub.example.com</a>
+                        </li>
+                        <li style="display: flex; align-items: center; gap: var(--space-2);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            <span>123 Laugh Avenue, NY 10001</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            
+            <div style="text-align: center; border-top: 1px solid var(--border); padding-top: var(--space-4); color: var(--text-secondary); margin-top: var(--space-6);">
+                <p style="margin: 0;">&copy; 2026 The Comedy Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/booking.js"></script>
+</body>
+</html>

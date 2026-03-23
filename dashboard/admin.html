@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - The Comedy Hub</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/rtl.css" media="all">
+    
+    <style>
+        body { background-color: var(--bg-primary); }
+
+        .dashboard-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: var(--space-4);
+            position: sticky;
+            top: 0; height: 100vh;
+        }
+
+        .sidebar-brand {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--accent);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            margin-bottom: var(--space-8);
+            font-weight: 700;
+        }
+
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+            flex: 1;
+        }
+
+        .sidebar-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: var(--space-3) var(--space-4);
+            border-radius: var(--radius-md);
+            transition: all var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            font-weight: 500;
+        }
+
+        .sidebar-link:hover, .sidebar-link.active {
+            background-color: rgba(192, 132, 252, 0.1);
+            color: var(--accent);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: var(--space-6);
+            overflow-y: auto;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-8);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+        
+        .user-profile img {
+            width: 40px; height: 40px; border-radius: 50%; object-fit: cover;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-4);
+            margin-bottom: var(--space-8);
+        }
+
+        .stat-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+        }
+
+        .stat-card h3 {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: var(--space-2);
+        }
+
+        .stat-card .value {
+            font-size: 2rem;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .stat-card .trend {
+            font-size: 0.875rem;
+            color: var(--success);
+            margin-top: var(--space-2);
+        }
+
+        /* Table */
+        .table-container {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: var(--space-3) var(--space-4);
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            background-color: rgba(0,0,0,0.2);
+        }
+
+        tr:last-child td { border-bottom: none; }
+
+        .status-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-success { background-color: rgba(34, 197, 94, 0.1); color: var(--success); }
+        .status-warning { background-color: rgba(245, 158, 11, 0.1); color: var(--warning); }
+
+        /* Mobile Sidebar Toggle */
+        .mobile-toggle {
+            display: none;
+            background: none; border: none; color: var(--text-primary); cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: -250px;
+                z-index: var(--z-drawer);
+                transition: left var(--transition-normal);
+            }
+            .sidebar.active { left: 0; }
+            .mobile-toggle { display: block; }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <a href="../index.html" class="sidebar-brand">
+                <img src="../assets/logo/logo-transparent.svg" alt="Comedy Hub Logo" style="width: 1.2em; height: 1.2em;">
+                The Comedy Hub
+            </a>
+
+            <nav class="sidebar-menu">
+                <a href="admin.html" class="sidebar-link active"><span>📊</span> Overview</a>
+                <a href="#" class="sidebar-link"><span>🎟️</span> Bookings</a>
+                <a href="#" class="sidebar-link"><span>🎭</span> Events</a>
+                <a href="#" class="sidebar-link"><span>👥</span> Users</a>
+                <a href="#" class="sidebar-link"><span>📈</span> Reports</a>
+            </nav>
+
+            <a href="../index.html" class="sidebar-link" style="margin-top: auto;"><span>🚪</span> Back to Site</a>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="top-bar">
+                <div style="display: flex; align-items: center; gap: var(--space-4);">
+                    <button class="mobile-toggle" id="sidebar-toggle" aria-label="Toggle Menu">
+                        <img src="../assets/logo/logo-transparent.svg" alt="Comedy Hub Logo" style="width: 1.2em; height: 1.2em;">
+                    </button>
+                    <h2>Admin Dashboard</h2>
+                </div>
+                
+                <div class="user-profile">
+                    <div style="text-align: right;">
+                        <h4 style="margin: 0; font-size: 0.875rem;">Admin User</h4>
+                        <span style="font-size: 0.75rem; color: var(--text-secondary);">admin@comedyhub.ex</span>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150" alt="Admin" loading="lazy">
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total Revenue (Monthly)</h3>
+                    <div class="value">$45,230</div>
+                    <div class="trend">↑ +12.5% vs last month</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Tickets Sold</h3>
+                    <div class="value">1,450</div>
+                    <div class="trend">↑ +5.2% vs last month</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Active Events</h3>
+                    <div class="value">24</div>
+                    <div class="trend" style="color: var(--text-secondary);">3 events this week</div>
+                </div>
+                <div class="stat-card">
+                    <h3>New Users</h3>
+                    <div class="value">340</div>
+                    <div class="trend">↑ +18% vs last month</div>
+                </div>
+            </div>
+
+            <!-- Recent Bookings Table -->
+            <h3 style="margin-bottom: var(--space-3);">Recent Bookings</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Event</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#CH-892A</td>
+                            <td>John Smith</td>
+                            <td>Friday Night Spec.</td>
+                            <td>Oct 20, 2026</td>
+                            <td>$50.00</td>
+                            <td><span class="status-badge status-success">Confirmed</span></td>
+                        </tr>
+                        <tr>
+                            <td>#CH-891B</td>
+                            <td>Emily Davis</td>
+                            <td>Late Night Uncensored</td>
+                            <td>Oct 20, 2026</td>
+                            <td>$40.00</td>
+                            <td><span class="status-badge status-success">Confirmed</span></td>
+                        </tr>
+                        <tr>
+                            <td>#CH-890C</td>
+                            <td>Michael Brown</td>
+                            <td>Monday Open Mic</td>
+                            <td>Oct 19, 2026</td>
+                            <td>$10.00</td>
+                            <td><span class="status-badge status-warning">Pending</span></td>
+                        </tr>
+                        <tr>
+                            <td>#CH-889D</td>
+                            <td>Sarah Wilson</td>
+                            <td>Halloween Roast</td>
+                            <td>Oct 19, 2026</td>
+                            <td>$60.00</td>
+                            <td><span class="status-badge status-success">Confirmed</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toggle Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.getElementById('sidebar');
+            const toggleBtn = document.getElementById('sidebar-toggle');
+            
+            if(toggleBtn) {
+                toggleBtn.addEventListener('click', () => {
+                    sidebar.classList.toggle('active');
+                });
+            }
+
+            document.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768 && !sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
