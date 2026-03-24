@@ -245,12 +245,38 @@
             background-color: var(--bg-primary);
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
-            padding: var(--space-5);
+            padding: var(--space-6);
             transition: all var(--transition-normal);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
         .highlight-card:hover {
             border-color: var(--accent);
-            transform: translateY(-2px);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-glow);
+        }
+        .highlight-footer {
+            margin-top: auto;
+            padding-top: var(--space-4);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        .highlight-btn {
+            color: var(--accent);
+            font-weight: 600;
+            text-decoration: none;
+            padding: var(--space-1) var(--space-3);
+            border: 1px solid var(--accent);
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            transition: all var(--transition-fast);
+        }
+        .highlight-btn:hover {
+            background-color: var(--accent);
+            color: #000;
         }
 
         .vip-alert {
@@ -365,21 +391,21 @@
 
                 <div class="highlight-grid">
                     <div class="highlight-card">
-                        <span class="tag" style="background: transparent; padding: 0; border: none; font-size: 0.75rem; margin-bottom: var(--space-1);">Wed Oct 22 • 8:00 PM</span>
+                        <span class="tag" style="background: transparent; padding: 0; border: none; font-size: 0.75rem; margin-bottom: var(--space-1); opacity: 0.8;">Wed Oct 22 • 8:00 PM</span>
                         <h3 style="margin-bottom: var(--space-1); font-size: 1.25rem;">Mid-Week Laugh Riot</h3>
-                        <p style="color: var(--text-secondary); margin-bottom: var(--space-3); font-size: 0.875rem;">Break up the work week with 4 pro comics testing their sharper material.</p>
-                        <div style="display:flex; justify-content: space-between; align-items: center;">
-                            <span style="font-weight: bold;">$15</span>
-                            <a href="booking.html" style="color: var(--accent); font-weight: 500; text-decoration: none;">Book Box &rarr;</a>
+                        <p style="color: var(--text-secondary); margin-bottom: var(--space-3); font-size: 0.875rem; line-height: 1.6;">Break up the work week with 4 pro comics testing their sharper material and pushing boundaries.</p>
+                        <div class="highlight-footer">
+                            <span style="font-weight: bold; font-size: 1.25rem;">$15</span>
+                            <a href="booking.html" class="highlight-btn">Book Box &rarr;</a>
                         </div>
                     </div>
                     <div class="highlight-card">
-                        <span class="tag" style="background: transparent; padding: 0; border: none; font-size: 0.75rem; margin-bottom: var(--space-1);">Fri Oct 24 • 9:30 PM</span>
+                        <span class="tag" style="background: transparent; padding: 0; border: none; font-size: 0.75rem; margin-bottom: var(--space-1); opacity: 0.8;">Fri Oct 24 • 9:30 PM</span>
                         <h3 style="margin-bottom: var(--space-1); font-size: 1.25rem;">Mainroom Mayhem</h3>
-                        <p style="color: var(--text-secondary); margin-bottom: var(--space-3); font-size: 0.875rem;">Fast-paced crowd work and heavy-hitting sets from regional favorites.</p>
-                        <div style="display:flex; justify-content: space-between; align-items: center;">
-                            <span style="font-weight: bold;">$25</span>
-                            <a href="booking.html" style="color: var(--accent); font-weight: 500; text-decoration: none;">Book VIP &rarr;</a>
+                        <p style="color: var(--text-secondary); margin-bottom: var(--space-3); font-size: 0.875rem; line-height: 1.6;">Fast-paced crowd work and heavy-hitting sets from our favorite regional acts.</p>
+                        <div class="highlight-footer">
+                            <span style="font-weight: bold; font-size: 1.25rem;">$25</span>
+                            <a href="booking.html" class="highlight-btn">Book VIP &rarr;</a>
                         </div>
                     </div>
                 </div>
