@@ -25,44 +25,73 @@
     <link rel="stylesheet" href="assets/css/rtl.css" media="all">
     
     <style>
-        /* Redesigned Hero Home 2 */
+        /* Redesigned Hero Split Layout for Home 2 */
         .hero-v2 {
-            position: relative;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
             min-height: calc(100vh - var(--navbar-height));
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background-color: var(--bg-primary);
             overflow: hidden;
-            padding: var(--space-12) 0;
-            background: linear-gradient(to bottom, rgba(2, 6, 23, 0.8), var(--bg-primary)), url('https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&q=80&w=1920') center/cover no-repeat;
-            text-align: center;
         }
 
         .hero-v2-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: var(--space-12) var(--space-8);
+            text-align: left;
             position: relative;
-            z-index: 2;
-            max-width: 800px;
-            margin: 0 auto;
+        }
+
+        .hero-v2-image {
+            background: url('https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&q=80&w=1920') center/cover no-repeat;
+            width: 100%;
+            height: 100%;
+            border-left: 1px solid var(--border);
+            position: relative;
+        }
+
+        .hero-v2-image::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(2, 6, 23, 0.2) 100%);
         }
 
         .hero-v2 h1 {
-            font-size: clamp(3rem, 6vw, 5rem);
+            font-size: clamp(2.5rem, 5vw, 4rem);
             margin-bottom: var(--space-4);
-            text-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
             line-height: 1.1;
+            font-weight: 800;
         }
 
         .hero-v2 .subtitle {
-            font-size: 1.25rem;
+            font-size: clamp(1rem, 2vw, 1.25rem);
             color: var(--text-secondary);
             margin-bottom: var(--space-8);
+            max-width: 600px;
         }
 
         .hero-v2-actions {
             display: flex;
             gap: var(--space-4);
-            justify-content: center;
             flex-wrap: wrap;
+        }
+
+        @media (max-width: 992px) {
+            .hero-v2 {
+                grid-template-columns: 1fr;
+            }
+            .hero-v2-content {
+                padding: var(--space-8) var(--space-6);
+                text-align: center;
+                align-items: center;
+            }
+            .hero-v2-image {
+                min-height: 350px;
+                border-left: none;
+                border-top: 1px solid var(--border);
+            }
         }
 
         /* Categories Section */
@@ -288,15 +317,18 @@
     <main id="main-content">
         <!-- Redesigned Hero Section (Similar to Home 1) -->
         <section class="hero-v2">
-            <div class="container hero-v2-content">
-                <span class="tag">#1 Comedy Club in NY</span>
-                <h1>Laughter is the Best Medicine</h1>
-                <p class="subtitle">Catch the most hilarious acts in town in an intimate, premium setting. Whether it's date night or a group outing, we guarantee a great time.</p>
-                <div class="hero-v2-actions">
-                    <a href="#upcoming" class="btn btn-primary">See Upcoming</a>
-                    <a href="about.html" class="btn btn-outline">Our Story</a>
+            <div class="hero-v2-content">
+                <div class="container" style="padding: 0; margin: 0; max-width: none;">
+                    <span class="tag">#1 Comedy Club in NY</span>
+                    <h1>Laughter is the Best Medicine</h1>
+                    <p class="subtitle">Catch the most hilarious acts in town in an intimate, premium setting. Whether it's date night or a group outing, we guarantee a great time.</p>
+                    <div class="hero-v2-actions">
+                        <a href="#upcoming" class="btn btn-primary">See Upcoming</a>
+                        <a href="about.html" class="btn btn-outline">Our Story</a>
+                    </div>
                 </div>
             </div>
+            <div class="hero-v2-image" aria-hidden="true"></div>
         </section>
 
         <!-- Immediately Highlight Upcoming Events -->

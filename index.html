@@ -221,7 +221,22 @@
 
         .newsletter-form input {
             flex: 1;
-            min-width: 250px;
+            min-width: 150px;
+        }
+
+        @media (max-width: 576px) {
+            .newsletter-section {
+                padding: var(--space-6) var(--space-4);
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-form input {
+                width: 100%;
+                min-width: 0;
+            }
         }
     </style>
 </head>
@@ -239,11 +254,10 @@
 
             <nav class="nav-menu" aria-label="Main Navigation">
                 <div class="nav-item"><a href="index.html" class="nav-link active">Home</a></div>
-                <div class="nav-item"><a href="home-2.html" class="nav-link">Home 2</a></div>
-                <div class="nav-item"><a href="about.html" class="nav-link">About</a></div>
                 <div class="nav-item"><a href="shows.html" class="nav-link">Shows</a></div>
                 <div class="nav-item"><a href="booking.html" class="nav-link">Booking</a></div>
                 <div class="nav-item"><a href="comedians.html" class="nav-link">Comedians</a></div>
+                <div class="nav-item"><a href="about.html" class="nav-link">About</a></div>
                 <div class="nav-item"><a href="contact.html" class="nav-link">Contact</a></div>
                 <div class="nav-item mobile-only"><a href="login.html" class="nav-link">Login</a></div>
                 <div class="nav-item mobile-only"><a href="signup.html" class="nav-link">Sign Up</a></div>
@@ -334,6 +348,20 @@
                         <div
                             style="display: flex; justify-content: space-between; align-items: center; margin-top: var(--space-3);">
                             <div style="font-weight: 600;">Sat, Oct 25 • 11:00 PM</div>
+                            <a href="booking.html" class="btn btn-primary" style="padding: 0.5rem 1rem;">Book Now</a>
+                        </div>
+                    </article>
+
+                    <!-- Show Card 4 -->
+                    <article class="card">
+                        <img src="https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg"
+                            alt="Rising Stars Showcase" class="card-img-top skeleton" loading="lazy">
+                        <span class="tag">Showcase</span>
+                        <h3 class="card-title">Rising Stars Showcase</h3>
+                        <p class="card-text">Catch the next generation of icons. A curated lineup of the funniest up-and-comers.</p>
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-top: var(--space-3);">
+                            <div style="font-weight: 600;">Sun, Oct 26 • 7:00 PM</div>
                             <a href="booking.html" class="btn btn-primary" style="padding: 0.5rem 1rem;">Book Now</a>
                         </div>
                     </article>
@@ -614,8 +642,8 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div
-                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-6); margin-bottom: var(--space-6);">
+        <div class="container">
+            <div class="footer-grid">
 
                 <!-- Brand & Description -->
                 <div>
