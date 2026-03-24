@@ -229,9 +229,23 @@
             color: #fff;
         }
 
-        .cta-banner h2 { color: #fff; }
-        .cta-banner .btn { background-color: #000; color: #fff; border: none; }
-        .cta-banner .btn:hover { background-color: rgba(0,0,0,0.8); }
+        .cta-banner h2 { color: #fff; margin-bottom: var(--space-2); }
+        .cta-banner .btn { 
+            background-color: #000; 
+            color: #fff; 
+            border: 1px solid #000;
+            transition: all var(--transition-normal);
+            padding: var(--space-3) var(--space-8);
+            font-weight: 600;
+        }
+
+        .cta-banner .btn:hover { 
+            background-color: #fff; 
+            color: #000; 
+            border-color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
     </style>
 </head>
 <body>
