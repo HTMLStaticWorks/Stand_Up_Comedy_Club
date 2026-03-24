@@ -166,10 +166,19 @@
         }
 
         .calendar-day:nth-child(7n) { border-right: none; }
-        .calendar-day:hover { background-color: rgba(251, 191, 36, 0.1); }
-        .calendar-day.active { background-color: rgba(251, 191, 36, 0.15); border: 2px solid var(--accent); z-index: 10; }
+        .calendar-day:hover:not(.empty) { 
+            background-color: rgba(251, 191, 36, 0.25); 
+            transform: scale(1.02);
+            z-index: 5;
+        }
+        .calendar-day.active { 
+            background-color: rgba(251, 191, 36, 0.35); 
+            border: 2px solid var(--accent); 
+            z-index: 10; 
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
+        }
         .calendar-day.empty { background-color: var(--bg-primary); cursor: default; }
-        .calendar-day.empty:hover { background-color: var(--bg-primary); }
+        .calendar-day.empty:hover { background-color: var(--bg-primary); transform: none; }
 
         .day-num {
             font-size: 1rem;
@@ -244,6 +253,19 @@
             transform: translateY(-2px);
         }
 
+        .vip-alert {
+            display: inline-block;
+            color: var(--accent);
+            font-weight: 700;
+            margin-top: var(--space-2);
+            transition: all var(--transition-fast);
+            cursor: default;
+        }
+        .vip-alert:hover {
+            color: #fff;
+            transform: scale(1.05);
+            text-shadow: 0 0 10px var(--accent);
+        }
     </style>
 </head>
 <body>
@@ -320,7 +342,7 @@
                 <!-- Event Details Panel (Below Calendar) -->
                 <div style="max-width: 800px; margin: 0 auto;">
                     <div id="event-panel">
-                        <h3 id="selected-date-lbl" style="margin-bottom: var(--space-4); border-bottom: 2px solid var(--bg-secondary); padding-bottom: var(--space-3);">Select a highlighted date</h3>
+                        <h3 id="selected-date-lbl" style="margin-bottom: var(--space-4); border-bottom: 2px solid var(--bg-secondary); padding-bottom: var(--space-3); text-align: center;">Select a highlighted date</h3>
                         <div id="events-container" class="show-list">
                             <!-- Events injected here -->
                         </div>
@@ -377,7 +399,7 @@
                         <span class="tag" style="align-self: flex-start; background: rgba(255,255,255,0.1); color: #fff; border-color: transparent;">Featured Headliner</span>
                         <h2 style="font-size: 2rem; margin: var(--space-2) 0;">The Comedy Hub 5th Anniversary</h2>
                         <p style="color: rgba(255,255,255,0.8); font-size: 1.125rem; max-width: 500px;">Celebrating half a decade of laughs. Secret celebrity drop-ins, legendary surprise sets, and a massive afterparty.</p>
-                        <p style="color: var(--accent); font-weight: 600; margin-top: var(--space-2); margin-bottom: 0;">Only 40 VIP tables remaining!</p>
+                        <p class="vip-alert">Only 40 VIP tables remaining!</p>
                     </div>
                     <div class="show-actions" style="background: transparent; border-left: none; padding: var(--space-6) var(--space-4);">
                         <a href="booking.html" class="btn btn-primary" style="box-shadow: 0 0 15px rgba(251, 191, 36, 0.4);">Secure Tickets</a>
