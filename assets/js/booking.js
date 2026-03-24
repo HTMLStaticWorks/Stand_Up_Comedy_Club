@@ -2,14 +2,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Pricing Configuration
     const PRICES = {
         ga: 25.00,
-        vip: 50.00
+        vip: 50.00,
+        student: 15.00,
+        group: 80.00,
+        backstage: 100.00
     };
     const FEES_PERCENTAGE = 0.10; // 10% fee
     const FIXED_FEE = 1.00;
 
     // DOM Elements
-    const qtyGaInput = document.getElementById('qty-ga');
-    const qtyVipInput = document.getElementById('qty-vip');
     const totalQtyEl = document.getElementById('total-qty');
     const subtotalEl = document.getElementById('subtotal-price');
     const totalEl = document.getElementById('total-price');
@@ -39,13 +40,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Quantity & Pricing Logic ---
     function updatePricing() {
-        const qtyGa = parseInt(qtyGaInput.value) || 0;
-        const qtyVip = parseInt(qtyVipInput.value) || 0;
-        const totalQty = qtyGa + qtyVip;
+        let totalQty = 0;
+        let subtotal = 0;
 
-        const gaPrice = qtyGa * PRICES.ga;
-        const vipPrice = qtyVip * PRICES.vip;
-        const subtotal = gaPrice + vipPrice;
+        Object.keys(PRICES).forEach(type => {
+            const input = document.getElementById('qty-' + type);
+            if (input) {
+                const qty = parseInt(input.value) || 0;
+                totalQty += qty;
+                subtotal += qty * PRICES[type];
+            }
+        });
 
         let total = 0;
         if (totalQty > 0) {
@@ -80,7 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => {
             const action = btn.getAttribute('data-action');
             const type = btn.getAttribute('data-type');
-            const input = type === 'ga' ? qtyGaInput : qtyVipInput;
+            const input = document.getElementById('qty-' + type);
+            if (!input) return;
             
             let currentVal = parseInt(input.value);
             let min = parseInt(input.getAttribute('min')) || 0;
@@ -96,9 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Initial Pricing Setup
-    if(qtyGaInput && qtyVipInput) {
-        updatePricing();
-    }
+    updatePricing();
 
     // --- Step Navigation Logic ---
     function showStep(stepIndex) {

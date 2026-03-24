@@ -386,11 +386,12 @@
 /* Global Page Hero aligned perfectly to index.html .hero */
 .page-hero {
   position: relative;
-  min-height: calc(100vh - var(--navbar-height));
+  min-height: clamp(400px, 60vh, 800px); /* More appropriate for sub-pages */
   display: flex;
   align-items: center;
+  justify-content: center;
   overflow: hidden;
-  padding: var(--space-8) 0;
+  padding: var(--space-12) 0;
   text-align: center;
   background-size: cover;
   background-position: center;
@@ -401,14 +402,20 @@
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(to bottom, rgba(2, 6, 23, 0.9) 0%, rgba(2, 6, 23, 0.7) 100%);
+  /* Multi-stage gradient for maximum readability: Dark at top/bottom, slightly clearer in center */
+  background: linear-gradient(to bottom, 
+      rgba(2, 6, 23, 0.95) 0%, 
+      rgba(2, 6, 23, 0.75) 50%, 
+      rgba(2, 6, 23, 0.95) 100%),
+    rgba(2, 6, 23, 0.4); /* Solid fallback darkness */
   z-index: 1;
 }
 .page-hero::after {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: radial-gradient(circle at center, rgba(251, 191, 36, 0.25) 0%, transparent 80%);
+  /* Targeted center glow that doesn't wash out text */
+  background: radial-gradient(circle at center, rgba(251, 191, 36, 0.1) 0%, transparent 70%);
   z-index: 1;
 }
 .page-hero-content {
@@ -419,30 +426,46 @@
   text-align: center;
 }
 .page-hero-title {
-  font-size: clamp(3rem, 6vw, 5rem);
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
   margin-bottom: var(--space-4);
-  color: #fff;
-  text-shadow: 0 0 25px rgba(251, 191, 36, 0.5), 0 2px 4px rgba(0,0,0,0.8);
+  color: #fff !important;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8), 0 0 30px rgba(251, 191, 36, 0.4);
   line-height: 1.1;
   font-weight: 800;
 }
 .page-hero .subtitle {
-  font-size: 1.25rem;
-  color: #fff !important;
+  font-size: clamp(1rem, 3vw, 1.25rem);
+  color: rgba(255, 255, 255, 0.95) !important;
   opacity: 1;
   margin-bottom: var(--space-6);
-  max-width: 650px;
+  max-width: 700px;
   margin-left: auto;
   margin-right: auto;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
   line-height: 1.6;
 }
 .breadcrumb {
-  font-size: 1rem;
-  color: rgba(255,255,255,0.7);
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.8);
   font-weight: 500;
   position: relative;
   z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+}
+.breadcrumb a {
+  color: var(--accent) !important;
+  text-decoration: none;
+  font-weight: 600;
+}
+.breadcrumb a:hover {
+  color: #fff !important;
+  text-decoration: underline;
+}
+.breadcrumb span {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 /* Scroll-to-Top Button */
@@ -518,12 +541,9 @@
     height: 40px;
   }
 }
-.breadcrumb a {
-  color: var(--accent);
-  text-decoration: none;
-  transition: color var(--transition-fast);
-}
+/* Breadcrumb link hover handled in global .breadcrumb class */
 .breadcrumb a:hover {
-  color: #fff;
+  color: #fff !important;
+  text-shadow: 0 0 10px var(--accent);
 }
 

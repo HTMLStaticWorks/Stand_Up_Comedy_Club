@@ -229,6 +229,42 @@
                         </div>
                     </div>
 
+                    <div class="ticket-type">
+                        <div class="ticket-info">
+                            <h4>Student ticket</h4>
+                            <p>$15.00 (+ fees) - Valid ID required</p>
+                        </div>
+                        <div class="quantity-control">
+                            <button type="button" class="qty-btn" data-action="decrease" data-type="student">-</button>
+                            <input type="number" id="qty-student" value="0" min="0" max="10" readonly aria-label="Student Quantity">
+                            <button type="button" class="qty-btn" data-action="increase" data-type="student">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="ticket-type">
+                        <div class="ticket-info">
+                            <h4>Group Package</h4>
+                            <p>$80.00 (+ fees) - Admits 4 people</p>
+                        </div>
+                        <div class="quantity-control">
+                            <button type="button" class="qty-btn" data-action="decrease" data-type="group">-</button>
+                            <input type="number" id="qty-group" value="0" min="0" max="5" readonly aria-label="Group Quantity">
+                            <button type="button" class="qty-btn" data-action="increase" data-type="group">+</button>
+                        </div>
+                    </div>
+
+                    <div class="ticket-type">
+                        <div class="ticket-info">
+                            <h4>Backstage Pass</h4>
+                            <p>$100.00 (+ fees) - Meet and Greet</p>
+                        </div>
+                        <div class="quantity-control">
+                            <button type="button" class="qty-btn" data-action="decrease" data-type="backstage">-</button>
+                            <input type="number" id="qty-backstage" value="0" min="0" max="2" readonly aria-label="Backstage Quantity">
+                            <button type="button" class="qty-btn" data-action="increase" data-type="backstage">+</button>
+                        </div>
+                    </div>
+
                     <div class="summary-box">
                         <div class="summary-row"><span>Total Tickets:</span> <strong id="total-qty">1</strong></div>
                         <div class="summary-row"><span>Subtotal:</span> <strong id="subtotal-price">$25.00</strong></div>
@@ -323,6 +359,24 @@
 
                     <a href="dashboard/user.html" class="btn btn-outline" style="margin-right: var(--space-2);">View Dashboard</a>
                     <a href="index.html" class="btn btn-primary">Return Home</a>
+                </div>
+            </div>
+
+            <div class="booking-features" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-4); margin-top: var(--space-6); text-align: center; margin-bottom: var(--space-6);">
+                <div class="feature-item" style="background: var(--bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border);">
+                    <div style="font-size: 2rem; margin-bottom: var(--space-2);">🔒</div>
+                    <h4 style="margin-bottom: var(--space-2);">Secure Checkout</h4>
+                    <p style="font-size: 0.875rem; color: var(--text-secondary); margin: 0;">Your data is protected with 256-bit encryption for peace of mind.</p>
+                </div>
+                <div class="feature-item" style="background: var(--bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border);">
+                    <div style="font-size: 2rem; margin-bottom: var(--space-2);">⚡</div>
+                    <h4 style="margin-bottom: var(--space-2);">Instant Delivery</h4>
+                    <p style="font-size: 0.875rem; color: var(--text-secondary); margin: 0;">Get your mobile e-tickets delivered immediately to your inbox.</p>
+                </div>
+                <div class="feature-item" style="background: var(--bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--border);">
+                    <div style="font-size: 2rem; margin-bottom: var(--space-2);">🎭</div>
+                    <h4 style="margin-bottom: var(--space-2);">Guaranteed Fun</h4>
+                    <p style="font-size: 0.875rem; color: var(--text-secondary); margin: 0;">Join thousands of happy customers who booked an amazing night out.</p>
                 </div>
             </div>
         </div>

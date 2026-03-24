@@ -127,7 +127,9 @@
         }
 
         .comedian-card .card-img-top {
-            height: 300px;
+            height: 380px; /* Increased for better portrait visibility */
+            object-fit: cover;
+            object-position: top; /* Ensures faces are prioritized in portraits */
             margin-bottom: 0;
             border-bottom: 1px solid var(--border);
         }
