@@ -86,20 +86,26 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: var(--space-3);
+            padding: var(--space-4);
             border: 1px solid var(--border);
             border-radius: var(--radius-md);
             margin-bottom: var(--space-3);
             background-color: var(--bg-secondary);
+            gap: var(--space-4);
+            transition: border-color var(--transition-fast);
         }
 
-        .ticket-info h4 { margin: 0; }
-        .ticket-info p { margin: 0; font-size: 0.875rem; color: var(--text-secondary); }
+        .ticket-type:hover { border-color: var(--accent); }
+
+        .ticket-info { flex: 1; min-width: 150px; }
+        .ticket-info h4 { margin: 0 0 4px 0; font-size: 1.125rem; }
+        .ticket-info p { margin: 0; font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.4; }
 
         .quantity-control {
             display: flex;
             align-items: center;
             gap: var(--space-2);
+            flex-shrink: 0;
         }
 
         .quantity-control button {
@@ -138,6 +144,33 @@
             justify-content: space-between;
             margin-bottom: var(--space-2);
         }
+
+        @media (max-width: 576px) {
+            .ticket-type {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+                gap: var(--space-4);
+            }
+
+            .quantity-control {
+                justify-content: center;
+                width: 100%;
+                border-top: 1px solid var(--border);
+                padding-top: var(--space-4);
+                gap: var(--space-6);
+            }
+
+            .quantity-control button {
+                width: 44px;
+                height: 44px;
+            }
+
+            .quantity-control input {
+                width: 60px;
+                font-size: 1.25rem;
+            }
+        }
     </style>
 
     <link rel="icon" type="image/svg+xml" href="assets/logo/favicon-32x32.svg">
@@ -154,6 +187,7 @@
 
             <nav class="nav-menu" aria-label="Main Navigation">
                 <div class="nav-item"><a href="index.html" class="nav-link">Home</a></div>
+                <div class="nav-item"><a href="home-2.html" class="nav-link">Home 2</a></div>
                 <div class="nav-item"><a href="shows.html" class="nav-link">Shows</a></div>
                 <div class="nav-item"><a href="booking.html" class="nav-link active" aria-current="page">Booking</a></div>
                 <div class="nav-item"><a href="comedians.html" class="nav-link">Comedians</a></div>

@@ -1,143 +1,101 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // RTL Toggle Functionality (Enhanced for 100% Reliability)
-  const initRTL = () => {
-    const rtlToggles = document.querySelectorAll('.rtl-toggle');
-    const htmlRoot = document.documentElement;
+    // ---------------------------------------------------------
+    // 1. RTL Toggle System (Hardened Event Delegation)
+    // ---------------------------------------------------------
+    const syncRTL = (isRTL) => {
+        const dir = isRTL ? 'rtl' : 'ltr';
+        document.documentElement.setAttribute('dir', dir);
+        document.documentElement.dir = dir;
+        document.body.setAttribute('dir', dir);
+        document.body.dir = dir;
 
-    const setRTL = (isRTL) => {
-      if (isRTL) {
-        htmlRoot.setAttribute('dir', 'rtl');
-        document.body.setAttribute('dir', 'rtl');
-        rtlToggles.forEach(btn => btn.classList.add('active'));
-      } else {
-        htmlRoot.setAttribute('dir', 'ltr');
-        document.body.setAttribute('dir', 'ltr');
-        rtlToggles.forEach(btn => btn.classList.remove('active'));
-      }
-      
-      try {
+        document.querySelectorAll('.rtl-toggle').forEach(btn => {
+            btn.classList.toggle('active', isRTL);
+        });
+
         localStorage.setItem('rtl_pref', isRTL ? 'true' : 'false');
-      } catch (e) {
-        console.error("Storage Error:", e);
-      }
     };
 
-    // Load preference
-    let isRTLPref = false;
-    try {
-      isRTLPref = localStorage.getItem('rtl_pref') === 'true';
-    } catch (e) {}
+    // Load and Apply RTL Preference
+    const savedRTL = localStorage.getItem('rtl_pref') === 'true';
+    syncRTL(savedRTL);
 
-    // Apply immediately to avoid flash
-    setRTL(isRTLPref);
-
-    // Attach listeners
-    rtlToggles.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const currentRTL = htmlRoot.getAttribute('dir') === 'rtl';
-        setRTL(!currentRTL);
-      });
-    });
-  };
-
-  initRTL();
-
-  // Mobile / Tablet Navigation Toggle
-  const hamburger = document.querySelector('.hamburger');
-  const navMenu = document.querySelector('.nav-menu');
-  const navLinks = document.querySelectorAll('.nav-link');
-
-  if (hamburger && navMenu) {
-    hamburger.addEventListener('click', () => {
-      const isActive = hamburger.classList.toggle('active');
-      navMenu.classList.toggle('active');
-      hamburger.setAttribute('aria-expanded', isActive);
-      
-      // Accessibility update
-      if(isActive) {
-        navMenu.setAttribute('aria-hidden', 'false');
-      } else {
-        navMenu.setAttribute('aria-hidden', 'true');
-      }
-    });
-
-    // Close menu when a link is clicked
-    navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-        hamburger.setAttribute('aria-expanded', 'false');
-        navMenu.setAttribute('aria-hidden', 'true');
-      });
-    });
-
-    // Close menu when clicking outside
+    // Global Click Listener for RTL Toggles
     document.addEventListener('click', (e) => {
-      if (!navMenu.contains(e.target) && !hamburger.contains(e.target) && navMenu.classList.contains('active')) {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-        hamburger.setAttribute('aria-expanded', 'false');
-        navMenu.setAttribute('aria-hidden', 'true');
-      }
+        const btn = e.target.closest('.rtl-toggle');
+        if (btn) {
+            e.preventDefault();
+            const currentlyRTL = document.documentElement.getAttribute('dir') === 'rtl';
+            syncRTL(!currentlyRTL);
+        }
     });
-  }
 
-  // Dark and Light Mode Toggle with System Detection
-  const themeToggle = document.querySelector('.theme-toggle');
-  const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    // ---------------------------------------------------------
+    // 2. Theme Toggle System (Reliability Fix)
+    // ---------------------------------------------------------
+    const updateThemeIcon = (theme) => {
+        const themeToggle = document.querySelector('.theme-toggle');
+        if (!themeToggle) return;
 
-  // Determine current theme
-  const currentTheme = localStorage.getItem('theme') || 
-                      (prefersDarkScheme.matches ? 'dark' : 'light');
-  
-  // Set initial theme
-  document.documentElement.setAttribute('data-theme', currentTheme);
-  updateThemeIcon(currentTheme);
+        if (theme === 'dark') {
+            themeToggle.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><span class="sr-only">Toggle Light Mode</span>`;
+        } else {
+            themeToggle.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg><span class="sr-only">Toggle Dark Mode</span>`;
+        }
+    };
 
-  if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-      let theme = document.documentElement.getAttribute('data-theme');
-      let newTheme = theme === 'dark' ? 'light' : 'dark';
-      
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-      updateThemeIcon(newTheme);
+    const setTheme = (theme) => {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        updateThemeIcon(theme);
+    };
+
+    // Load and Apply Theme Preference
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const savedTheme = localStorage.getItem('theme') || (prefersDark.matches ? 'dark' : 'light');
+    setTheme(savedTheme);
+
+    // Global Click Listener for Theme Toggles
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.theme-toggle');
+        if (btn) {
+            e.preventDefault();
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        }
     });
-  }
 
-  function updateThemeIcon(theme) {
-    if(!themeToggle) return;
-    // Replace content or icons based on theme
-    if (theme === 'dark') {
-      themeToggle.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><span class="sr-only">Toggle Light Mode</span>`;
-    } else {
-      themeToggle.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg><span class="sr-only">Toggle Dark Mode</span>`;
+    // ---------------------------------------------------------
+    // 3. Navigation & Miscellaneous
+    // ---------------------------------------------------------
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', () => {
+            const isActive = hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', isActive);
+            navMenu.setAttribute('aria-hidden', !isActive);
+        });
+
+        // Close menu when a link is clicked
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.nav-link')) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
     }
-  }
 
-  // System theme changes listener
-  prefersDarkScheme.addEventListener('change', (e) => {
-    if(!localStorage.getItem('theme')) {
-      const newTheme = e.matches ? 'dark' : 'light';
-      document.documentElement.setAttribute('data-theme', newTheme);
-      updateThemeIcon(newTheme);
+    // Skeleton Loader Simulation
+    const skeletonElements = document.querySelectorAll('.skeleton');
+    if (skeletonElements.length > 0) {
+        setTimeout(() => {
+            skeletonElements.forEach(el => el.classList.remove('skeleton'));
+        }, 1500);
     }
-  });
-
-  // Skeleton Loader Simulation
-  const skeletonElements = document.querySelectorAll('.skeleton');
-  if (skeletonElements.length > 0) {
-    // Simulate data loading
-    setTimeout(() => {
-      skeletonElements.forEach(el => {
-        el.classList.remove('skeleton');
-        // If it was a placeholder div, you might reveal the actual content here
-        if(el.dataset.src) el.src = el.dataset.src;
-        if(el.dataset.text) el.textContent = el.dataset.text;
-      });
-    }, 1500); // 1.5s simulated delay
-  }
 
   // Newsletter Form Simulation
   const newsletterForm = document.getElementById('newsletter-form');
