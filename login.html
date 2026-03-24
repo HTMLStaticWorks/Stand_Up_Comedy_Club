@@ -208,19 +208,35 @@
 
         .has-error .form-feedback { display: block; }
         .has-error .form-control { border-color: #ff4d4d; background: rgba(255, 77, 77, 0.05); }
+
+        /* Responsive Toggles */
+        @media (max-width: 480px) {
+            .auth-toggles {
+                top: 0.75rem !important;
+                right: 0.75rem !important;
+                gap: 0.5rem !important;
+            }
+            .theme-toggle, .rtl-toggle {
+                transform: scale(0.85);
+            }
+        }
     </style>
 </head>
-<body style="position: relative;">
-    <button class="theme-toggle" aria-label="Toggle theme" style="position: fixed; top: var(--space-4); right: var(--space-4); z-index: 1000; background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(8px); border-radius: 50%; border: 1px solid var(--border); color: #fff;"></button>
+<body class="page-auth">
+    <!-- Floating Toggles (Replacing Header Actions) -->
+    <div class="auth-toggles" style="position: fixed; top: 1.5rem; right: 1.5rem; display: flex; gap: var(--space-2); z-index: var(--z-max);">
+        <button class="theme-toggle" aria-label="Toggle theme"></button>
+        <button class="rtl-toggle" aria-label="Toggle RTL mode">RTL</button>
+    </div>
 
-    <main class="auth-container">
+    <main class="auth-container" style="padding: var(--space-8) var(--space-4);">
         <div class="auth-card">
             <div class="auth-header" style="margin-bottom: var(--space-8);">
-                <a href="index.html" class="auth-logo" aria-label="Home" style="display: flex; flex-direction: row; align-items: center; justify-content: center; text-decoration: none; gap: var(--space-3);">
+                <a href="index.html" class="auth-logo" style="display: flex; flex-direction: row; align-items: center; justify-content: center; text-decoration: none; gap: var(--space-3); margin-bottom: var(--space-4);">
                     <img src="assets/logo/logo-transparent.svg" alt="The Comedy Hub logo" class="logo-img" width="52" height="52">
                     <span style="font-family: var(--font-heading); font-size: clamp(1.25rem, 4vw, 1.75rem); font-weight: 800; color: var(--accent); letter-spacing: 1px; white-space: nowrap;">The Comedy Hub</span>
                 </a>
-                <p class="auth-subtitle" style="margin-top: var(--space-4);">Sign in to book tickets and manage your account.</p>
+                <p class="auth-subtitle">Sign in to book tickets and manage your account.</p>
             </div>
 
             <form id="login-form" novalidate>
@@ -333,4 +349,5 @@
     </script>
 </body>
 </html>
+
 
