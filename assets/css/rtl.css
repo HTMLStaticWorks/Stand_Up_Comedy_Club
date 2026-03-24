@@ -1,10 +1,10 @@
 /* RTL Suppport */
 html[dir="rtl"] {
-  text-align: right;
+  direction: rtl;
 }
 
 html[dir="rtl"] body {
-  direction: rtl;
+  text-align: right;
 }
 
 /* Header & Nav */
@@ -20,6 +20,12 @@ html[dir="rtl"] .nav-brand {
 
 html[dir="rtl"] .nav-menu {
   flex-direction: row-reverse;
+  gap: var(--space-4);
+}
+
+html[dir="rtl"] .nav-brand img {
+  margin-right: 0;
+  margin-left: 0.75rem;
 }
 
 html[dir="rtl"] .nav-link.dropdown-toggle::after {
@@ -72,13 +78,19 @@ html[dir="rtl"] .testimonial-card {
 
 html[dir="rtl"] .footer li {
   display: flex;
-  flex-direction: row-reverse;
+  align-items: center;
   justify-content: flex-start;
   gap: var(--space-2);
 }
 
+html[dir="rtl"] .footer li svg {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 html[dir="rtl"] .footer-link {
   text-align: right;
+  display: inline-block;
 }
 
 /* Home 1 Specifics */
@@ -99,14 +111,37 @@ html[dir="rtl"] .hero-split-content {
 
 /* Buttons & Elements */
 html[dir="rtl"] .btn svg {
-  margin-left: 0.5rem;
-  margin-right: 0;
+  margin-left: 0;
+  margin-right: 0.5rem;
   transform: scaleX(-1);
+}
+
+html[dir="rtl"] .tag {
+    text-align: right;
 }
 
 html[dir="rtl"] .scroll-top-btn {
   right: auto;
   left: 2rem;
+}
+
+html[dir="rtl"] .scroll-top-btn {
+  right: auto;
+  left: 2rem;
+}
+
+/* Booking Page Specifics */
+html[dir="rtl"] .quantity-control {
+    flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .summary-row {
+    flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .progress-step .step-label {
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 @media (max-width: 768px) {

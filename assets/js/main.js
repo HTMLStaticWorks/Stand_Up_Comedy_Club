@@ -1,4 +1,47 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // RTL Toggle Functionality (Moved to top for robustness)
+  const rtlToggles = document.querySelectorAll('.rtl-toggle');
+  
+  const setRTL = (isRTL) => {
+    try {
+      if (isRTL) {
+        document.documentElement.setAttribute('dir', 'rtl');
+        document.body.dir = 'rtl';
+        localStorage.setItem('rtl', 'true');
+        rtlToggles.forEach(btn => btn.classList.add('active'));
+      } else {
+        document.documentElement.setAttribute('dir', 'ltr');
+        document.body.dir = 'ltr';
+        localStorage.setItem('rtl', 'false');
+        rtlToggles.forEach(btn => btn.classList.remove('active'));
+      }
+    } catch (e) {
+      console.warn("localStorage not available for RTL preference");
+      // Still apply to DOM
+      if (isRTL) {
+        document.documentElement.setAttribute('dir', 'rtl');
+        document.body.dir = 'rtl';
+      } else {
+        document.documentElement.setAttribute('dir', 'ltr');
+        document.body.dir = 'ltr';
+      }
+    }
+  };
+
+  // Check for saved RTL preference safely
+  let savedRTL = false;
+  try {
+    savedRTL = localStorage.getItem('rtl') === 'true';
+  } catch (e) {}
+  setRTL(savedRTL);
+
+  rtlToggles.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const isRTL = document.documentElement.getAttribute('dir') === 'rtl';
+      setRTL(!isRTL);
+    });
+  });
+
   // Mobile / Tablet Navigation Toggle
   const hamburger = document.querySelector('.hamburger');
   const navMenu = document.querySelector('.nav-menu');
@@ -155,29 +198,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   createScrollTopBtn();
 
-  // RTL Toggle Functionality
-  const rtlToggle = document.querySelector('.rtl-toggle');
-  
-  const setRTL = (isRTL) => {
-    if (isRTL) {
-      document.documentElement.setAttribute('dir', 'rtl');
-      localStorage.setItem('rtl', 'true');
-      if (rtlToggle) rtlToggle.classList.add('active');
-    } else {
-      document.documentElement.setAttribute('dir', 'ltr');
-      localStorage.setItem('rtl', 'false');
-      if (rtlToggle) rtlToggle.classList.remove('active');
-    }
-  };
-
-  // Check for saved RTL preference
-  const savedRTL = localStorage.getItem('rtl') === 'true';
-  setRTL(savedRTL);
-
-  if (rtlToggle) {
-    rtlToggle.addEventListener('click', () => {
-      const isRTL = document.documentElement.getAttribute('dir') === 'rtl';
-      setRTL(!isRTL);
-    });
-  }
+  /* RTL logic moved to top */
 });

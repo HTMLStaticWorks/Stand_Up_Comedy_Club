@@ -4,8 +4,8 @@
   --bg-secondary-light: #ffffff;
   --text-primary-light: #0f172a;
   --text-secondary-light: #475569;
-  --accent-light: #8b5cf6; /* Vibrant Purple */
-  --accent-hover-light: #7c3aed;
+  --accent-light: #f59e0b; /* Electric Amber */
+  --accent-hover-light: #d97706;
   --border-light: #e2e8f0;
 
   /* Colors - Dark Theme (Default) */
@@ -13,8 +13,8 @@
   --bg-secondary-dark: #0f172a;
   --text-primary-dark: #f8fafc;
   --text-secondary-dark: #94a3b8;
-  --accent-dark: #c084fc; /* Neon Purple */
-  --accent-hover-dark: #d8b4fe;
+  --accent-dark: #fbbf24; /* Neon Gold */
+  --accent-hover-dark: #fcd34d;
   --border-dark: #1e293b;
 
   /* System Colors */
@@ -47,8 +47,8 @@
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-neon: 0 0 10px rgba(192, 132, 252, 0.4), 0 0 20px rgba(192, 132, 252, 0.2);
-  --shadow-neon-hover: 0 0 15px rgba(192, 132, 252, 0.6), 0 0 30px rgba(192, 132, 252, 0.4);
+  --shadow-neon: 0 0 10px rgba(251, 191, 36, 0.4), 0 0 20px rgba(251, 191, 36, 0.2);
+  --shadow-neon-hover: 0 0 15px rgba(251, 191, 36, 0.6), 0 0 30px rgba(251, 191, 36, 0.4);
 
   /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);

@@ -70,7 +70,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at center, rgba(192, 132, 252, 0.2) 0%, transparent 70%);
+            background: radial-gradient(circle at center, rgba(251, 191, 36, 0.2) 0%, transparent 70%);
             z-index: 1;
         }
 
@@ -84,7 +84,7 @@
         .hero h1 {
             font-size: clamp(3rem, 6vw, 5rem);
             margin-bottom: var(--space-4);
-            text-shadow: 0 0 20px rgba(192, 132, 252, 0.5);
+            text-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
             line-height: 1.1;
         }
 
@@ -115,26 +115,21 @@
             gap: var(--space-4);
         }
 
+        /* Comedian Card Adjustments */
         .comedian-card {
-            text-align: center;
-            background: transparent;
-            border: none;
+            padding: 0;
+            overflow: hidden;
+            text-align: left;
         }
 
-        .comedian-card img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin: 0 auto var(--space-3);
-            object-fit: cover;
-            border: 3px solid var(--accent);
-            padding: 4px;
-            transition: transform var(--transition-normal);
+        .comedian-card .card-body {
+            padding: var(--space-4);
         }
 
-        .comedian-card:hover img {
-            transform: scale(1.05);
-            box-shadow: var(--shadow-glow);
+        .comedian-card .card-img-top {
+            height: 300px;
+            margin-bottom: 0;
+            border-bottom: 1px solid var(--border);
         }
 
         /* Testimonials */
@@ -205,12 +200,8 @@
             </a>
 
             <nav class="nav-menu" aria-label="Main Navigation">
-                <div class="nav-item has-dropdown">
-                    <a href="index.html" class="nav-link dropdown-toggle active">Home</a>
-                    <div class="dropdown-menu">
-                        <a href="home-2.html" class="dropdown-item">Home 2</a>
-                    </div>
-                </div>
+                <div class="nav-item"><a href="index.html" class="nav-link active">Home</a></div>
+                <div class="nav-item"><a href="home-2.html" class="nav-link">Home 2</a></div>
                 <div class="nav-item"><a href="about.html" class="nav-link">About</a></div>
                 <div class="nav-item"><a href="shows.html" class="nav-link">Shows</a></div>
                 <div class="nav-item"><a href="booking.html" class="nav-link">Booking</a></div>
@@ -325,29 +316,37 @@
                 </div>
 
                 <div class="comedian-grid">
-                    <div class="comedian-card">
+                    <div class="card comedian-card">
                         <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300&h=300"
-                            alt="John Doe" class="skeleton" loading="lazy">
-                        <h4 style="margin-bottom: 0;">John Doe</h4>
-                        <p>Netflix Special</p>
+                            alt="John Doe" class="card-img-top skeleton" loading="lazy">
+                        <div class="card-body">
+                            <h3 class="card-title">John Doe</h3>
+                            <p class="card-text">Netflix Special</p>
+                        </div>
                     </div>
-                    <div class="comedian-card">
+                    <div class="card comedian-card">
                         <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=300&h=300"
-                            alt="Jane Smith" class="skeleton" loading="lazy">
-                        <h4 style="margin-bottom: 0;">Jane Smith</h4>
-                        <p>HBO Comedy</p>
+                            alt="Jane Smith" class="card-img-top skeleton" loading="lazy">
+                        <div class="card-body">
+                            <h3 class="card-title">Jane Smith</h3>
+                            <p class="card-text">HBO Comedy</p>
+                        </div>
                     </div>
-                    <div class="comedian-card">
+                    <div class="card comedian-card">
                         <img src="https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?auto=format&fit=crop&q=80&w=300&h=300"
-                            alt="Mike Johnson" class="skeleton" loading="lazy">
-                        <h4 style="margin-bottom: 0;">Mike Johnson</h4>
-                        <p>Comedy Central</p>
+                            alt="Mike Johnson" class="card-img-top skeleton" loading="lazy">
+                        <div class="card-body">
+                            <h3 class="card-title">Mike Johnson</h3>
+                            <p class="card-text">Comedy Central</p>
+                        </div>
                     </div>
-                    <div class="comedian-card">
+                    <div class="card comedian-card">
                         <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=300&h=300"
-                            alt="Emily Davis" class="skeleton" loading="lazy">
-                        <h4 style="margin-bottom: 0;">Emily Davis</h4>
-                        <p>Saturday Night Live</p>
+                            alt="Emily Davis" class="card-img-top skeleton" loading="lazy">
+                        <div class="card-body">
+                            <h3 class="card-title">Emily Davis</h3>
+                            <p class="card-text">Saturday Night Live</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -361,19 +360,40 @@
                     <div
                         style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-6);">
                         <div class="card text-center" style="padding: var(--space-8);">
-                            <div style="font-size: 3.5rem; margin-bottom: var(--space-4);">🧥</div>
+                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--accent)"
+                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                                style="margin: 0 auto var(--space-4); filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.3));">
+                                <path d="M6 3h12l4 5-10 13L2 8z"></path>
+                                <path d="M11 13 8 8"></path>
+                                <path d="m13 13 3-5"></path>
+                                <path d="M2 8h20"></path>
+                            </svg>
                             <h3 style="color: var(--accent);">VIP Experience</h3>
                             <p>Plush velvet seating, personal table service, and the best sightlines in the house. No
                                 sticky floors here.</p>
                         </div>
                         <div class="card text-center" style="padding: var(--space-8);">
-                            <div style="font-size: 3.5rem; margin-bottom: var(--space-4);">🧪</div>
+                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--accent)"
+                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                                style="margin: 0 auto var(--space-4); filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.3));">
+                                <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path>
+                                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                                <line x1="12" y1="19" x2="12" y2="22"></line>
+                            </svg>
                             <h3 style="color: var(--accent);">Curated Talent</h3>
                             <p>We don't just book names; we book performers. Every lineup is vetted by our resident
                                 comedy masters.</p>
                         </div>
                         <div class="card text-center" style="padding: var(--space-8);">
-                            <div style="font-size: 3.5rem; margin-bottom: var(--space-4);">🥃</div>
+                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--accent)"
+                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                                style="margin: 0 auto var(--space-4); filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.3));">
+                                <path d="m19 2-7 11-7-11"></path>
+                                <path d="m5 2 7 11 7-11"></path>
+                                <path d="M12 13v7"></path>
+                                <path d="M10 20h4"></path>
+                                <path d="M9 7h6"></path>
+                            </svg>
                             <h3 style="color: var(--accent);">Craft Spirits</h3>
                             <p>Our bar program features small-batch distillers and custom comedy-themed cocktails that
                                 pack a punch.</p>
@@ -391,8 +411,10 @@
                             <span class="subtitle">The Venue</span>
                             <h2>A State-of-the-Art Comedy Sanctuary</h2>
                             <p style="margin-bottom: var(--space-6); line-height: 1.8;">Our room was acoustically
-                                engineered specifically for the spoken word. With custom-built sound dampening and a
-                                zero-latency digital audio system, you won't miss a single syllable of the punchline.
+                                engineered by industry leaders specifically for the nuances of the spoken word. With
+                                custom-built sound dampening, a zero-latency digital audio architecture, and a
+                                stage-to-audience proximity that fosters true connection, you won't miss a single
+                                syllable of the punchline.
                             </p>
                             <ul
                                 style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: var(--space-3); margin-bottom: var(--space-6);">
@@ -414,11 +436,29 @@
                                     </div>
                                     <span>VIP Green Room access for members</span>
                                 </li>
+                                <li style="display: flex; align-items: center; gap: var(--space-3);">
+                                    <div
+                                        style="width: 8px; height: 8px; background: var(--accent); transform: rotate(45deg);">
+                                    </div>
+                                    <span>Zero-item minimum table service</span>
+                                </li>
+                                <li style="display: flex; align-items: center; gap: var(--space-3);">
+                                    <div
+                                        style="width: 8px; height: 8px; background: var(--accent); transform: rotate(45deg);">
+                                    </div>
+                                    <span>Advanced HEPA air filtration & climate control</span>
+                                </li>
+                                <li style="display: flex; align-items: center; gap: var(--space-3);">
+                                    <div
+                                        style="width: 8px; height: 8px; background: var(--accent); transform: rotate(45deg);">
+                                    </div>
+                                    <span>Fully accessible seating & ground-level entry</span>
+                                </li>
                             </ul>
                             <a href="gallery.html" class="btn btn-outline">Explore Our Gallery</a>
                         </div>
                         <div style="position: relative;">
-                            <img src="https://images.pexels.com/photos/33466764/pexels-photo-33466764.jpeg"
+                            <img src="https://images.pexels.com/photos/109669/pexels-photo-109669.jpeg"
                                 alt="Comedy Hub Interior"
                                 style="width: 100%; height: auto; border: 1px solid var(--border);" class="skeleton">
                             <div
