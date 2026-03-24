@@ -1,46 +1,47 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // RTL Toggle Functionality (Moved to top for robustness)
-  const rtlToggles = document.querySelectorAll('.rtl-toggle');
-  
-  const setRTL = (isRTL) => {
-    try {
+  // RTL Toggle Functionality (Enhanced for 100% Reliability)
+  const initRTL = () => {
+    const rtlToggles = document.querySelectorAll('.rtl-toggle');
+    const htmlRoot = document.documentElement;
+
+    const setRTL = (isRTL) => {
       if (isRTL) {
-        document.documentElement.setAttribute('dir', 'rtl');
-        document.body.dir = 'rtl';
-        localStorage.setItem('rtl', 'true');
+        htmlRoot.setAttribute('dir', 'rtl');
+        document.body.setAttribute('dir', 'rtl');
         rtlToggles.forEach(btn => btn.classList.add('active'));
       } else {
-        document.documentElement.setAttribute('dir', 'ltr');
-        document.body.dir = 'ltr';
-        localStorage.setItem('rtl', 'false');
+        htmlRoot.setAttribute('dir', 'ltr');
+        document.body.setAttribute('dir', 'ltr');
         rtlToggles.forEach(btn => btn.classList.remove('active'));
       }
-    } catch (e) {
-      console.warn("localStorage not available for RTL preference");
-      // Still apply to DOM
-      if (isRTL) {
-        document.documentElement.setAttribute('dir', 'rtl');
-        document.body.dir = 'rtl';
-      } else {
-        document.documentElement.setAttribute('dir', 'ltr');
-        document.body.dir = 'ltr';
+      
+      try {
+        localStorage.setItem('rtl_pref', isRTL ? 'true' : 'false');
+      } catch (e) {
+        console.error("Storage Error:", e);
       }
-    }
+    };
+
+    // Load preference
+    let isRTLPref = false;
+    try {
+      isRTLPref = localStorage.getItem('rtl_pref') === 'true';
+    } catch (e) {}
+
+    // Apply immediately to avoid flash
+    setRTL(isRTLPref);
+
+    // Attach listeners
+    rtlToggles.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const currentRTL = htmlRoot.getAttribute('dir') === 'rtl';
+        setRTL(!currentRTL);
+      });
+    });
   };
 
-  // Check for saved RTL preference safely
-  let savedRTL = false;
-  try {
-    savedRTL = localStorage.getItem('rtl') === 'true';
-  } catch (e) {}
-  setRTL(savedRTL);
-
-  rtlToggles.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const isRTL = document.documentElement.getAttribute('dir') === 'rtl';
-      setRTL(!isRTL);
-    });
-  });
+  initRTL();
 
   // Mobile / Tablet Navigation Toggle
   const hamburger = document.querySelector('.hamburger');
