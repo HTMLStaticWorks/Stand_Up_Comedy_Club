@@ -16,6 +16,7 @@
   height: 44px; /* Fixed height for navbar consistency */
   line-height: 1;
   white-space: nowrap; /* Prevent "SIGN UP" wrapping */
+  min-width: 110px; /* NEW: Ensuring Login/Signup buttons have the same size */
 }
 
 .btn-primary {

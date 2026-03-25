@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" data-theme="dark">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,20 +22,19 @@
             align-items: center;
             justify-content: center;
             padding: var(--space-4);
-            background: radial-gradient(circle at center, rgba(15, 23, 42, 0.8), rgba(2, 6, 23, 1)), url('https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&q=80&w=1920') center/cover no-repeat;
-            background-blend-mode: multiply;
+            background: radial-gradient(circle at center, var(--bg-primary), var(--bg-secondary));
         }
         
         .auth-card {
             width: 100%;
-            max-width: 480px;
-            background: rgba(15, 23, 42, 0.7);
+            max-width: 400px;
+            background: var(--bg-secondary);
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border);
             border-radius: var(--radius-lg);
-            padding: var(--space-8) var(--space-6);
-            box-shadow: var(--shadow-lg), var(--shadow-neon);
+            padding: var(--space-6);
+            box-shadow: var(--shadow-lg);
             transition: all var(--transition-normal);
             animation: cardAppear 0.6s ease-out;
         }
@@ -53,11 +52,11 @@
 
         .auth-header {
             text-align: center;
-            margin-bottom: var(--space-8);
+            margin-bottom: var(--space-4);
         }
 
         .auth-subtitle {
-            color: #94a3b8;
+            color: var(--text-secondary);
             font-size: 1rem;
             line-height: 1.6;
         }
@@ -67,7 +66,7 @@
         }
 
         .form-label {
-            color: #f8fafc; /* Forced light color for contrast */
+            color: var(--text-primary);
             font-weight: 600;
             font-size: 0.875rem;
             text-transform: uppercase;
@@ -77,9 +76,9 @@
         }
 
         .form-control {
-            background: rgba(2, 6, 23, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #f8fafc;
+            background: var(--bg-primary);
+            border: 1.5px solid var(--border);
+            color: var(--text-primary);
             padding: 14px 16px;
             border-radius: var(--radius-md);
             font-size: 1rem;
@@ -88,12 +87,12 @@
         }
 
         .form-control::placeholder {
-            color: #94a3b8;
+            color: var(--text-secondary);
             opacity: 1;
         }
 
         .form-control:focus {
-            background: rgba(2, 6, 23, 0.8);
+            background: var(--bg-primary);
             border-color: var(--accent);
             box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.15);
             outline: none;
@@ -112,13 +111,13 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            color: #94a3b8;
+            color: var(--text-secondary);
             cursor: pointer;
             transition: color var(--transition-fast);
         }
 
         .checkbox-container:hover {
-            color: #f8fafc;
+            color: var(--text-primary);
         }
 
         .forgot-link {
@@ -144,7 +143,7 @@
             display: flex;
             align-items: center;
             margin: var(--space-8) 0;
-            color: #94a3b8;
+            color: var(--text-secondary);
             font-weight: 600;
             font-size: 0.75rem;
             text-transform: uppercase;
@@ -163,25 +162,30 @@
 
         .social-buttons {
             display: flex;
-            flex-direction: column;
-            gap: var(--space-3);
+            gap: var(--space-2);
         }
 
         .btn-social {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #f8fafc;
-            padding: 12px;
+            flex: 1;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 10px;
             border-radius: var(--radius-md);
             font-weight: 600;
             transition: all var(--transition-normal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            gap: 8px;
         }
 
         .btn-social:hover {
-            background: rgba(255, 255, 255, 0.08);
+            background: var(--bg-secondary);
             border-color: var(--accent);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
         .auth-footer {
@@ -189,7 +193,7 @@
             margin-top: var(--space-8);
             padding-top: var(--space-6);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #94a3b8;
+            color: var(--text-secondary);
             font-size: 0.95rem;
         }
 
@@ -262,7 +266,7 @@
                     <img src="assets/logo/logo-transparent.svg" alt="The Comedy Hub logo" class="logo-img" width="56" height="56">
                     <span style="font-family: var(--font-heading); font-size: clamp(1.25rem, 4vw, 1.85rem); font-weight: 800; color: var(--accent); letter-spacing: 1px; white-space: nowrap;">The Comedy Hub</span>
                 </a>
-                <h1 style="font-size: 2rem; color: #f8fafc; margin-bottom: 0.5rem; font-family: var(--font-heading); font-weight: 800;">Login</h1>
+                <h1 style="font-size: 2rem; color: var(--text-primary); margin-bottom: 0.5rem; font-family: var(--font-heading); font-weight: 800;">Login</h1>
                 <p class="auth-subtitle">Sign in to book tickets and manage your account.</p>
             </div>
 
@@ -273,18 +277,20 @@
                     <span class="form-feedback">Please enter a valid email address.</span>
                 </div>
 
-                <div class="form-group" id="password-group">
+                <div class="form-group" id="password-group" style="margin-bottom: var(--space-4);">
                     <label class="form-label" for="login-password">Password</label>
                     <input type="password" id="login-password" class="form-control" required placeholder="••••••••" autocomplete="current-password">
+                    <div style="text-align: right; margin-top: 8px;">
+                        <a href="#" class="forgot-link" style="font-size: 0.8125rem;">Forgot password?</a>
+                    </div>
                     <span class="form-feedback">Password must be at least 6 characters.</span>
                 </div>
 
-                <div class="auth-options">
+                <div class="auth-options" style="margin-top: var(--space-4);">
                     <label class="checkbox-container">
                         <input type="checkbox" id="remember-me">
                         <span>Remember me</span>
                     </label>
-                    <a href="#" class="forgot-link">Forgot password?</a>
                 </div>
 
                 <button type="submit" class="btn btn-primary" id="login-submit" style="width: 100%;">Login</button>
@@ -300,13 +306,13 @@
                         <path fill="#FBBC05" d="M3.95 10.72c-.18-.54-.28-1.12-.28-1.72s.1-1.18.28-1.72L.93 4.96C.34 6.13 0 7.53 0 9s.34 2.87.93 4.04l3.02-2.32z"/>
                         <path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58C13.46.89 11.43 0 9 0 5.46 0 2.42 2 1.93 4.96L3.02 7.28c.71-2.13 2.7-3.7 5.05-3.7z"/>
                     </svg>
-                    Continue with Google
+                    Google
                 </button>
                 <button class="btn-social" type="button">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="#1877F2">
                         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                     </svg>
-                    Continue with Facebook
+                    Facebook
                 </button>
             </div>
 

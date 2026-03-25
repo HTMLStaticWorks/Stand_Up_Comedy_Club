@@ -128,6 +128,19 @@
             transform: translateY(-2px);
             box-shadow: var(--shadow-glow);
         }
+
+        @media(max-width: 640px) {
+            .contact-grid h2 {
+                font-size: 1.5rem !important;
+            }
+            .contact-grid .card, .contact-info-box {
+                padding: var(--space-4) !important;
+            }
+            .contact-icon {
+                width: 44px;
+                height: 44px;
+            }
+        }
     </style>
 
     <link rel="icon" type="image/svg+xml" href="assets/logo/favicon-32x32.svg">
@@ -172,9 +185,13 @@
                 <!-- Global Hero Section -->
         <section class="page-hero" style="background-image: url('https://images.unsplash.com/photo-1498842812179-c81beecf902c?auto=format&fit=crop&w=1920&q=80');">
             <div class="container page-hero-content">
-                <h1 class="page-hero-title">Get in Touch</h1>
-                <p class="subtitle">Have a question about tickets, booking a private event, or performing at our open mic? Our team is always here to help.</p>
-                
+                <div class="tag" style="margin-bottom: var(--space-4);">Always Ready</div>
+                <h1 class="page-hero-title">Contact Our Team</h1>
+                <p class="subtitle" style="margin-bottom: var(--space-6); max-width: 800px; margin-left: auto; margin-right: auto;">Have a question about tickets, booking a private event, or performing at our open mic? Our support team is always here to ensure your night is filled with nothing but laughter.</p>
+                <div style="display: flex; gap: var(--space-4); justify-content: center; flex-wrap: wrap;">
+                    <a href="shows.html" class="btn btn-primary">Our Schedule</a>
+                    <a href="#" class="btn btn-outline" style="border-color: rgba(255,255,255,0.2);">Instagram DM</a>
+                </div>
             </div>
         </section>
 
