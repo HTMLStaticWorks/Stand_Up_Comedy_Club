@@ -73,11 +73,12 @@
 
         .hero-v2 .subtitle {
             font-size: clamp(1rem, 2vw, 1.25rem);
-            color: var(--text-secondary);
+            color: var(--text-primary);
             margin-bottom: var(--space-8);
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .hero-v2-actions {
@@ -120,8 +121,12 @@
         /* Video Grid */
         .video-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: var(--space-6);
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--space-4);
+        }
+
+        @media (max-width: 576px) {
+            .video-grid { gap: var(--space-3); }
         }
 
         .video-card {
@@ -145,7 +150,7 @@
         }
 
         .video-card::after {
-            content: 'Ã¢â€“Â¶';
+            content: '▶';
             position: absolute;
             top: 50%;
             left: 50%;
@@ -440,7 +445,7 @@
                 </div>
 
                 <div
-                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-4);">
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-4);">
                     <div class="category-card">
                         <div class="category-icon">
                             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>

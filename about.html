@@ -13,6 +13,18 @@
     <link rel="stylesheet" href="assets/css/rtl.css" media="all">
     
     <style>
+        .responsive-card {
+            padding: var(--space-8);
+            border-top: 4px solid var(--accent);
+            text-align: center;
+        }
+
+        @media(max-width: 640px) {
+            .responsive-card {
+                padding: var(--space-5) !important;
+            }
+        }
+
         .about-hero {
             background-color: var(--bg-secondary);
             padding: var(--space-12) 0;
@@ -40,6 +52,15 @@
             box-shadow: var(--shadow-glow);
         }
 
+        @media(max-width: 768px) {
+            .section {
+                padding: var(--space-8) 0 !important;
+            }
+            .mission-box {
+                margin: var(--space-4) 0 !important;
+            }
+        }
+
         /* Mission Statement */
         .mission-box {
             background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), transparent);
@@ -52,9 +73,10 @@
 
         /* Team Section */
         .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: var(--space-4);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--space-6);
         }
 
         .team-member {
@@ -62,8 +84,11 @@
             border: 1px solid var(--border);
             border-radius: var(--radius-md);
             text-align: center;
-            padding: var(--space-4);
+            padding: var(--space-6);
             transition: transform var(--transition-fast);
+            flex: 1;
+            min-width: 220px;
+            max-width: 280px;
         }
 
         .team-member:hover {
@@ -156,14 +181,14 @@
 
         <!-- Vision & Values -->
         <section class="section">
-            <div class="container overflow-hidden">
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-8);">
-                    <div class="card" style="padding: var(--space-8); border-top: 4px solid var(--accent);">
+            <div class="container">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-6);">
+                    <div class="card responsive-card">
                         <h3 style="color: var(--accent); margin-bottom: var(--space-4);">Our Vision</h3>
                         <p>To be the definitive global destination for stand-up comedy, where legends are made and every voice finds its stage. We envision a world where laughter bridges every gap and the raw truth of comedy remains the ultimate social equalizer.</p>
                         <p>We are expanding our reach to ensure that high-quality, intimate comedy remains accessible to all, fostering a community that values authenticity over anything else.</p>
                     </div>
-                    <div class="card" style="padding: var(--space-8); border-top: 4px solid var(--accent);">
+                    <div class="card responsive-card">
                         <h3 style="color: var(--accent); margin-bottom: var(--space-4);">Our Values</h3>
                         <ul style="list-style: none; padding: 0;">
                             <li style="margin-bottom: var(--space-4); display: flex; align-items: flex-start; gap: var(--space-3);">
@@ -191,21 +216,21 @@
                     <span class="subtitle">The Journey</span>
                     <h2>From Basement to Bright Lights</h2>
                 </div>
-                <div style="max-width: 800px; margin: 0 auto; line-height: 1.8;">
-                    <p style="font-size: 1.125rem; margin-bottom: var(--space-6);">When Evelyn Reed first opened the doors to The Comedy Hub in early 2026, the venue was little more than a repurposed warehouse with a single spotlight. The goal was simple: provide a place where comedians didn't have to compete with loud bar chatter or distracting TV screens.</p>
+                <div style="max-width: 850px; margin: 0 auto; line-height: 1.8; text-align: center;">
+                    <p style="font-size: 1.125rem; margin-bottom: var(--space-8);">When Evelyn Reed first opened the doors to The Comedy Hub in early 2026, the venue was little more than a repurposed warehouse with a single spotlight. The goal was simple: provide a place where comedians didn't have to compete with loud bar chatter or distracting TV screens.</p>
                     
-                    <div style="display: flex; gap: var(--space-8); flex-wrap: wrap; margin-bottom: var(--space-8);">
-                        <div style="flex: 1; min-width: 250px;">
-                            <h4 style="color: var(--accent);">The Early Days</h4>
-                            <p>We started with three nights a week. The "Tuesday Tester" became legendary among comics as a place where you could fail spectacularly or find your next viral bit. The community grew fast.</p>
+                    <div style="display: flex; gap: var(--space-8); flex-wrap: wrap; margin-bottom: var(--space-8); text-align: left;">
+                        <div style="flex: 1; min-width: 280px; background: rgba(255,255,255,0.03); padding: var(--space-6); border-radius: var(--radius-lg); border-left: 3px solid var(--accent);">
+                            <h4 style="color: var(--accent); margin-bottom: var(--space-3);">The Early Days</h4>
+                            <p style="margin-bottom: 0;">We started with three nights a week. The "Tuesday Tester" became legendary among comics as a place where you could fail spectacularly or find your next viral bit. The community grew fast.</p>
                         </div>
-                        <div style="flex: 1; min-width: 250px;">
-                            <h4 style="color: var(--accent);">The Turning Point</h4>
-                            <p>By mid-2026, we hosted our first international headliner. The show sold out in 12 minutes. We knew we had something special&mdash;a venue that felt like home for the performers and magic for the crowd.</p>
+                        <div style="flex: 1; min-width: 280px; background: rgba(255,255,255,0.03); padding: var(--space-6); border-radius: var(--radius-lg); border-left: 3px solid var(--accent);">
+                            <h4 style="color: var(--accent); margin-bottom: var(--space-3);">The Turning Point</h4>
+                            <p style="margin-bottom: 0;">By mid-2026, we hosted our first international headliner. The show sold out in 12 minutes. We knew we had something special&mdash;a venue that felt like home for the performers and magic for the crowd.</p>
                         </div>
                     </div>
                     
-                    <p>Today, The Comedy Hub holds one of the highest ratings in the country for guest satisfaction. We've introduced state-of-the-art acoustic treatment, curated a premium beverage program, and most importantly, kept the intimacy that made us famous.</p>
+                    <p style="font-size: 1.1rem; opacity: 0.9;">Today, The Comedy Hub holds one of the highest ratings in the country for guest satisfaction. We've introduced state-of-the-art acoustic treatment, curated a premium beverage program, and most importantly, kept the intimacy that made us famous.</p>
                 </div>
             </div>
         </section>
@@ -314,12 +339,12 @@
             <div class="container">
                 <div class="section-head text-center">
                     <span class="subtitle">Audience Voices</span>
-                    <h2>What Theyâ€™re Saying</h2>
+                    <h2>What They're Saying</h2>
                 </div>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-6);">
-                    <div class="card" style="padding: var(--space-6); display: flex; flex-direction: column; justify-content: space-between; text-align: center;">
+                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-6);">
+                    <div class="card" style="padding: var(--space-6); display: flex; flex-direction: column; justify-content: space-between; text-align: center; flex: 1; min-width: 300px; max-width: 400px; border: 1px solid var(--border);">
                         <div>
-                            <div style="color: var(--warning); margin-bottom: var(--space-3); text-align: center;">â˜…â˜…â˜…â˜…â˜…</div>
+                            <div style="color: var(--warning); margin-bottom: var(--space-3); text-align: center;">★★★★★</div>
                             <p style="font-style: italic; margin-bottom: var(--space-4);">"I've been to comedy clubs all over the world, but the sound quality and attention to detail here are unmatched. You actually feel like the comedian is talking to YOU."</p>
                         </div>
                         <div style="display: flex; align-items: center; gap: var(--space-3); justify-content: center;">
@@ -330,9 +355,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card" style="padding: var(--space-6); display: flex; flex-direction: column; justify-content: space-between; text-align: center;">
+                    <div class="card" style="padding: var(--space-6); display: flex; flex-direction: column; justify-content: space-between; text-align: center; flex: 1; min-width: 300px; max-width: 400px; border: 1px solid var(--border);">
                         <div>
-                            <div style="color: var(--warning); margin-bottom: var(--space-3); text-align: center;">â˜…â˜…â˜…â˜…â˜…</div>
+                            <div style="color: var(--warning); margin-bottom: var(--space-3); text-align: center;">★★★★★</div>
                             <p style="font-style: italic; margin-bottom: var(--space-4);">"The cocktails are actually good! Usually, comedy clubs have watered-down drinks, but The Hub treats their bar like a Five-Star lounge. Game changer."</p>
                         </div>
                         <div style="display: flex; align-items: center; gap: var(--space-3); justify-content: center;">
@@ -343,9 +368,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card" style="padding: var(--space-6); display: flex; flex-direction: column; justify-content: space-between; text-align: center;">
+                    <div class="card" style="padding: var(--space-6); display: flex; flex-direction: column; justify-content: space-between; text-align: center; flex: 1; min-width: 300px; max-width: 400px; border: 1px solid var(--border);">
                         <div>
-                            <div style="color: var(--warning); margin-bottom: var(--space-3); text-align: center;">â˜…â˜…â˜…â˜…â˜…</div>
+                            <div style="color: var(--warning); margin-bottom: var(--space-3); text-align: center;">★★★★★</div>
                             <p style="font-style: italic; margin-bottom: var(--space-4);">"The Late Night Uncensored show was the hardest I've laughed in years. It's raw, it's real, and it's exactly what comedy should be."</p>
                         </div>
                         <div style="display: flex; align-items: center; gap: var(--space-3); justify-content: center;">

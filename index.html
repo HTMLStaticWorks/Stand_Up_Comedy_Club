@@ -90,8 +90,12 @@
 
         .hero .subtitle {
             font-size: 1.25rem;
-            color: var(--text-secondary);
+            color: var(--text-primary);
             margin-bottom: var(--space-6);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .hero-actions {
@@ -101,18 +105,31 @@
             flex-wrap: wrap;
         }
 
-        /* Show Grid */
         .show-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: var(--space-6);
+        }
+
+        @media (max-width: 576px) {
+            .show-grid { gap: var(--space-4); }
         }
 
         /* Comedian Grid */
         .comedian-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: var(--space-4);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--space-6);
+        }
+
+        .comedian-card {
+            flex: 1;
+            min-width: 260px;
+            max-width: 320px;
+            display: flex;
+            flex-direction: column;
+            height: auto;
         }
 
         /* Comedian Card Adjustments */
@@ -406,43 +423,43 @@
                     </div>
                     <div
                         style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-6);">
-                        <div class="card text-center" style="padding: var(--space-8);">
+                        <div class="card text-center" style="padding: var(--space-8); height: 100%;">
                             <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--accent)"
                                 stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-                                style="margin: 0 auto var(--space-4); filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.3));">
+                                style="margin: 0 auto var(--space-4); filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.3)); flex-shrink: 0;">
                                 <path d="M6 3h12l4 5-10 13L2 8z"></path>
                                 <path d="M11 13 8 8"></path>
                                 <path d="m13 13 3-5"></path>
                                 <path d="M2 8h20"></path>
                             </svg>
-                            <h3 style="color: var(--accent);">VIP Experience</h3>
-                            <p>Plush velvet seating, personal table service, and the best sightlines in the house. No
+                            <h3 style="color: var(--accent); min-height: 3.5rem; display: flex; align-items: center; justify-content: center;">VIP Experience</h3>
+                            <p style="margin-bottom: 0;">Plush velvet seating, personal table service, and the best sightlines in the house. No
                                 sticky floors here.</p>
                         </div>
-                        <div class="card text-center" style="padding: var(--space-8);">
+                        <div class="card text-center" style="padding: var(--space-8); height: 100%;">
                             <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--accent)"
                                 stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-                                style="margin: 0 auto var(--space-4); filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.3));">
+                                style="margin: 0 auto var(--space-4); filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.3)); flex-shrink: 0;">
                                 <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path>
                                 <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
                                 <line x1="12" y1="19" x2="12" y2="22"></line>
                             </svg>
-                            <h3 style="color: var(--accent);">Curated Talent</h3>
-                            <p>We don't just book names; we book performers. Every lineup is vetted by our resident
+                            <h3 style="color: var(--accent); min-height: 3.5rem; display: flex; align-items: center; justify-content: center;">Curated Talent</h3>
+                            <p style="margin-bottom: 0;">We don't just book names; we book performers. Every lineup is vetted by our resident
                                 comedy masters.</p>
                         </div>
-                        <div class="card text-center" style="padding: var(--space-8);">
+                        <div class="card text-center" style="padding: var(--space-8); height: 100%;">
                             <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--accent)"
                                 stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-                                style="margin: 0 auto var(--space-4); filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.3));">
+                                style="margin: 0 auto var(--space-4); filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.3)); flex-shrink: 0;">
                                 <path d="m19 2-7 11-7-11"></path>
                                 <path d="m5 2 7 11 7-11"></path>
                                 <path d="M12 13v7"></path>
                                 <path d="M10 20h4"></path>
                                 <path d="M9 7h6"></path>
                             </svg>
-                            <h3 style="color: var(--accent);">Craft Spirits</h3>
-                            <p>Our bar program features small-batch distillers and custom comedy-themed cocktails that
+                            <h3 style="color: var(--accent); min-height: 3.5rem; display: flex; align-items: center; justify-content: center;">Craft Spirits</h3>
+                            <p style="margin-bottom: 0;">Our bar program features small-batch distillers and custom comedy-themed cocktails that
                                 pack a punch.</p>
                         </div>
                     </div>
