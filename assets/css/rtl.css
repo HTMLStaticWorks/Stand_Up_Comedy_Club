@@ -1,121 +1,175 @@
 /* ==========================================================
    RTL (Right-To-Left) Stylesheet
-   Triggered by: html[dir="rtl"]
-   Applied by JS via syncRTL() in main.js
+   Triggered by: [dir="rtl"]
+   Applied via JS to the <html> element
    ========================================================== */
 
 /* --- Base Direction --- */
-html[dir="rtl"] {
+[dir="rtl"] {
   direction: rtl !important;
 }
 
-html[dir="rtl"] body {
+[dir="rtl"] body {
   direction: rtl !important;
   text-align: right !important;
 }
 
 /* ==========================================================
-   HEADER & NAVIGATION (Desktop)
+   HEADER & NAVIGATION
    ========================================================== */
 
-/* Flip the navbar row: logo on right, nav links in middle, actions on left */
-html[dir="rtl"] .navbar {
-  flex-direction: row-reverse !important;
+/* Strictly swap Navbar sides across all viewports */
+[dir="rtl"] .navbar {
+    display: flex !important;
+    flex-direction: row !important; /* Keep row but use order for clarity */
+    justify-content: space-between !important;
 }
 
-/* Flip the brand so logo appears on the right side */
-html[dir="rtl"] .nav-brand {
-  flex-direction: row-reverse !important;
+/* Force ordering: Actions(1), Menu(2), Brand(3) - effectively flips them */
+[dir="rtl"] .nav-actions { 
+    order: 1 !important; 
+    flex-direction: row-reverse !important;
+    display: flex !important;
+}
+[dir="rtl"] .nav-menu { 
+    order: 2 !important; 
+    flex-direction: row-reverse !important;
+}
+[dir="rtl"] .nav-brand { 
+    order: 3 !important; 
+    flex-direction: row-reverse !important;
+    margin-left: 0 !important;
 }
 
-html[dir="rtl"] .nav-brand img {
+[dir="rtl"] .nav-brand img {
   margin-left: 0.75rem !important;
   margin-right: 0 !important;
 }
 
-/* Flip the desktop nav links order */
-html[dir="rtl"] .nav-menu {
-  flex-direction: row-reverse !important;
+/* Ensure Logo/Brand text direction is correct */
+[dir="rtl"] .nav-brand {
+  display: flex !important;
+  align-items: center !important;
 }
 
-/* Flip the actions cluster (theme, RTL, login buttons) */
-html[dir="rtl"] .nav-actions {
-  flex-direction: row-reverse !important;
+/* Cluster of icons (Theme, RTL, Hamburger) */
+[dir="rtl"] .nav-actions {
+  display: flex !important;
+  align-items: center !important;
 }
 
-/* Flip the active underline indicator to start from right */
-html[dir="rtl"] .nav-link::after {
-  left: auto !important;
-  right: 0 !important;
-}
-
-/* ==========================================================
-   MOBILE NAVIGATION (<= 1100px)
-   ========================================================== */
+/* Slide in from the RIGHT side in RTL mode (<= 1100px) */
 @media (max-width: 1100px) {
-  /* Slide in from the RIGHT side in RTL mode */
-  html[dir="rtl"] .nav-menu {
+    [dir="rtl"] .navbar {
+        display: flex !important;
+        justify-content: space-between !important;
+    }
+    
+    [dir="rtl"] .nav-brand { order: 2 !important; }
+    [dir="rtl"] .nav-actions { order: 1 !important; }
+    
+  [dir="rtl"] .nav-menu {
     left: auto !important;
     right: -100% !important;
     border-right: none !important;
     border-left: 1px solid var(--border) !important;
-    align-items: flex-end !important;
-    transition: right var(--transition-normal) !important;
+    transition: right var(--transition-normal), left 0s !important;
     text-align: right !important;
   }
 
-  html[dir="rtl"] .nav-menu.active {
+  [dir="rtl"] .nav-menu.active {
     right: 0 !important;
     left: auto !important;
   }
 
-  html[dir="rtl"] .nav-link {
+  [dir="rtl"] .nav-link {
     text-align: right !important;
-    width: 100% !important;
+    padding-right: 0 !important;
   }
+}
+
+/* Desktop nav menu links */
+@media (min-width: 1101px) {
+    [dir="rtl"] .nav-menu {
+        flex-direction: row-reverse !important;
+    }
 }
 
 /* ==========================================================
    SECTIONS & CARDS
    ========================================================== */
 
-html[dir="rtl"] .section-head:not(.text-center) {
-  text-align: right !important;
+[dir="rtl"] .section-head:not(.text-center),
+[dir="rtl"] .card, 
+[dir="rtl"] .comedian-card, 
+[dir="rtl"] .profile-card,
+[dir="rtl"] .profile-name,
+[dir="rtl"] .profile-bio,
+[dir="rtl"] .profile-accolade,
+[dir="rtl"] .form-label,
+[dir="rtl"] .form-control,
+[dir="rtl"] .auth-subtitle,
+[dir="rtl"] .auth-footer {
+    text-align: right !important;
 }
 
-html[dir="rtl"] .card {
-  text-align: right !important;
+[dir="rtl"] .social-links,
+[dir="rtl"] .hero-actions,
+[dir="rtl"] .auth-options,
+[dir="rtl"] .name-row {
+    justify-content: flex-start !important;
+    flex-direction: row-reverse !important;
 }
 
-html[dir="rtl"] .testimonial-card {
-  text-align: right !important;
+[dir="rtl"] .checkbox-container {
+    flex-direction: row-reverse !important;
+    justify-content: flex-end !important;
 }
 
 /* ==========================================================
    FOOTER
    ========================================================== */
 
-html[dir="rtl"] .footer li {
+[dir="rtl"] .footer-grid {
+    text-align: right !important;
+}
+
+[dir="rtl"] .footer-grid div {
+    align-items: flex-start !important;
+}
+
+[dir="rtl"] .footer li {
   flex-direction: row-reverse !important;
   justify-content: flex-start !important;
 }
 
-html[dir="rtl"] .footer-link {
-  text-align: right !important;
-  display: inline-block !important;
+/* ==========================================================
+   BUTTONS & MISC
+   ========================================================== */
+
+[dir="rtl"] .btn svg {
+  margin-left: 0.5rem !important;
+  margin-right: 0 !important;
+  transform: scaleX(-1) !important;
+}
+
+/* Scroll-to-top button flips to left side */
+[dir="rtl"] .scroll-top-btn {
+  right: auto !important;
+  left: 2rem !important;
 }
 
 /* ==========================================================
    HERO SECTIONS
    ========================================================== */
 
-/* Home 1 */
-html[dir="rtl"] .hero-content {
+/* Home 1 Hero */
+[dir="rtl"] .hero-content {
   text-align: right !important;
 }
 
 /* Home 2 split-screen hero */
-html[dir="rtl"] .hero-split {
+[dir="rtl"] .hero-split {
   flex-direction: row-reverse !important;
 }
 
@@ -126,23 +180,15 @@ html[dir="rtl"] .hero-split-content {
 }
 
 /* ==========================================================
-   BUTTONS & MISC
+   BOOKING PAGE
    ========================================================== */
 
-html[dir="rtl"] .btn svg {
-  margin-left: 0 !important;
-  margin-right: 0.5rem !important;
-  transform: scaleX(-1) !important;
+[dir="rtl"] .quantity-control {
+  flex-direction: row-reverse !important;
 }
 
-html[dir="rtl"] .tag {
-  text-align: right !important;
-}
-
-/* Scroll-to-top button flips to left side */
-html[dir="rtl"] .scroll-top-btn {
-  right: auto !important;
-  left: 2rem !important;
+[dir="rtl"] .summary-row {
+  flex-direction: row-reverse !important;
 }
 
 @media (max-width: 768px) {
@@ -164,34 +210,35 @@ html[dir="rtl"] .summary-row {
   flex-direction: row-reverse !important;
 }
 
-html[dir="rtl"] .progress-step .step-label {
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-}
-
 /* ==========================================================
-   RTL TOGGLE BUTTON — Active State
+   RTL TOGGLE BUTTON — Fixed Consistency
    ========================================================== */
 .rtl-toggle {
   background: transparent;
-  border: 1px solid var(--accent);
-  color: var(--accent);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
   font-weight: 700;
-  font-size: 0.8rem;
-  padding: 0.35rem 0.65rem;
-  border-radius: 4px;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.6rem;
   cursor: pointer;
   transition: all var(--transition-fast);
-  min-height: 36px;
+  min-height: 44px; /* Match other nav buttons */
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .rtl-toggle:hover {
-  background-color: var(--accent);
-  color: #000;
+    border-color: var(--accent);
+    color: var(--accent);
 }
 
 .rtl-toggle.active {
   background-color: var(--accent) !important;
-  color: #000 !important;
+  color: #fff !important;
+  border-color: var(--accent) !important;
   box-shadow: var(--shadow-glow);
 }
