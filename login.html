@@ -221,14 +221,16 @@
         /* Auth Toggles Contrast */
         .auth-toggles .theme-toggle, 
         .auth-toggles .rtl-toggle {
-            color: #f8fafc !important;
-            border-color: rgba(255, 255, 255, 0.3) !important;
+            color: var(--text-primary) !important;
+            border-color: var(--border) !important;
+            background: var(--bg-secondary) !important;
+            box-shadow: var(--shadow-sm);
         }
 
         .auth-toggles .theme-toggle:hover,
         .auth-toggles .rtl-toggle:hover {
-            background: rgba(255, 255, 255, 0.1) !important;
-            color: var(--accent) !important;
+            background: var(--accent) !important;
+            color: #fff !important;
         }
 
         .auth-toggles .rtl-toggle.active {
@@ -277,20 +279,17 @@
                     <span class="form-feedback">Please enter a valid email address.</span>
                 </div>
 
-                <div class="form-group" id="password-group" style="margin-bottom: var(--space-4);">
+                <div class="form-group" id="password-group" style="margin-bottom: var(--space-6);">
                     <label class="form-label" for="login-password">Password</label>
                     <input type="password" id="login-password" class="form-control" required placeholder="••••••••" autocomplete="current-password">
-                    <div style="text-align: right; margin-top: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: var(--space-4); flex-wrap: wrap; gap: var(--space-2);">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="remember-me">
+                            <span>Remember me</span>
+                        </label>
                         <a href="#" class="forgot-link" style="font-size: 0.8125rem;">Forgot password?</a>
                     </div>
                     <span class="form-feedback">Password must be at least 6 characters.</span>
-                </div>
-
-                <div class="auth-options" style="margin-top: var(--space-4);">
-                    <label class="checkbox-container">
-                        <input type="checkbox" id="remember-me">
-                        <span>Remember me</span>
-                    </label>
                 </div>
 
                 <button type="submit" class="btn btn-primary" id="login-submit" style="width: 100%;">Login</button>

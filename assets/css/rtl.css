@@ -33,7 +33,20 @@
 }
 [dir="rtl"] .nav-menu { 
     order: 2 !important; 
-    flex-direction: row-reverse !important;
+    display: flex !important;
+}
+
+@media (min-width: 1101px) {
+    [dir="rtl"] .nav-menu {
+        flex-direction: row-reverse !important;
+    }
+}
+
+@media (max-width: 1100px) {
+    [dir="rtl"] .nav-menu {
+        flex-direction: column !important; /* Forces vertical stacking on mobile/tab in RTL */
+        align-items: stretch !important;
+    }
 }
 [dir="rtl"] .nav-brand { 
     order: 3 !important; 

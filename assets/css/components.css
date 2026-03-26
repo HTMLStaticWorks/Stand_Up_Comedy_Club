@@ -338,14 +338,14 @@
     position: fixed;
     top: var(--navbar-height);
     left: -100%;
-    width: 260px;
+    width: 280px; /* Slightly wider for better text fit */
     height: calc(100vh - var(--navbar-height));
-    background-color: var(--bg-primary);
+    background-color: var(--bg-secondary); /* Use secondary for better depth on mobile drawer */
     border-right: 1px solid var(--border);
     display: flex !important;
     flex-direction: column !important;
-    padding: var(--space-2) var(--space-4);
-    gap: 0;
+    padding: var(--space-4) !important;
+    gap: var(--space-1) !important;
     transition: left var(--transition-normal);
     overflow-y: auto;
     box-shadow: var(--shadow-lg);
@@ -355,15 +355,24 @@
   }
 
   .nav-item {
-    width: 100%;
-    border-bottom: none;
+    width: 100% !important;
+    display: block !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Subtle separator */
   }
 
   .nav-link {
-    display: block;
-    width: 100%;
-    padding: 0.75rem 0;
+    display: flex !important;
+    align-items: center;
+    width: 100% !important;
+    padding: var(--space-3) 0 !important;
     font-size: 1.125rem;
+    font-weight: 600;
+    justify-content: flex-start !important;
+    text-align: left !important;
+  }
+  
+  .nav-link::after {
+    display: none; /* Hide desktop underline effect on mobile */
   }
 
   .nav-menu.active {

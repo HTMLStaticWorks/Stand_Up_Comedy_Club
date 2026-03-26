@@ -243,13 +243,15 @@
         .auth-toggles .theme-toggle, 
         .auth-toggles .rtl-toggle {
             color: var(--text-primary) !important;
-            border-color: rgba(255, 255, 255, 0.3) !important;
+            border-color: var(--border) !important;
+            background: var(--bg-secondary) !important;
+            box-shadow: var(--shadow-sm);
         }
 
         .auth-toggles .theme-toggle:hover,
         .auth-toggles .rtl-toggle:hover {
-            background: rgba(255, 255, 255, 0.1) !important;
-            color: var(--accent) !important;
+            background: var(--accent) !important;
+            color: #fff !important;
         }
 
         .auth-toggles .rtl-toggle.active {
