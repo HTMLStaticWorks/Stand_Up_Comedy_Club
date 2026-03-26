@@ -708,7 +708,10 @@
                     const isSpecialDropIn = show.title === 'Special Surprise Drop-In';
                     
                     if (isSpecialDropIn) {
-                        card.style.backgroundImage = "linear-gradient(to right, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.6) 100%), url('https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&q=80&w=1200&h=400')";
+                        card.style.backgroundImage = "linear-gradient(to right, rgba(15, 23, 42, 0.98) 0%, rgba(15, 23, 42, 0.85) 100%), url('https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&q=80&w=1200&h=400')";
+                        card.style.borderColor = "var(--accent)";
+                        card.style.boxShadow = "var(--shadow-glow)";
+                        card.style.color = "#fff"; // Hardcoded light text for this dark card
                     }
                     
                     card.innerHTML = `
@@ -719,9 +722,9 @@
                         </div>
                         <div class="show-content">
                             <span class="tag" style="margin-bottom: var(--space-2); align-self: flex-start; ${isMic ? 'border-color: var(--text-secondary); color: var(--text-secondary); background: transparent;' : ''}">${show.category}</span>
-                            <h2>${show.title}</h2>
-                            <p style="color: var(--text-secondary); margin-bottom: var(--space-3); font-size: 0.95rem;"><strong>On Stage:</strong> ${show.comedian}</p>
-                            <p style="margin-bottom: 0; opacity: 0.9;">${show.desc}</p>
+                            <h2 style="${isSpecialDropIn ? 'color: #fff;' : ''}">${show.title}</h2>
+                            <p style="color: ${isSpecialDropIn ? 'rgba(255,255,255,0.9)' : 'var(--text-secondary)'}; margin-bottom: var(--space-3); font-size: 0.95rem;"><strong>On Stage:</strong> ${show.comedian}</p>
+                            <p style="margin-bottom: 0; opacity: ${isSpecialDropIn ? '1' : '0.9'}; color: ${isSpecialDropIn ? 'rgba(255,255,255,0.8)' : 'inherit'};">${show.desc}</p>
                         </div>
                         <div class="show-actions">
                             <span class="show-price">${show.price}</span>
